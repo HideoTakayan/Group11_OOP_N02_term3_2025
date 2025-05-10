@@ -1,5 +1,3 @@
-package university_management;
-
 public class Subject {
     private int subjectId;
     private String subjectName;
