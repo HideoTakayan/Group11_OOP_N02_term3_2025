@@ -27,7 +27,6 @@ Môn học
 Class Subject(
 Subject_ID;
 Subject_Name;
-Student_ID;
 Lecturer_ID;
 }
 Điểm số
