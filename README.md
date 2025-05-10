@@ -11,11 +11,33 @@ Link:
 ## Đối tượng
 Học sinh
 class Students {
-Person_id;
 Student_id;
+Name;
+Date_of_birth;
+Gender;
 }
 Giảng viên
-Class Lectures{
-Person_ID;
-Lecture_ID
+Class Lecturers{
+Lecturer_ID;
+Name;
+Date_of_birth;
+Gender;
 }
+Môn học
+Class Subject(
+Subject_ID;
+Subject_Name;
+Student_ID;
+Lecturer_ID;
+}
+Điểm số
+Class Grades{
+Subject_ID;
+Student_ID;
+Grade;
+}
+Đăng kí học
+Class Enroments{
+Subject_ID;
+Student_ID}
+
