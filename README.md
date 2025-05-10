@@ -9,35 +9,26 @@
 ##Link Readme giới thiệu project
 Link: 
 ## Đối tượng
-Học sinh
+Học sinh:
 class Students {
 Student_id;
 Name;
 Date_of_birth;
 Gender;
 }
-Giảng viên
+Giảng viên:
 Class Lecturers{
 Lecturer_ID;
 Name;
 Date_of_birth;
 Gender;
 }
-Môn học
+Môn học:
 Class Subject(
 Subject_ID;
 Subject_Name;
 Credit ;
 Lecturer_ID;
-}
-Điểm số
-Class Grades{
-Subject_ID;
 Student_ID;
-Grade;
 }
-Đăng kí học
-Class Enroments{
-Subject_ID;
-Student_ID}
 
