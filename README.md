@@ -14,3 +14,8 @@ class Students {
 Person_id;
 Student_id;
 }
+Giảng viên
+Class Lectures{
+Person_ID;
+Lecture_ID
+}
