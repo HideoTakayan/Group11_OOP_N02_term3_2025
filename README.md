@@ -8,3 +8,9 @@
 
 ##Link Readme giới thiệu project
 Link: 
+## Đối tượng
+Học sinh
+class Students {
+Person_id;
+Student_id;
+}
