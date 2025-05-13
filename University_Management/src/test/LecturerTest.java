@@ -2,7 +2,7 @@ package University_Management.src.test;
 
 import University_Management.src.model.Teacher;
 
-public class TeacherTest {
+public class LecturerTest {
     public static void main(String[] args) {
         Teacher teacher = new Teacher(1, "Nguyễn Lệ Thu", "Nữ", "2003-05-10");
 

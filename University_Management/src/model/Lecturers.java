@@ -1,6 +1,6 @@
 package University_Management.src.model;
 
-public class Teacher {
+public class Lecturers {
     private int lecturerId;
     private String name;
     private String gender;
