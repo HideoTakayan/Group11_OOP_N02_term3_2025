@@ -6,7 +6,7 @@ public class Lecturers {
     private String gender;
     private String dateOfBirth;
 
-    public Teacher(int lecturerId, String name, String gender, String dateOfBirth) {
+    public Lecturers(int lecturerId, String name, String gender, String dateOfBirth) {
         this.lecturerId = lecturerId;
         this.name = name;
         this.gender = gender;

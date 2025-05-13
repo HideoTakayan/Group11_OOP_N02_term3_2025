@@ -1,6 +1,6 @@
 package University_Management.src.test;
 
-import University_Management.src.model.Teacher;
+import University_Management.src.model.Lecturers;
 
 public class LecturerTest {
     public static void main(String[] args) {
