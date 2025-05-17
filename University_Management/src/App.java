@@ -3,7 +3,7 @@ package University_Management.src;
 import University_Management.src.model.Student;
 import University_Management.src.model.Subject;
 import University_Management.src.model.Lecturers;
-
+import University_Management.src.model.User;
 public class App {
     public static void main(String[] args) {
         Student student = new Student(1, "Nguyễn Văn An", "Nam", "2003-05-10");
