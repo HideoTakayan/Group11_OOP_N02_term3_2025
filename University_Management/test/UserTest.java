@@ -1,16 +1,12 @@
 package University_Management.test;
-
-import University_Management.src.model.User;
-
-public class UserTest {
+import University_Management.src.model.Users;
+public class UsersTest {
     public static void main(String[] args) {
-        User user = new User(1, "Do_Hieu", "123456", "mhieu@gmail.com", "student");
-
-        System.out.println("=== UserTest ===");
-        System.out.println("Mã người dùng: " + user.getUserId());
-        System.out.println("Tên đăng nhập: " + user.getUsername());
-        System.out.println("Mật khẩu: " + user.getPassword());
-        System.out.println("Email: " + user.getEmail());
-        System.out.println("Vai trò: " + user.getRole());
+        Users user = new Users("Trieu Tuan Duy", "duyoop", "123456", "sinh vien");
+        System.out.println("=== Người dùng: ===");
+        System.out.println("Tên người dùng: " + user.getusername());
+        System.out.println("Tài khoản: " + user.getaccout());
+        System.out.println("Mật khẩu: " + user.getpassword());
+        System.out.println("Vai trò: " + user.getrole());
     }
 }
