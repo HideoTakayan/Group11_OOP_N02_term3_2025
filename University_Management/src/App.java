@@ -29,5 +29,15 @@ public class App {
         System.out.println("Tên giáo viên: " + teacher.getName());
         System.out.println("Giới tính: " + teacher.getGender());
         System.out.println("Ngày sinh: " + teacher.getDateOfBirth());
+
+        System.out.println("=== Running TestUser ===");
+        TestUser.main(args);
+
+        System.out.println("\n=== Running TestTime ===");
+        TestTime.main(args);
+
+        System.out.println("\n=== Running TestRecursion ===");
+        TestRecursion.main(args);
+
     }
 }
