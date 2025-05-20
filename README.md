@@ -46,22 +46,21 @@ Yêu cầu:
  Thêm, sửa, xóa, truy vấn Môn học, Học sinh, Giảng viên.y
  Đăng kí môn học, gán môn học cho giảng viên phụ trách.
  Cập nhật và truy vấn điểm của sinh viên cho từng môn học.
-Cụ thể:
+- Cụ thể:
  + Thêm, sửa, xóa Môn học ( Subject )
-
- + Liệt kê thông tin về môn học, có thể lọc theo tên môn học ( SubjectName ) hoặc mã môn học ( SubjectId )
-- Có chức năng quản lý môn học.
+ - Liệt kê thông tin về môn học, có thể lọc theo tên môn học ( SubjectName ) hoặc mã môn học ( SubjectId )
+-> Có chức năng quản lý môn học.
 
  + Thêm, sửa, xóa Giảng viên ( Lecturer ).
 - Liệt kê thông tin về giảng viên, có thể tìm kiểm giảng viên qua LecturerId.
-- Có chức năng gán môn học cho giảng viên phụ trách
+-> Có chức năng gán môn học cho giảng viên phụ trách
 
  + Thêm, sửa, xóa Học sinh ( Student ).
 - Liệt kê thông tin về học sinh, có thể tìm kiểm học sinh qua studentId.
-- Có chức năng gán môn học cho sinh viên ( Sinh viên có thể đăng kí môn học )
+-> Có chức năng gán môn học cho sinh viên ( Sinh viên có thể đăng kí môn học )
  + Thêm, sửa, xóa Lớp học(Grade).
 - Tra cứu thông tin về môn học qua SubjectID, liệt kê các sinh viên trong lớp qua studentId.
-- Có chức năng gán sinh viên, môn học cho lớp học.
+-> Có chức năng gán sinh viên, môn học cho lớp học.
 - Dữ liệu được lưu trữ xuống file nhị phân
 
  + Cần tạo các lớp liên quan đến " môn học ", " giảng viên ", " học sinh " để đọc, ghi xuống 1 hay nhiều file.
