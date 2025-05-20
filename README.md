@@ -31,7 +31,8 @@ Credit ;
 Lecturer_ID;
 Student_ID;
 }
-##Xây dựng ứng dụng Quản lý đại học ( University Management )
+##
+Xây dựng ứng dụng Quản lý đại học ( University Management )
 
 Yêu cầu:
 - Giao diện Java Spring Boot.
