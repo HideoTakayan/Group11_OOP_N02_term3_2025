@@ -7,7 +7,7 @@
 ## Tiêu đề : Quản lý đại học
 
 ##Link Readme giới thiệu project
-Link: 
+Link: https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/
 ## Đối tượng
 Học sinh:
 class Students {

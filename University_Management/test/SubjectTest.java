@@ -1,4 +1,4 @@
-package University_Management.src.test;
+package University_Management.test;
 
 import University_Management.src.model.Subject;
 

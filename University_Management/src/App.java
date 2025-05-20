@@ -3,6 +3,7 @@ package University_Management.src;
 import University_Management.src.model.Student;
 import University_Management.src.model.Subject;
 import University_Management.src.model.Lecturers;
+import University_Management.src.model.User;
 
 public class App {
     public static void main(String[] args) {
@@ -28,5 +29,15 @@ public class App {
         System.out.println("Tên giáo viên: " + teacher.getName());
         System.out.println("Giới tính: " + teacher.getGender());
         System.out.println("Ngày sinh: " + teacher.getDateOfBirth());
+
+        System.out.println("=== Running TestUser ===");
+        TestUser.main(args);
+
+        System.out.println("\n=== Running TestTime ===");
+        TestTime.main(args);
+
+        System.out.println("\n=== Running TestRecursion ===");
+        TestRecursion.main(args);
+
     }
 }
