@@ -57,8 +57,8 @@ Yêu cầu:
 - Liệt kê thông tin về học sinh, có thể tìm kiểm học sinh qua studentId.
 - Có chức năng gán môn học cho sinh viên ( Sinh viên có thể đăng kí môn học )
  + Thêm, sửa, xóa Lớp học(Grade).
-  -Tra cứu thông tin về môn học qua SubjectID, liệt kê các sinh viên trong lớp qua studentId.
-  -Có chức năng gán sinh viên, môn học cho lớp học.
+- Tra cứu thông tin về môn học qua SubjectID, liệt kê các sinh viên trong lớp qua studentId.
+- Có chức năng gán sinh viên, môn học cho lớp học.
 - Dữ liệu được lưu trữ xuống file nhị phân
 
  + Cần tạo các lớp liên quan đến " môn học ", " giảng viên ", " học sinh " để đọc, ghi xuống 1 hay nhiều file.
