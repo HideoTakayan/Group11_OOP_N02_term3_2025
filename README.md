@@ -25,11 +25,17 @@ Gender;
 }
 Môn học:
 Class Subject(
-Subject_ID;
-Subject_Name;
+SubjectId;
+SubjectName;
 Credit ;
-Lecturer_ID;
-Student_ID;
+LecturerId;
+StudentId;
+}
+Điểm:
+Class Grade{
+StudentId;
+SubjectId;
+Score;
 }
 ##
 Xây dựng ứng dụng Quản lý đại học ( University Management )
