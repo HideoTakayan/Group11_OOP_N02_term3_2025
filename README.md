@@ -43,10 +43,10 @@ Xây dựng ứng dụng Quản lý đại học ( University Management )
 Yêu cầu:
 - Giao diện : Java Spring Boot.
 - Chức năng chính:
- + Thêm, sửa, xóa, truy vấn Môn học, Học sinh, Giảng viên.y
- + Đăng kí môn học, gán môn học cho giảng viên phụ trách.
- + Cập nhật và truy vấn điểm của sinh viên cho từng môn học.
-   ụ thể:
+ Thêm, sửa, xóa, truy vấn Môn học, Học sinh, Giảng viên.y
+ Đăng kí môn học, gán môn học cho giảng viên phụ trách.
+ Cập nhật và truy vấn điểm của sinh viên cho từng môn học.
+Cụ thể:
  + Thêm, sửa, xóa Môn học ( Subject )
 
  + Liệt kê thông tin về môn học, có thể lọc theo tên môn học ( SubjectName ) hoặc mã môn học ( SubjectId )
