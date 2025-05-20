@@ -8,7 +8,7 @@
 
 ##Link Readme giới thiệu project
 Link: https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/
-## Đối tượng
+# Đối tượng
 Học sinh:
 class Students {
 Student_id;
@@ -37,7 +37,7 @@ StudentId;
 SubjectId;
 Score;
 }
-## Xây dựng ứng dụng Quản lý đại học ( University Management )
+### Xây dựng ứng dụng Quản lý đại học ( University Management )
 
 # Yêu cầu:
 - Giao diện : Java Spring Boot.
