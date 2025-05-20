@@ -44,22 +44,22 @@ Yêu cầu:
 - Giao diện Java Spring Boot.
 - Có chức năng quản lý đại học
 
-+ Thêm, sửa, xóa Môn học ( Subject )
+ + Thêm, sửa, xóa Môn học ( Subject )
 
-+ Liệt kê thông tin về môn học, có thể lọc theo tên môn học ( SubjectName ) hoặc mã môn học ( SubjectId )
+ + Liệt kê thông tin về môn học, có thể lọc theo tên môn học ( SubjectName ) hoặc mã môn học ( SubjectId )
 - Có chức năng quản lý môn học.
 
-+ Thêm, sửa, xóa Giảng viên ( Lecturer ).
+ + Thêm, sửa, xóa Giảng viên ( Lecturer ).
 - Liệt kê thông tin về giảng viên, có thể tìm kiểm giảng viên qua LecturerId.
 - Có chức năng gán môn học cho giảng viên phụ trách
 
-+ Thêm, sửa, xóa Học sinh ( Student ).
+ + Thêm, sửa, xóa Học sinh ( Student ).
 - Liệt kê thông tin về học sinh, có thể tìm kiểm học sinh qua studentId.
 - Có chức năng gán môn học cho sinh viên ( Sinh viên có thể đăng kí môn học ) 
 
 - Dữ liệu được lưu trữ xuống file nhị phân
 
-+ Cần tạo các lớp liên quan đến " môn học ", " giảng viên ", " học sinh " để đọc, ghi xuống 1 hay nhiều file.
+ + Cần tạo các lớp liên quan đến " môn học ", " giảng viên ", " học sinh " để đọc, ghi xuống 1 hay nhiều file.
 
 - Khi làm việc với dữ liệu trong bộ nhớ, dữ liệu cần được lưu trữ dưới dạng các Collection tùy chọn như ArrayList, LinkedList, Map, ....
 
