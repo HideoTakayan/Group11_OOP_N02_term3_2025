@@ -37,8 +37,7 @@ StudentId;
 SubjectId;
 Score;
 }
-##
-Xây dựng ứng dụng Quản lý đại học ( University Management )
+## Xây dựng ứng dụng Quản lý đại học ( University Management )
 
 # Yêu cầu:
 - Giao diện : Java Spring Boot.
