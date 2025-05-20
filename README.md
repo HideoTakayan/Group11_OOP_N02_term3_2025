@@ -78,6 +78,7 @@ Nội dung 03:
 
 
 03 sơ đồ Behavioural Diagram của bài tập lớn
-+ Sequence Diagram
++ Sequence Diagram   [image](https://github.com/user-attachments/assets/9b444f24-f5c8-492f-8012-104b39832f0c)
+   
 + Or Activity Diagram
 
