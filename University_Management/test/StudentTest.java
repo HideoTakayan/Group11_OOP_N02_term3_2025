@@ -1,68 +1,35 @@
 package University_Management.test;
 
-import University_Management.src.manager.UniversityManager;
+import University_Management.src.manager.StudentManager;
 import University_Management.src.model.Student;
 
 public class StudentTest {
-
     public static void main(String[] args) {
-        UniversityManager uniManager = new UniversityManager();
+        StudentManager manager = new StudentManager();
 
-        // Thêm sẵn 3 student
-        uniManager.addStudent(new Student(12345, "Nguyen Thi Lan Anh", "Female", "2000-01-01"));
-        uniManager.addStudent(new Student(1, "Tran Van Minh", "Male", "1999-02-02"));
-        uniManager.addStudent(new Student(101010, "Nguyen An", "Male", "2001-03-03"));
+        // Thêm sinh viên
+        Student stu1 = new Student(101, "Le Thi A", "Nu", "2002-01-15");
+        Student stu2 = new Student(102, "Nguyen Van B", "Nam", "2001-11-20");
 
-        // In danh sách sinh viên
-        System.out.println("Danh sach sinh vien ban dau:");
-        for (Student s : uniManager.getAllStudents()) {
-            System.out.println(s.getStudentId() + " - " + s.getName());
-        }
+        manager.addStudent(stu1);
+        manager.addStudent(stu2);
 
-        Scanner scanner = new Scanner(System.in);
+        // In danh sách sinh viên sau khi thêm
+        System.out.println("\nDanh sách sinh viên sau khi thêm:");
+        manager.printStudentList();
 
-        // Cập nhật thông tin sinh viên
-        System.out.println("Nhap student ID can cap nhat:");
-        int updateId = scanner.nextInt();
-        scanner.nextLine(); // clear buffer
-        System.out.println("Nhap ten moi:");
-        String newName = scanner.nextLine();
-        System.out.println("Nhap gioi tinh moi:");
-        String newGender = scanner.nextLine();
-        System.out.println("Nhap ngay sinh moi (yyyy-MM-dd):");
-        String newDob = scanner.nextLine();
+        // Sửa tên sinh viên có ID = 101
+        manager.editStudent("Le Thi A (Updated)", 101);
 
-        boolean updated = uniManager.updateStudent(updateId, newName, newGender, newDob);
-        if (updated) {
-            System.out.println("Cap nhat thanh cong.");
-        } else {
-            System.out.println("Khong tim thay sinh vien voi ID " + updateId);
-        }
+        // In danh sách sau khi sửa
+        System.out.println("\nDanh sách sinh viên sau khi sửa:");
+        manager.printStudentList();
 
-        // In lại danh sách sinh viên
-        System.out.println("Danh sach sinh vien sau khi cap nhat:");
-        for (Student s : uniManager.getAllStudents()) {
-            System.out
-                    .println(s.getStudentId() + " - " + s.getName() + ", " + s.getGender() + ", " + s.getDateOfBirth());
-        }
+        // Xóa sinh viên có ID = 102
+        manager.deleteStudent(102);
 
-        // Xóa sinh viên
-        System.out.println("Nhap student ID can xoa:");
-        int deleteId = scanner.nextInt();
-
-        boolean deleted = uniManager.deleteStudent(deleteId);
-        if (deleted) {
-            System.out.println("Xoa thanh cong.");
-        } else {
-            System.out.println("Khong tim thay sinh vien voi ID " + deleteId);
-        }
-
-        // In danh sách sinh viên sau khi xóa
-        System.out.println("Danh sach sinh vien sau khi xoa:");
-        for (Student s : uniManager.getAllStudents()) {
-            System.out.println(s.getStudentId() + " - " + s.getName());
-        }
-
-        scanner.close();
+        // In danh sách sau khi xóa
+        System.out.println("\nDanh sách sinh viên sau khi xóa:");
+        manager.printStudentList();
     }
 }

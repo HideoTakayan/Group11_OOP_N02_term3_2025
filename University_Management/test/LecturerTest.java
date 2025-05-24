@@ -1,40 +1,35 @@
 package University_Management.test;
 
-import University_Management.src.manager.UniversityManager;
+import University_Management.src.manager.LecturerManager;
 import University_Management.src.model.Lecturers;
 
 public class LecturerTest {
-
     public static void main(String[] args) {
-        UniversityManager uniManager = new UniversityManager();
+        LecturerManager manager = new LecturerManager();
 
-        // Thêm 3 giảng viên
-        uniManager.addLecturer(new Lecturers(101, "Le Van A", "Male", "1980-05-10"));
-        uniManager.addLecturer(new Lecturers(102, "Pham Thi B", "Female", "1985-07-20"));
-        uniManager.addLecturer(new Lecturers(103, "Tran Van C", "Male", "1975-12-15"));
+        // Thêm giảng viên
+        Lecturers lec1 = new Lecturers(1, "Nguyen Van A", "Nam", "1980-05-12");
+        Lecturers lec2 = new Lecturers(2, "Tran Thi B", "Nu", "1985-08-20");
 
-        System.out.println("Danh sach giang vien ban dau:");
-        for (Lecturers l : uniManager.getAllLecturers()) {
-            System.out.println(l.getLecturerId() + " - " + l.getName());
-        }
+        manager.addLecturer(lec1);
+        manager.addLecturer(lec2);
 
-        // Cập nhật giảng viên có ID 102
-        boolean updated = uniManager.updateLecturer(102, "Pham Thi B Updated", "Female", "1985-07-21");
-        System.out.println(updated ? "Cap nhat thanh cong giang vien ID 102" : "Khong tim thay giang vien ID 102");
+        // In danh sách giảng viên sau khi thêm
+        System.out.println("\nDanh sách giảng viên sau khi thêm:");
+        manager.printLecturerList();
 
-        System.out.println("Danh sach giang vien sau khi cap nhat:");
-        for (Lecturers l : uniManager.getAllLecturers()) {
-            System.out.println(
-                    l.getLecturerId() + " - " + l.getName() + ", " + l.getGender() + ", " + l.getDateOfBirth());
-        }
+        // Sửa tên giảng viên có ID = 1
+        manager.editLecturer("Nguyen Van A (Updated)", 1);
 
-        // Xóa giảng viên có ID 101
-        boolean deleted = uniManager.deleteLecturer(101);
-        System.out.println(deleted ? "Xoa thanh cong giang vien ID 101" : "Khong tim thay giang vien ID 101");
+        // In danh sách sau khi sửa
+        System.out.println("\nDanh sách giảng viên sau khi sửa:");
+        manager.printLecturerList();
 
-        System.out.println("Danh sach giang vien sau khi xoa:");
-        for (Lecturers l : uniManager.getAllLecturers()) {
-            System.out.println(l.getLecturerId() + " - " + l.getName());
-        }
+        // Xóa giảng viên có ID = 2
+        manager.deleteLecturer(2);
+
+        // In danh sách sau khi xóa
+        System.out.println("\nDanh sách giảng viên sau khi xóa:");
+        manager.printLecturerList();
     }
 }
