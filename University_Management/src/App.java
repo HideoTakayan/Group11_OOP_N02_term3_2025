@@ -4,10 +4,11 @@ import University_Management.src.model.Student;
 import University_Management.src.model.Subject;
 import University_Management.src.model.Lecturers;
 // import University_Management.src.model.Users;
-import University_Management.test.UsersTest;
+import University_Management.test.UserTest;
 import University_Management.test.TimeTest;
 import University_Management.test.RecursionTest;
 
+// import University_Management.src.model.User;
 public class App {
     public static void main(String[] args) {
         Student student = new Student(1, "Nguyễn Văn An", "Nam", "2003-05-10");
@@ -34,7 +35,7 @@ public class App {
         System.out.println("Ngày sinh: " + teacher.getDateOfBirth());
 
         System.out.println("=== Running TestUser ===");
-        UsersTest.main(args);
+        UserTest.main(args);
         System.out.println("\n=== Running TestTime ===");
         TimeTest.main(args);
         System.out.println("\n=== Running TestRecursion ===");
