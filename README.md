@@ -97,7 +97,48 @@ Nội dung 03:
 
 - Sequence Diagram ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
 04 Thực hiện viết CRUD cho ít nhất 03 đối tượng trong bài tập lớn của các bạn
+## Kiểm thử hệ thống (Test)
 
+File `UniversityManagerTest.java` được sử dụng để kiểm thử toàn bộ chức năng CRUD (Thêm - Sửa - Xoá - In danh sách) cho các đối tượng:
+---
+### 1.Quản lý Sinh viên (Student)
+#### Các chức năng được kiểm thử:
+- Thêm sinh viên mới  
+- Sửa tên sinh viên theo ID  
+- Xóa sinh viên theo ID  
+- In danh sách sinh viên  
+---
+### 2.Quản lý Giảng viên (Lecturer)
+#### Các chức năng được kiểm thử:
+- Thêm giảng viên mới  
+- Sửa tên giảng viên theo ID  
+- Xóa giảng viên theo ID  
+- In danh sách giảng viên  
+---
+### 3.Quản lý Môn học (Subject)
+#### Các chức năng được kiểm thử:
+- Thêm môn học mới  
+- Sửa tên môn học theo ID  
+- Xóa môn học theo ID  
+- In danh sách môn học  
+
+---
+
+### Mẫu dữ liệu kiểm thử:
+
+```java
+// Sinh viên
+Student s1 = new Student(1, "Nguyen Van A", "Nam", "01/01/2004");
+Student s2 = new Student(2, "Tran Thi B", "Nữ", "15/06/2003");
+
+// Giảng viên
+Lecturers l1 = new Lecturers(101, "Le Thi C", "Nữ", "20/09/1980");
+Lecturers l2 = new Lecturers(102, "Pham Van D", "Nam", "05/02/1975");
+
+// Môn học
+Subject sub1 = new Subject(201, "Toán cao cấp", 3, 102);
+Subject sub2 = new Subject(202, "Vật lý đại cương", 4, 101);
 Cập nhật Wiki/ReadMe cho phần kiểm thử Test 
-![Ảnh chụp màn hình 2025-05-24 164834](https://github.com/user-attachments/assets/b0ab778c-09b2-43b5-af44-b4db9d2cf0f8)
+![Ảnh chụp màn hình 2025-05-24 174835](https://github.com/user-attachments/assets/8b4784cc-650a-4920-ad1a-42c176c8516c)
+
 
