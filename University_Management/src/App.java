@@ -3,7 +3,10 @@ package University_Management.src;
 import University_Management.src.model.Student;
 import University_Management.src.model.Subject;
 import University_Management.src.model.Lecturers;
-import University_Management.src.model.User;
+// import University_Management.src.model.Users;
+import University_Management.test.UsersTest;
+import University_Management.test.TimeTest;
+import University_Management.test.RecursionTest;
 
 public class App {
     public static void main(String[] args) {
@@ -31,13 +34,11 @@ public class App {
         System.out.println("Ngày sinh: " + teacher.getDateOfBirth());
 
         System.out.println("=== Running TestUser ===");
-        TestUser.main(args);
-
+        UsersTest.main(args);
         System.out.println("\n=== Running TestTime ===");
-        TestTime.main(args);
-
+        TimeTest.main(args);
         System.out.println("\n=== Running TestRecursion ===");
-        TestRecursion.main(args);
+        RecursionTest.main(args);
 
     }
 }
