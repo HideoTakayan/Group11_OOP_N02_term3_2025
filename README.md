@@ -70,10 +70,6 @@ double score;
 * Liệt kê thông tin về học sinh, có thể tìm kiểm học sinh qua studentId.
   -> Có chức năng gán môn học cho sinh viên ( Sinh viên có thể đăng kí môn học )
 
-- Thêm, sửa, xóa Lớp học(Grade).
-
-* Tra cứu thông tin về môn học qua SubjectID, liệt kê các sinh viên trong lớp qua studentId.
-  -> Có chức năng gán sinh viên, môn học cho lớp học.
 * Dữ liệu được lưu trữ xuống file nhị phân
 
 - Cần tạo các lớp liên quan đến " môn học ", " giảng viên ", " học sinh " để đọc, ghi xuống 1 hay nhiều file.
@@ -94,3 +90,6 @@ Nội dung 03:
 03 sơ đồ Behavioural Diagram của bài tập lớn
 
 - Sequence Diagram ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
+## Chức năng hiện có: 
+- Thêm, sửa, xóa, tìm kiếm Student, Lecturers, Subject
+- Test Student, Lecturers, Subject.
