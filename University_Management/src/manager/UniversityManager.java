@@ -5,114 +5,93 @@ import University_Management.src.model.Lecturers;
 import University_Management.src.model.Subject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UniversityManager {
-    private List<Student> students = new ArrayList<>();
-    private List<Lecturers> lecturers = new ArrayList<>();
-    private List<Subject> subjects = new ArrayList<>();
+    ArrayList<Student> students = new ArrayList<>();
+    ArrayList<Lecturers> lecturers = new ArrayList<>();
+    ArrayList<Subject> subjects = new ArrayList<>();
 
-    // ==== Student CRUD ====
-    public void addStudent(Student s) {
-        students.add(s);
-    }
-
-    public List<Student> getAllStudents() {
+    // ==== STUDENT CRUD ====
+    public ArrayList<Student> addStudent(Student stu) {
+        students.add(stu);
         return students;
     }
 
-    public Student findStudentById(int id) {
+    public ArrayList<Student> editStudent(String name, int id) {
         for (Student s : students) {
-            if (s.getStudentId() == id)
-                return s;
+            if (s.getStudentId() == id) {
+                System.out.println("Found student to update.");
+                s.setName(name);
+            }
         }
-        return null;
+        return students;
     }
 
-    public boolean updateStudent(int id, String name, String gender, String dob) {
-        Student s = findStudentById(id);
-        if (s == null)
-            return false;
-        students.remove(s);
-        students.add(new Student(id, name, gender, dob));
-        return true;
+    public ArrayList<Student> deleteStudent(int id) {
+        students.removeIf(s -> s.getStudentId() == id);
+        return students;
     }
 
-    public boolean deleteStudent(int id) {
-        Student s = findStudentById(id);
-        if (s == null)
-            return false;
-        students.remove(s);
-        return true;
+    public void printStudentList() {
+        System.out.println("=== Student List ===");
+        for (Student s : students) {
+            System.out.println("Student ID: " + s.getStudentId() + ", Fullname: " + s.getName());
+        }
     }
 
-    // ==== Lecturer CRUD ====
-    public void addLecturer(Lecturers l) {
-        lecturers.add(l);
-    }
-
-    public List<Lecturers> getAllLecturers() {
+    // ==== LECTURER CRUD ====
+    public ArrayList<Lecturers> addLecturer(Lecturers lec) {
+        lecturers.add(lec);
         return lecturers;
     }
 
-    public Lecturers findLecturerById(int id) {
+    public ArrayList<Lecturers> editLecturer(String name, int id) {
         for (Lecturers l : lecturers) {
-            if (l.getLecturerId() == id)
-                return l;
+            if (l.getLecturerId() == id) {
+                System.out.println("Found lecturer to update.");
+                l.setName(name);
+            }
         }
-        return null;
+        return lecturers;
     }
 
-    public boolean updateLecturer(int id, String name, String gender, String dob) {
-        Lecturers l = findLecturerById(id);
-        if (l == null)
-            return false;
-        l.setName(name);
-        l.setGender(gender);
-        l.setDateOfBirth(dob);
-        return true;
+    public ArrayList<Lecturers> deleteLecturer(int id) {
+        lecturers.removeIf(l -> l.getLecturerId() == id);
+        return lecturers;
     }
 
-    public boolean deleteLecturer(int id) {
-        Lecturers l = findLecturerById(id);
-        if (l == null)
-            return false;
-        lecturers.remove(l);
-        return true;
+    public void printLecturerList() {
+        System.out.println("=== Lecturer List ===");
+        for (Lecturers l : lecturers) {
+            System.out.println("Lecturer ID: " + l.getLecturerId() + ", Name: " + l.getName());
+        }
     }
 
-    // ==== Subject CRUD ====
-    public void addSubject(Subject s) {
-        subjects.add(s);
-    }
-
-    public List<Subject> getAllSubjects() {
+    // ==== SUBJECT CRUD ====
+    public ArrayList<Subject> addSubject(Subject sub) {
+        subjects.add(sub);
         return subjects;
     }
 
-    public Subject findSubjectById(int id) {
+    public ArrayList<Subject> editSubject(String name, int id) {
         for (Subject s : subjects) {
-            if (s.getSubjectId() == id)
-                return s;
+            if (s.getSubjectId() == id) {
+                System.out.println("Found subject to update.");
+                s.setSubjectName(name);
+            }
         }
-        return null;
+        return subjects;
     }
 
-    public boolean updateSubject(int id, String name, int credit, int lecturerId) {
-        Subject s = findSubjectById(id);
-        if (s == null)
-            return false;
-        s.setSubjectName(name);
-        s.setCredit(credit);
-        s.setLecturerId(lecturerId);
-        return true;
+    public ArrayList<Subject> deleteSubject(int id) {
+        subjects.removeIf(s -> s.getSubjectId() == id);
+        return subjects;
     }
 
-    public boolean deleteSubject(int id) {
-        Subject s = findSubjectById(id);
-        if (s == null)
-            return false;
-        subjects.remove(s);
-        return true;
+    public void printSubjectList() {
+        System.out.println("=== Subject List ===");
+        for (Subject s : subjects) {
+            System.out.println("Subject ID: " + s.getSubjectId() + ", Name: " + s.getSubjectName());
+        }
     }
 }
