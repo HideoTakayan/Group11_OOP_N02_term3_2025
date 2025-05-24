@@ -1,8 +1,11 @@
 package University_Management.src;
 
 import University_Management.src.manager.UniversityManager;
-import University_Management.src.model.Student;
+
 import University_Management.src.model.Lecturers;
+
+import University_Management.src.model.Student;
+// import University_Management.src.model.Lecturers;
 import University_Management.src.model.Subject;
 
 public class App {

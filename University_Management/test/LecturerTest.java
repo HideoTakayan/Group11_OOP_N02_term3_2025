@@ -12,5 +12,6 @@ public class LecturerTest {
         System.out.println("Tên: " + lec1.getName());
         System.out.println("Giới tính: " + lec1.getGender());
         System.out.println("Ngày sinh: " + lec1.getDateOfBirth());
+
     }
 }
