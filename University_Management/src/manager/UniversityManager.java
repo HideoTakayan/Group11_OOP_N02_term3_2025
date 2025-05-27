@@ -12,7 +12,6 @@ public class UniversityManager {
     public ArrayList<Lecturers> lecturers = new ArrayList<>();
     public ArrayList<Subject> subjects = new ArrayList<>();
 
-    // === Generic CRUD ===
     public <T extends Person> ArrayList<T> addEntity(T obj, ArrayList<T> list) {
         list.add(obj);
         return list;
