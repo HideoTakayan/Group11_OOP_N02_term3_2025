@@ -1,6 +1,6 @@
 package University_Management.src.model;
 
-public class Subject {
+public class Subject implements Person {
     private int subjectId;
     private String subjectName;
     private int credit;
@@ -13,11 +13,12 @@ public class Subject {
         this.lecturerId = lecturerId;
     }
 
-    public int getSubjectId() {
+    @Override
+    public int getId() {
         return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
+    public void setId(int subjectId) {
         this.subjectId = subjectId;
     }
 
@@ -43,5 +44,13 @@ public class Subject {
 
     public void setLecturerId(int lecturerId) {
         this.lecturerId = lecturerId;
+    }
+
+    public String getName() {
+        return subjectName;
+    }
+
+    public void setName(String name) {
+        this.subjectName = name;
     }
 }

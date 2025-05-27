@@ -1,6 +1,8 @@
 package University_Management.src.model;
 
-public class Student {
+// import University_Management.src.model.Person;
+
+public class Student implements Person {
     private int studentId;
     private String name;
     private String gender;
@@ -13,7 +15,7 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getStudentId() {
+    public int getId() {
         return studentId;
     }
 

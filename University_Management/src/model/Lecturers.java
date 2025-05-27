@@ -1,6 +1,8 @@
 package University_Management.src.model;
 
-public class Lecturers {
+// import University_Management.src.model.Person;
+
+public class Lecturers implements Person {
     private int lecturerId;
     private String name;
     private String gender;
@@ -13,11 +15,11 @@ public class Lecturers {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getLecturerId() {
+    public int getId() {
         return lecturerId;
     }
 
-    public void setLecturerId(int lecturerId) {
+    public void setId(int lecturerId) {
         this.lecturerId = lecturerId;
     }
 

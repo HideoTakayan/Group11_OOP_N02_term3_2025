@@ -9,7 +9,7 @@ public class StudentTest {
 
         // In thông tin ban đầu
         System.out.println("=== Thông tin sinh viên ban đầu ===");
-        System.out.println("ID: " + s1.getStudentId());
+        System.out.println("ID: " + s1.getId());
         System.out.println("Tên: " + s1.getName());
         System.out.println("Giới tính: " + s1.getGender());
         System.out.println("Ngày sinh: " + s1.getDateOfBirth());
