@@ -1,4 +1,4 @@
-package University_Management.src.manager;
+package University_Management.src.bin;
 
 import University_Management.src.model.Student;
 import University_Management.src.model.Lecturers;
