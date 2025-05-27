@@ -1,17 +1,14 @@
 public class TestArithmetic {
     public static void main(String[] args) {
-        // Tạo cây biểu thức: (1.1 + 2.2) + 3.3
         Node n1 = new Const(1.1);
         Node n2 = new Const(2.2);
-        Node n3 = new Plus(n1, n2); // (1.1 + 2.2)
+        Node n3 = new Plus(n1, n2);
         Node n4 = new Const(3.3);
-        Node n5 = new Plus(n3, n4); // ((1.1 + 2.2) + 3.3)
+        Node n5 = new Plus(n3, n4);
 
-        System.out.println("Ket qua: " + n5.eval()); // In ra: 6.6
+        System.out.println("Ket qua: " + n5.eval());
     }
 }
-
-// -------- Các lớp hỗ trợ --------
 
 class Node {
     public Node() {
