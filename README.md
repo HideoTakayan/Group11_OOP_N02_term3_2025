@@ -95,7 +95,8 @@ Nội dung 03:
 
 03 sơ đồ Behavioural Diagram của bài tập lớn
 
-- Sequence Diagram ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
+- Sequence Diagram ![Ảnh chụp màn hình 2025-05-20 113942](![image](https://github.com/user-attachments/assets/691816ef-fdde-4e10-aae4-1648517f9345)
+)
 04 Thực hiện viết CRUD cho ít nhất 03 đối tượng trong bài tập lớn của các bạn
 ## Kiểm thử hệ thống (Test)
 
