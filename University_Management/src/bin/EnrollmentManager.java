@@ -11,7 +11,6 @@ public class EnrollmentManager {
 
     // Đăng ký môn học
     public Enrollment enrollStudentToSubject(Student student, Subject subject) {
-        // Kiểm tra sinh viên đã đăng ký môn này chưa
         if (isEnrolled(student.getId(), subject.getId())) {
             System.out.println("Sinh viên " + student.getName() + " đã đăng ký môn " + subject.getSubjectName());
             return null;
@@ -38,3 +37,8 @@ public class EnrollmentManager {
         return enrollments.stream()
                 .anyMatch(e -> e.getStudentId() == studentId && e.getSubjectId() == subjectId);
     }
+
+    private int generateNewId() {
+        return enrollments.isEmpty() ? 1 : enrollments.get(enrollments.size() - 1).getId() + 1;
+    }
+}

@@ -1,4 +1,5 @@
 package University_Management.test;
+
 import University_Management.src.dao.GradeDAO;
 import University_Management.src.model.Student;
 import java.util.List;
@@ -20,7 +21,7 @@ public class StudentTest {
 
         System.out.println("\n=== Danh sách điểm của sinh viên ID 1 ===");
         for (Grade g : grades) {
-        System.out.println("Môn: " + g.getSubjectId() + " | Điểm: " + g.getScore());
+            System.out.println("Môn: " + g.getSubjectId() + " | Điểm: " + g.getScore());
         }
 
     }

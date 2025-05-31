@@ -1,32 +1,36 @@
 package University_Management.test;
 
+import University_Management.src.bin.EnrollmentManager;
+import University_Management.src.model.Enrollment;
 import University_Management.src.model.Student;
 import University_Management.src.model.Subject;
-import University_Management.src.model.Enrollment;
-import University_Management.src.bin.UniversityManager;
-
-import java.time.LocalDate;
 
 public class SimpleEnrollmentTest {
     public static void main(String[] args) {
-        UniversityManager manager = new UniversityManager();
-        Student student = new Student(1, "Nguyễn Văn A", "2000-01-01", "Nam");
-        Subject math = new Subject(101, "Toán Cao Cấp", 3, 201);
-        manager.students.add(student);
-        manager.subjects.add(math);
-        System.out.println("=== TEST GHI DANH ===");
-        System.out.println("1. Đăng ký lần đầu:");
-        Enrollment e1 = new Enrollment(1, student.getId(), math.getId(), LocalDate.now());
-        manager.addEnrollment(e1);
-        System.out.println("\n2. Đăng ký lại cùng môn:");
-        Enrollment e2 = new Enrollment(2, student.getId(), math.getId(), LocalDate.now());
-        manager.addEnrollment(e2);
-        System.out.println("\n3. Kiểm tra nhanh:");
-        boolean enrolled = manager.isEnrolled(student.getId(), math.getId());
-        System.out.println("- SV " + student.getName() +
-                " đã đăng ký môn " + math.getName() + ": " + (enrolled ? "✅ Có" : "❌ Không"));
+        EnrollmentManager manager = new EnrollmentManager();
 
-        System.out.println("\n4. Danh sách ghi danh:");
-        manager.printEnrollments();
+        // Tao du lieu mau
+        Student student1 = new Student(1, "Nguyen Van A", "Nam", "2000-01-01");
+        Subject subject1 = new Subject(101, "Lap trinh Java", 3, 201);
+        Subject subject2 = new Subject(102, "Cau truc du lieu", 3, 202);
+
+        // Test dang ky mon hoc
+        System.out.println("\n--- Dang ky mon hoc ---");
+        manager.enrollStudentToSubject(student1, subject1); // Lan 1
+        manager.enrollStudentToSubject(student1, subject1); // Trung lap
+        manager.enrollStudentToSubject(student1, subject2); // Mon khac
+
+        // Test kiem tra da dang ky chua
+        System.out.println("\n--- Kiem tra dang ky ---");
+        System.out.println("Da dang ky mon 101? " + manager.isEnrolled(student1.getId(), 101));
+        System.out.println("Da dang ky mon 999? " + manager.isEnrolled(student1.getId(), 999));
+
+        // Test huy dang ky
+        System.out.println("\n--- Huy dang ky ---");
+        boolean canceled = manager.cancelEnrollment(1);
+        System.out.println("Huy dang ky ID 1: " + (canceled ? "Thanh cong" : "Khong tim thay"));
+
+        // Kiem tra lai sau khi huy
+        System.out.println("Da dang ky mon 101? " + manager.isEnrolled(student1.getId(), 101));
     }
 }
