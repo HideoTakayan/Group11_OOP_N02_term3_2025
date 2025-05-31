@@ -4,6 +4,8 @@ import University_Management.src.bin.UniversityManager;
 import University_Management.src.model.Student;
 import University_Management.src.model.Lecturers;
 import University_Management.src.model.Subject;
+import University_Management.test.TestExam;
+import University_Management.test.SimpleEnrollmentTest;
 
 public class App {
     public static void main(String[] args) {
@@ -56,5 +58,10 @@ public class App {
         um.printEntityList(um.students, "Sinh viên");
         um.printEntityList(um.lecturers, "Giảng viên");
         um.printEntityList(um.subjects, "Môn học");
+        System.out.println("\n>>> Chạy ExamTest:");
+        TestExam.main(new String[] {});
+
+        System.out.println("\n>>> Chạy SimpleEnrollmentTest:");
+        SimpleEnrollmentTest.main(new String[] {});
     }
 }
