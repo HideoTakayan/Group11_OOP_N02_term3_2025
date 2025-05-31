@@ -50,6 +50,4 @@ public class Enrollment {
     public void setEnrollmentDate(LocalDate enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
-}{
-
 }
