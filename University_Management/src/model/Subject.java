@@ -1,25 +1,28 @@
 package University_Management.src.model;
 
-public class Subject implements Person {
-    private int subjectId;
+public class Subject {
+    private int subjectID;
     private String subjectName;
-    private int credit;
-    private int lecturerId;
+    private int credits;
+    private Lecturer lecturer;
 
-    public Subject(int subjectId, String subjectName, int credit, int lecturerId) {
-        this.subjectId = subjectId;
+    public Subject() {
+    }
+
+    public Subject(int subjectID, String subjectName, int credits, Lecturer lecturer) {
+        this.subjectID = subjectID;
         this.subjectName = subjectName;
-        this.credit = credit;
-        this.lecturerId = lecturerId;
+        this.credits = credits;
+        this.lecturer = lecturer;
     }
 
-    @Override
-    public int getId() {
-        return subjectId;
+    // Getter và Setter
+    public int getSubjectID() {
+        return subjectID;
     }
 
-    public void setId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubjectID(int subjectID) {
+        this.subjectID = subjectID;
     }
 
     public String getSubjectName() {
@@ -30,27 +33,24 @@ public class Subject implements Person {
         this.subjectName = subjectName;
     }
 
-    public int getCredit() {
-        return credit;
+    public int getCredits() {
+        return credits;
     }
 
-    public void setCredit(int credit) {
-        this.credit = credit;
+    public void setCredits(int credits) {
+        this.credits = credits;
     }
 
-    public int getLecturerId() {
-        return lecturerId;
+    public Lecturer getLecturer() {
+        return lecturer;
     }
 
-    public void setLecturerId(int lecturerId) {
-        this.lecturerId = lecturerId;
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
     }
 
-    public String getName() {
-        return subjectName;
-    }
-
-    public void setName(String name) {
-        this.subjectName = name;
+    @Override
+    public String toString() {
+        return String.format("%d - %s - %s", subjectID, subjectName, lecturer.getName());
     }
 }

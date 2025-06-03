@@ -1,23 +1,23 @@
-package University_Management.src.model;
+package main.java.com.university.model;
 
 import java.time.LocalDate;
 
-public class Student {
-    private int studentID;
+public class Lecturer {
+    private int lecturerID;
     private String name;
     private LocalDate dateOfBirth;
     private String gender;
 
-    public Student(int studentID, String name, LocalDate dateOfBirth, String gender) {
-        this.studentID = studentID;
+    public Lecturer(int lecturerID, String name, LocalDate dateOfBirth, String gender) {
+        this.lecturerID = lecturerID;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
     }
 
     // Getters
-    public int getStudentID() {
-        return studentID;
+    public int getLecturerID() {
+        return lecturerID;
     }
 
     public String getName() {
@@ -33,8 +33,8 @@ public class Student {
     }
 
     // Setters
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
+    public void setLecturerID(int lecturerID) {
+        this.lecturerID = lecturerID;
     }
 
     public void setName(String name) {
@@ -52,6 +52,6 @@ public class Student {
     // toString
     @Override
     public String toString() {
-        return studentID + " - " + name;
+        return lecturerID + " - " + name;
     }
 }
