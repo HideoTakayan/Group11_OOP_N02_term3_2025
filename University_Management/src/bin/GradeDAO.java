@@ -1,4 +1,4 @@
-package University_Management.src.dao;
+package University_Management.src.bin;
 
 import University_Management.src.model.Grade;
 
