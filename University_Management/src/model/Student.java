@@ -2,56 +2,20 @@ package University_Management.src.model;
 
 import java.time.LocalDate;
 
-public class Student {
+public class Student extends Person {
     private int studentID;
-    private String name;
-    private LocalDate dateOfBirth;
-    private String gender;
 
     public Student(int studentID, String name, LocalDate dateOfBirth, String gender) {
+        super(name, dateOfBirth, gender);
         this.studentID = studentID;
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
     }
 
-    // Getters
     public int getStudentID() {
         return studentID;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    // Setters
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    // toString
     @Override
     public String toString() {
-        return studentID + " - " + name;
+        return studentID + " - " + getName();
     }
 }
