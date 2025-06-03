@@ -1,6 +1,5 @@
 package University_Management.test;
-
-import University_Management.src.dao.GradeDAO;
+import University_Management.src.bin.GradeDAO;
 import University_Management.src.model.Student;
 import University_Management.src.model.Grade;
 
