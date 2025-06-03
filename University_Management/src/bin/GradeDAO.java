@@ -1,25 +1,35 @@
-package University_Management.src.bin;
+package University_Management.test;
 
-import University_Management.src.model.Grade;
+import University_Management.src.model.Student;
+import java.time.LocalDate;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
+public class StudentTest {
+    public static void main(String[] args) {
+        // Tạo các đối tượng Student
+        Student s1 = new Student(1001, "An", LocalDate.of(2002, 5, 10), "Male");
+        Student s2 = new Student(1002, "Binh", LocalDate.of(2001, 3, 15), "Male");
+        Student s3 = new Student(1003, "Chi", LocalDate.of(2003, 7, 20), "Female");
 
-public class GradeDAO {
-    public List<Grade> getGradesByStudentID(int studentID) {
-        List<Grade> grades = new ArrayList<>();
+        // Thêm vào danh sách
+        List<Student> students = new ArrayList<>();
+        students.add(s1);
+        students.add(s2);
+        students.add(s3);
 
-        if (studentID == 1) {
-            grades.add(new Grade(1, 101, 8.5));
-            grades.add(new Grade(1, 102, 7.0));
-            grades.add(new Grade(1, 103, 9.2));
-        } else if (studentID == 2) {
-            grades.add(new Grade(2, 101, 6.0));
-            grades.add(new Grade(2, 102, 8.0));
-        } else {
-            System.out.println("Không tìm thấy điểm cho sinh viên có ID: " + studentID);
+        // In ra danh sách ban đầu
+        System.out.println("Danh sách sinh viên ban đầu:");
+        for (Student s : students) {
+            System.out.println(s);
         }
 
-        return grades;
+        // Sắp xếp theo tên
+        students.sort(Comparator.comparing(Student::getName));
+
+        // In ra danh sách sau khi sắp xếp
+        System.out.println("\nDanh sách sinh viên sau khi sắp xếp theo tên:");
+        for (Student s : students) {
+            System.out.println(s);
+        }
     }
 }

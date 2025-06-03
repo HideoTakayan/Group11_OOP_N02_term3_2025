@@ -3,6 +3,7 @@ import University_Management.src.bin.UniversityManager;
 import University_Management.src.model.Student;
 import University_Management.src.model.Lecturer;
 import University_Management.src.model.Subject;
+import University_Management.src.model.Person;
 
 public class App {
     public static void main(String[] args) {

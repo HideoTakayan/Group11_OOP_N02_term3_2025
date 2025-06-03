@@ -1,21 +1,36 @@
 package University_Management.test;
 
 import University_Management.src.model.Lecturer;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class LecturerTest {
     public static void main(String[] args) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dob = LocalDate.parse("15/03/1975", formatter);
+        // Tao cac doi tuong Lecturer
+        Lecturer l1 = new Lecturer("Dr. An", LocalDate.of(1980, 4, 12), "Male", 2001);
+        Lecturer l2 = new Lecturer("Prof. Binh", LocalDate.of(1975, 1, 30), "Male", 2003);
+        Lecturer l3 = new Lecturer("Ms. Chi", LocalDate.of(1985, 9, 25), "Female", 2002);
 
-        // Tạo đối tượng Lecturer với LocalDate đúng kiểu
-        Lecturer lec1 = new Lecturer(101, "Tran Van B", dob, "Nam");
+        // Them vao danh sach
+        List<Lecturer> lecturers = new ArrayList<>();
+        lecturers.add(l1);
+        lecturers.add(l2);
+        lecturers.add(l3);
 
-        System.out.println("=== Thông tin giảng viên ban đầu ===");
-        System.out.println("ID: " + lec1.getLecturerID());
-        System.out.println("Tên: " + lec1.getName());
-        System.out.println("Giới tính: " + lec1.getGender());
-        System.out.println("Ngày sinh: " + lec1.getDateOfBirth());
+        // In danh sach ban dau
+        System.out.println("Danh sach giang vien ban dau:");
+        for (Lecturer l : lecturers) {
+            System.out.println(l);
+        }
+
+        // Sap xep theo ten giang vien
+        lecturers.sort(Comparator.comparing(Lecturer::getName));
+
+        // In danh sach sau khi sap xep
+        System.out.println("\nDanh sach giang vien sau khi sap xep theo ten:");
+        for (Lecturer l : lecturers) {
+            System.out.println(l);
+        }
     }
 }
