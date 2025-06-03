@@ -1,29 +1,29 @@
 package University_Management.test;
 
 import University_Management.src.model.Subject;
+import University_Management.src.model.Lecturer;
+
+import java.time.LocalDate;
 
 public class SubjectTest {
     public static void main(String[] args) {
-        // Tạo đối tượng Subject
-        Subject sub1 = new Subject(201, "Toán Cao Cấp", 3, 101);
+        // Tạo Lecturer với đầy đủ thông tin
+        Lecturer lecturer = new Lecturer(1, "Nguyen Van A", LocalDate.of(1980, 5, 20), "Nam");
 
-        // In thông tin ban đầu
-        System.out.println("=== Thông tin môn học ban đầu ===");
-        System.out.println("Mã môn: " + sub1.getId());
-        System.out.println("Tên môn: " + sub1.getSubjectName());
-        System.out.println("Số tín chỉ: " + sub1.getCredit());
-        System.out.println("Mã giảng viên: " + sub1.getLecturerId());
+        // Tạo Subject với Lecturer trên
+        Subject subject = new Subject(101, "Lập trình Java", 3, lecturer);
 
-        // Thay đổi thông tin
-        sub1.setSubjectName("Giải tích");
-        sub1.setCredit(4);
-        sub1.setLecturerId(102);
+        // In ra thông tin chi tiết của Subject
+        System.out.println("=== Thông tin môn học ===");
+        System.out.println("Mã môn: " + subject.getSubjectID());
+        System.out.println("Tên môn: " + subject.getSubjectName());
+        System.out.println("Số tín chỉ: " + subject.getCredits());
 
-        // In thông tin sau khi chỉnh sửa
-        System.out.println("\n=== Sau khi chỉnh sửa ===");
-        System.out.println("Mã môn: " + sub1.getId());
-        System.out.println("Tên môn mới: " + sub1.getSubjectName());
-        System.out.println("Số tín chỉ mới: " + sub1.getCredit());
-        System.out.println("Mã giảng viên mới: " + sub1.getLecturerId());
+        // In thông tin giảng viên phụ trách môn học
+        System.out.println("\n=== Thông tin giảng viên ===");
+        System.out.println("Mã giảng viên: " + lecturer.getLecturerID());
+        System.out.println("Tên giảng viên: " + lecturer.getName());
+        System.out.println("Ngày sinh: " + lecturer.getDateOfBirth());
+        System.out.println("Giới tính: " + lecturer.getGender());
     }
 }

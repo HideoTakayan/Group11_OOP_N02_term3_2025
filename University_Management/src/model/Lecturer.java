@@ -1,4 +1,4 @@
-package main.java.com.university.model;
+package University_Management.src.model;
 
 import java.time.LocalDate;
 

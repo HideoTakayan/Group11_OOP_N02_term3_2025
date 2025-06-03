@@ -1,31 +1,28 @@
-package University_Management.src;
-
+import java.time.LocalDate;
 import University_Management.src.bin.UniversityManager;
 import University_Management.src.model.Student;
-import University_Management.src.model.Lecturers;
+import University_Management.src.model.Lecturer;
 import University_Management.src.model.Subject;
-import University_Management.test.TestExam;
-import University_Management.test.SimpleEnrollmentTest;
 
 public class App {
     public static void main(String[] args) {
         UniversityManager um = new UniversityManager();
 
         // ===== Thêm Sinh Viên =====
-        Student s1 = new Student(1, "Nguyen Van A", "Nam", "2000-01-01");
-        Student s2 = new Student(2, "Tran Thi B", "Nữ", "2001-05-15");
+        Student s1 = new Student(1, "Nguyen Van A", LocalDate.parse("2000-01-01"), "Nam");
+        Student s2 = new Student(2, "Tran Thi B", LocalDate.parse("2001-05-15"), "Nữ");
         um.addEntity(s1, um.students);
         um.addEntity(s2, um.students);
 
         // ===== Thêm Giảng Viên =====
-        Lecturers l1 = new Lecturers(101, "Le Van C", "Nam", "1975-03-20");
-        Lecturers l2 = new Lecturers(102, "Pham Thi D", "Nữ", "1980-12-10");
+        Lecturer l1 = new Lecturer(101, "Le Van C", LocalDate.parse("1975-03-20"), "Nam");
+        Lecturer l2 = new Lecturer(102, "Pham Thi D", LocalDate.parse("1980-12-10"), "Nữ");
         um.addEntity(l1, um.lecturers);
         um.addEntity(l2, um.lecturers);
 
         // ===== Thêm Môn Học =====
-        Subject sub1 = new Subject(201, "Toán Cao Cấp", 3, 101);
-        Subject sub2 = new Subject(202, "Vật Lý", 4, 102);
+        Subject sub1 = new Subject(201, "Toán Cao Cấp", 3, l1);
+        Subject sub2 = new Subject(202, "Vật Lý", 4, l2);
         um.addEntity(sub1, um.subjects);
         um.addEntity(sub2, um.subjects);
 
@@ -58,6 +55,7 @@ public class App {
         um.printEntityList(um.students, "Sinh viên");
         um.printEntityList(um.lecturers, "Giảng viên");
         um.printEntityList(um.subjects, "Môn học");
+
         System.out.println("\n>>> Chạy ExamTest:");
         TestExam.main(new String[] {});
 

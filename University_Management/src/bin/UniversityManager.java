@@ -1,97 +1,125 @@
 package University_Management.src.bin;
 
-import University_Management.src.model.Person;
 import University_Management.src.model.Student;
-import University_Management.src.model.Enrollment;
-import University_Management.src.model.ExamSchedule;
-import University_Management.src.model.Lecturers;
+import University_Management.src.model.Lecturer;
 import University_Management.src.model.Subject;
+import University_Management.src.model.Grade;
 
 import java.util.ArrayList;
 
 public class UniversityManager {
     public ArrayList<Student> students = new ArrayList<>();
-    public ArrayList<Lecturers> lecturers = new ArrayList<>();
+    public ArrayList<Lecturer> lecturers = new ArrayList<>();
     public ArrayList<Subject> subjects = new ArrayList<>();
-    public ArrayList<ExamSchedule> examSchedules = new ArrayList<>();
-    public ArrayList<Enrollment> enrollments = new ArrayList<>();
+    public ArrayList<Grade> grades = new ArrayList<>();
 
-    public <T extends Person> ArrayList<T> addEntity(T obj, ArrayList<T> list) {
-        list.add(obj);
-        return list;
+    // ===== Student methods =====
+    public void addStudent(Student s) {
+        students.add(s);
     }
 
-    public <T extends Person> ArrayList<T> editEntity(String name, int id, ArrayList<T> list) {
-        for (T entity : list) {
-            if (entity.getId() == id) {
-                entity.setName(name);
-                System.out.println("Đã cập nhật: " + name);
+    public void editStudentName(int id, String newName) {
+        for (Student s : students) {
+            if (s.getStudentID() == id) {
+                s.setName(newName);
+                System.out.println("Đã cập nhật tên sinh viên: " + newName);
+                return;
             }
         }
-        return list;
+        System.out.println("Không tìm thấy sinh viên với ID: " + id);
     }
 
-    public <T extends Person> ArrayList<T> deleteEntity(int id, ArrayList<T> list) {
-        list.removeIf(entity -> entity.getId() == id);
-        return list;
-    }
-
-    public <T extends Person> void printEntityList(ArrayList<T> list, String title) {
-        System.out.println("=== " + title + " ===");
-        for (T entity : list) {
-            System.out.println("ID: " + entity.getId() + ", Tên: " + entity.getName());
-        }
-    }
-
-    public void addExamSchedule(ExamSchedule schedule) {
-        examSchedules.add(schedule);
-        System.out.println("✔ Đã thêm lịch thi: " + schedule);
-    }
-
-    public void showAllExamSchedules() {
-        System.out.println("=== Danh sách lịch thi ===");
-        for (ExamSchedule exam : examSchedules) {
-            System.out.println(exam);
-        }
-    }
-
-    public void searchExamByDate(String date) {
-        System.out.println("=== Lịch thi vào ngày: " + date + " ===");
-        for (ExamSchedule exam : examSchedules) {
-            if (exam.getExamDate().equals(date)) {
-                System.out.println(exam);
-            }
-        }
-    }
-
-    public void addEnrollment(Enrollment e) {
-        // Kiểm tra trùng lặp
-        boolean exists = enrollments.stream()
-                .anyMatch(en -> en.getStudentId() == e.getStudentId() && en.getSubjectId() == e.getSubjectId());
-        if (!exists) {
-            enrollments.add(e);
-            System.out.println("✅ Đăng ký thành công!");
+    public void deleteStudent(int id) {
+        boolean removed = students.removeIf(s -> s.getStudentID() == id);
+        if (removed) {
+            System.out.println("Đã xoá sinh viên với ID: " + id);
         } else {
-            System.out.println("❌ Sinh viên đã đăng ký môn này!");
+            System.out.println("Không tìm thấy sinh viên với ID: " + id);
         }
     }
 
-    public void deleteEnrollmentById(int enrollmentId) {
-        enrollments.removeIf(e -> e.getId() == enrollmentId);
-        System.out.println("✅ Đã xoá ghi danh ID: " + enrollmentId);
-    }
-
-    public void printEnrollments() {
-        System.out.println("=== Danh sách ghi danh ===");
-        for (Enrollment e : enrollments) {
-            System.out.println("Enrollment ID: " + e.getId() +
-                    ", Student ID: " + e.getStudentId() +
-                    ", Subject ID: " + e.getSubjectId() +
-                    ", Date: " + e.getEnrollmentDate());
+    public void printStudents() {
+        System.out.println("=== Danh sách Sinh viên ===");
+        for (Student s : students) {
+            System.out.println("ID: " + s.getStudentID() + ", Tên: " + s.getName());
         }
     }
 
-    public boolean isEnrolled(int studentId, int subjectId) {
-        return enrollments.stream().anyMatch(e -> e.getStudentId() == studentId && e.getSubjectId() == subjectId);
+    // ===== Lecturer methods =====
+    public void addLecturer(Lecturer l) {
+        lecturers.add(l);
+    }
+
+    public void editLecturerName(int id, String newName) {
+        for (Lecturer l : lecturers) {
+            if (l.getLecturerID() == id) {
+                l.setName(newName);
+                System.out.println("Đã cập nhật tên giảng viên: " + newName);
+                return;
+            }
+        }
+        System.out.println("Không tìm thấy giảng viên với ID: " + id);
+    }
+
+    public void deleteLecturer(int id) {
+        boolean removed = lecturers.removeIf(l -> l.getLecturerID() == id);
+        if (removed) {
+            System.out.println("Đã xoá giảng viên với ID: " + id);
+        } else {
+            System.out.println("Không tìm thấy giảng viên với ID: " + id);
+        }
+    }
+
+    public void printLecturers() {
+        System.out.println("=== Danh sách Giảng viên ===");
+        for (Lecturer l : lecturers) {
+            System.out.println("ID: " + l.getLecturerID() + ", Tên: " + l.getName());
+        }
+    }
+
+    // ===== Subject methods =====
+    public void addSubject(Subject sub) {
+        subjects.add(sub);
+    }
+
+    public void editSubjectName(int id, String newName) {
+        for (Subject sub : subjects) {
+            if (sub.getSubjectID() == id) {
+                sub.setSubjectName(newName);
+                System.out.println("Đã cập nhật tên môn học: " + newName);
+                return;
+            }
+        }
+        System.out.println("Không tìm thấy môn học với ID: " + id);
+    }
+
+    public void deleteSubject(int id) {
+        boolean removed = subjects.removeIf(sub -> sub.getSubjectID() == id);
+        if (removed) {
+            System.out.println("Đã xoá môn học với ID: " + id);
+        } else {
+            System.out.println("Không tìm thấy môn học với ID: " + id);
+        }
+    }
+
+    public void printSubjects() {
+        System.out.println("=== Danh sách Môn học ===");
+        for (Subject sub : subjects) {
+            System.out.println("ID: " + sub.getSubjectID() + ", Tên: " + sub.getSubjectName() + ", Giảng viên: "
+                    + (sub.getLecturer() != null ? sub.getLecturer().getName() : "Chưa gán"));
+        }
+    }
+
+    // ===== Grade methods (ví dụ) =====
+    public void addGrade(Grade g) {
+        grades.add(g);
+    }
+
+    public void printGrades() {
+        System.out.println("=== Danh sách Điểm ===");
+        for (Grade g : grades) {
+            System.out.println("Student ID: " + g.getStudentID() + ", Subject ID: " + g.getSubjectId() + ", Score: "
+                    + g.getScore());
+        }
     }
 }

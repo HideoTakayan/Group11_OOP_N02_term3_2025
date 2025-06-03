@@ -11,7 +11,6 @@ public class Grade {
         this.score = score;
     }
 
-    // Getters and Setters
     public int getStudentID() {
         return studentID;
     }
