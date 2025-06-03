@@ -10,7 +10,6 @@ public class Lecturer extends Person {
         this.lecturerID = lecturerID;
     }
 
-    // Getter và Setter
     public int getLecturerID() {
         return lecturerID;
     }
