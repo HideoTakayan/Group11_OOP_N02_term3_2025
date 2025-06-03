@@ -1,4 +1,4 @@
-package University_Management.src.model;
+package model;
 
 public class Subject {
     private int subjectID;

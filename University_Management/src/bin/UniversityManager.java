@@ -1,9 +1,9 @@
-package University_Management.src.bin;
+package bin;
 
-import University_Management.src.model.Student;
-import University_Management.src.model.Lecturer;
-import University_Management.src.model.Subject;
-import University_Management.src.model.Grade;
+import model.Student;
+import model.Lecturer;
+import model.Subject;
+import model.Grade;
 
 import java.util.ArrayList;
 

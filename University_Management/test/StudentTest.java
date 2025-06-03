@@ -1,6 +1,6 @@
 package University_Management.test;
 
-import University_Management.src.model.Student;
+import model.Student;
 
 import java.time.LocalDate;
 import java.util.*;

@@ -1,6 +1,6 @@
 package University_Management.test;
 
-import University_Management.src.model.Lecturer;
+import model.Lecturer;
 
 import java.time.LocalDate;
 import java.util.*;

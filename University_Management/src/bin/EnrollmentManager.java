@@ -1,8 +1,8 @@
-package University_Management.src.bin;
+package bin;
 
-import University_Management.src.model.Enrollment;
-import University_Management.src.model.Student;
-import University_Management.src.model.Subject;
+import model.Enrollment;
+import model.Student;
+import model.Subject;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

@@ -1,7 +1,6 @@
 -- Tạo cơ sở dữ liệu
 CREATE DATABASE
 IF NOT EXISTS University;
-
 -- Sử dụng cơ sở dữ liệu
 USE University;
 

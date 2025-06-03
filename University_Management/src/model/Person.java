@@ -1,4 +1,4 @@
-package University_Management.src.model;
+package model;
 
 import java.time.LocalDate;
 
@@ -7,7 +7,7 @@ public abstract class Person {
     private LocalDate dateOfBirth;
     private String gender;
 
-    public Person(String name, LocalDate dateOfBirth, String gender) {
+    protected Person(String name, LocalDate dateOfBirth, String gender) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;

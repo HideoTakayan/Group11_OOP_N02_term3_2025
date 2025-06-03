@@ -1,7 +1,7 @@
 package University_Management.test;
 
-import University_Management.src.model.ExamSchedule;
-import University_Management.src.bin.UniversityManager;
+import model.ExamSchedule;
+import bin.UniversityManager;
 
 public class TestExam {
     public static void main(String[] args) {

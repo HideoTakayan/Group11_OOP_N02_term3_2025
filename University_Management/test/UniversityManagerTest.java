@@ -1,9 +1,9 @@
 package University_Management.test;
 
-import University_Management.src.bin.UniversityManager;
-import University_Management.src.model.Student;
-import University_Management.src.model.Lecturer;
-import University_Management.src.model.Subject;
+import bin.UniversityManager;
+import model.Student;
+import model.Lecturer;
+import model.Subject;
 
 import java.time.LocalDate;
 

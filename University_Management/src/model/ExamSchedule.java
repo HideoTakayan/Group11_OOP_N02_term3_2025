@@ -1,4 +1,4 @@
-package University_Management.src.model;
+package model;
 
 public class ExamSchedule {
     private int subjectId;

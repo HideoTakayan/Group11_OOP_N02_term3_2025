@@ -1,4 +1,4 @@
-package University_Management.src.model;
+package model;
 
 import java.time.LocalDate;
 
