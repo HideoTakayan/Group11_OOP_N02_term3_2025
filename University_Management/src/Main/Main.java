@@ -1,29 +1,18 @@
+package Main;
+
 import java.time.LocalDate;
-import bin.UniversityManager;
 import model.Student;
 import model.Lecturer;
 import model.Subject;
 import model.Person;
-import bin.PersonService;
+import bin.PersonDAO;
 import java.time.LocalDate;
+import University_Management.test.PersonDAOTest;
+import University_Management.test.PersonDAOTest;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
-        PersonService service = new PersonService();
-
-        service.addPerson(new Student(1, "Nguyen Van A", LocalDate.of(2000, 1, 1), "Male"));
-        service.addPerson(new Lecturer("Le Thi B", LocalDate.of(1980, 5, 20), "Female", 1001));
-
-        System.out.println("== Danh sách ban đầu ==");
-        service.showAll();
-
-        System.out.println("\n== Sau khi cập nhật tên sinh viên ID 1 ==");
-        service.updateNameById(1, "Nguyen Van C");
-        service.showAll();
-
-        System.out.println("\n== Sau khi xóa giảng viên ID 1001 ==");
-        service.deleteById(1001);
-        service.showAll();
+        PersonDAOTest.main(args);
     }
 }
 
