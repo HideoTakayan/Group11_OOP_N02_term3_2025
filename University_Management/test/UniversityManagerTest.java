@@ -2,8 +2,10 @@ package University_Management.test;
 
 import University_Management.src.bin.UniversityManager;
 import University_Management.src.model.Student;
-import University_Management.src.model.Lecturers;
+import University_Management.src.model.Lecturer;
 import University_Management.src.model.Subject;
+
+import java.time.LocalDate;
 
 public class UniversityManagerTest {
     public static void main(String[] args) {
@@ -11,53 +13,54 @@ public class UniversityManagerTest {
 
         // ===== TEST STUDENT =====
         System.out.println(">> TEST SINH VIÊN <<");
-        Student s1 = new Student(1, "Nguyen Van A", "Nam", "01/01/2004");
-        Student s2 = new Student(2, "Tran Thi B", "Nữ", "15/06/2003");
+        Student s1 = new Student(1, "Nguyen Van A", LocalDate.of(2004, 1, 1), "Nam");
+        Student s2 = new Student(2, "Tran Thi B", LocalDate.of(2003, 6, 15), "Nữ");
 
-        um.addEntity(s1, um.students);
-        um.addEntity(s2, um.students);
-        um.printEntityList(um.students, "Danh sách sinh viên");
+        um.addStudent(s1);
+        um.addStudent(s2);
+        um.printStudents();
 
         System.out.println("-- Edit sinh viên ID = 1 --");
-        um.editEntity("Nguyen Van A (Đã sửa)", 1, um.students);
-        um.printEntityList(um.students, "Danh sách sinh viên");
+        um.editStudentName(1, "Nguyen Van A (Đã sửa)");
+        um.printStudents();
 
         System.out.println("-- Xoá sinh viên ID = 2 --");
-        um.deleteEntity(2, um.students);
-        um.printEntityList(um.students, "Danh sách sinh viên");
+        um.deleteStudent(2);
+        um.printStudents();
 
         // ===== TEST LECTURER =====
         System.out.println("\n>> TEST GIẢNG VIÊN <<");
-        Lecturers l1 = new Lecturers(101, "Le Thi C", "Nữ", "20/09/1980");
-        Lecturers l2 = new Lecturers(102, "Pham Van D", "Nam", "05/02/1975");
+        Lecturer l1 = new Lecturer(101, "Le Thi C", LocalDate.of(1980, 9, 20), "Nữ");
+        Lecturer l2 = new Lecturer(102, "Pham Van D", LocalDate.of(1975, 2, 5), "Nam");
 
-        um.addEntity(l1, um.lecturers);
-        um.addEntity(l2, um.lecturers);
-        um.printEntityList(um.lecturers, "Danh sách giảng viên");
+        um.addLecturer(l1);
+        um.addLecturer(l2);
+        um.printLecturers();
 
         System.out.println("-- Edit giảng viên ID = 102 --");
-        um.editEntity("Cô Mai (Đã sửa)", 102, um.lecturers);
-        um.printEntityList(um.lecturers, "Danh sách giảng viên");
+        um.editLecturerName(102, "Cô Mai (Đã sửa)");
+        um.printLecturers();
 
         System.out.println("-- Xoá giảng viên ID = 101 --");
-        um.deleteEntity(101, um.lecturers);
-        um.printEntityList(um.lecturers, "Danh sách giảng viên");
+        um.deleteLecturer(101);
+        um.printLecturers();
 
         // ===== TEST SUBJECT =====
         System.out.println("\n>> TEST MÔN HỌC <<");
-        Subject sub1 = new Subject(201, "Toán cao cấp", 3, 102);
-        Subject sub2 = new Subject(202, "Vật lý đại cương", 4, 101);
+        // Gán giảng viên đúng kiểu cho môn học
+        Subject sub1 = new Subject(201, "Toán cao cấp", 3, l2);
+        Subject sub2 = new Subject(202, "Vật lý đại cương", 4, l1);
 
-        um.addEntity(sub1, um.subjects);
-        um.addEntity(sub2, um.subjects);
-        um.printEntityList(um.subjects, "Danh sách môn học");
+        um.addSubject(sub1);
+        um.addSubject(sub2);
+        um.printSubjects();
 
         System.out.println("-- Edit môn học ID = 202 --");
-        um.editEntity("Vật lý đại cương (Đã sửa)", 202, um.subjects);
-        um.printEntityList(um.subjects, "Danh sách môn học");
+        um.editSubjectName(202, "Vật lý đại cương (Đã sửa)");
+        um.printSubjects();
 
         System.out.println("-- Xoá môn học ID = 201 --");
-        um.deleteEntity(201, um.subjects);
-        um.printEntityList(um.subjects, "Danh sách môn học");
+        um.deleteSubject(201);
+        um.printSubjects();
     }
 }
