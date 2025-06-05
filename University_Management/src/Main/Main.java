@@ -8,7 +8,6 @@ import model.Person;
 import bin.PersonDAO;
 import java.time.LocalDate;
 import University_Management.test.PersonDAOTest;
-import University_Management.test.PersonDAOTest;
 
 public class Main {
     public static void main(String[] args) {
