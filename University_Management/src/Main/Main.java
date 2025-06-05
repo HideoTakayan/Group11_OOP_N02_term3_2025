@@ -6,7 +6,6 @@ import model.Lecturer;
 import model.Subject;
 import model.Person;
 import bin.PersonDAO;
-import java.time.LocalDate;
 import University_Management.test.PersonDAOTest;
 
 public class Main {
