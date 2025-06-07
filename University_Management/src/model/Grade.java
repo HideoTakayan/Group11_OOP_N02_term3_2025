@@ -1,4 +1,4 @@
-package University_Management.src.model;
+package model;
 
 public class Grade {
     private int studentID;
@@ -11,7 +11,6 @@ public class Grade {
         this.score = score;
     }
 
-    // Getters and Setters
     public int getStudentID() {
         return studentID;
     }

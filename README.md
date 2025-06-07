@@ -100,3 +100,8 @@ Nội dung 03:
 
 - Thêm, sửa, xóa, tìm kiếm Student, Lecturers, Subject
 - Test Student, Lecturers, Subject.
+## Các phương thức hiện có:
+1. Phương thức đăng kí môn học.
+2. Phương thức hiển thị,tìm kiếm Lịch thi
+3. Phương thức tra cứu điểm, thông tin sinh viên thông qua mã sinh viên
+   

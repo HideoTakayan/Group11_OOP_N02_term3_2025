@@ -1,37 +1,21 @@
-package University_Management.src.model;
+package model;
 
-// import University_Management.src.model.Person;
+import java.time.LocalDate;
 
-public class Student implements Person {
-    private int studentId;
-    private String name;
-    private String gender;
-    private String dateOfBirth;
+public class Student extends Person {
+    private int studentID;
 
-    public Student(int studentId, String name, String gender, String dateOfBirth) {
-        this.studentId = studentId;
-        this.name = name;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
+    public Student(int studentID, String name, LocalDate dateOfBirth, String gender) {
+        super(name, dateOfBirth, gender);
+        this.studentID = studentID;
     }
 
-    public int getId() {
-        return studentId;
+    public int getStudentID() {
+        return studentID;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    @Override
+    public String toString() {
+        return studentID + " - " + getName();
     }
 }
