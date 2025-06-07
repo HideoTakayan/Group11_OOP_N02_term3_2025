@@ -3,44 +3,40 @@ package model;
 import java.time.LocalDate;
 
 public class Enrollment {
-    private int id;
-    private int studentId;
-    private int subjectId;
+    private Student student;
+    private Subject subject;
     private LocalDate enrollmentDate;
 
-    public Enrollment() {
-    }
-
-    public Enrollment(int id, int studentId, int subjectId, LocalDate enrollmentDate) {
-        this.id = id;
-        this.studentId = studentId;
-        this.subjectId = subjectId;
+    public Enrollment(Student student, Subject subject, LocalDate enrollmentDate) {
+        this.student = student;
+        this.subject = subject;
         this.enrollmentDate = enrollmentDate;
     }
 
-    // Getters & Setters
-    public int getId() {
-        return id;
+    // Lấy studentID từ đối tượng Student
+    public int getStudentID() {
+        return student.getStudentID();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    // Lấy subjectID từ đối tượng Subject
+    public int getSubjectID() {
+        return subject.getSubjectID();
     }
 
-    public int getStudentId() {
-        return studentId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public int getSubjectId() {
-        return subjectId;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubjectId(int subjectId) {
-        this.subjectId = subjectId;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public LocalDate getEnrollmentDate() {
@@ -49,5 +45,11 @@ public class Enrollment {
 
     public void setEnrollmentDate(LocalDate enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("StudentID: %d, SubjectID: %d, EnrollmentDate: %s",
+                getStudentID(), getSubjectID(), enrollmentDate);
     }
 }
