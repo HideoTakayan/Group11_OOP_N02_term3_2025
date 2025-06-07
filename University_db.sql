@@ -1,122 +1,91 @@
--- Tạo cơ sở dữ liệu
-CREATE DATABASE
-IF NOT EXISTS University;
--- Sử dụng cơ sở dữ liệu
-USE University;
+-- tạo cơ sở dữ liệu
+create database if not exists university;
 
--- Tạo bảng 'students' (phù hợp với class Student)
-CREATE TABLE
-IF NOT EXISTS students
-(
-    student_id INT PRIMARY KEY,
-    name VARCHAR
-(100) NOT NULL,
-    gender ENUM
-('Male', 'Female', 'Other') NOT NULL,
-    date_of_birth DATE NOT NULL
+-- sử dụng cơ sở dữ liệu
+use university;
+
+-- tạo bảng 'persons'
+create table if not exists persons (
+    id int auto_increment primary key,
+    name varchar(100) not null,
+    date_of_birth date not null,
+    gender enum('Male', 'Female') not null
 );
 
--- Tạo bảng 'lecturers' (phù hợp với class Lecturers)
-CREATE TABLE
-IF NOT EXISTS lecturers
-(
-    lecturer_id INT PRIMARY KEY,
-    name VARCHAR
-(100) NOT NULL,
-    gender ENUM
-('Male', 'Female', 'Other') NOT NULL,
-    date_of_birth DATE NOT NULL
+-- tạo bảng 'lecturers'
+create table if not exists lecturers (
+    lecturer_id int auto_increment primary key,
+    person_id int not null,
+    foreign key (person_id) references persons(id) on delete cascade
 );
 
--- Tạo bảng 'subjects' (phù hợp với class Subject)
-CREATE TABLE
-IF NOT EXISTS subjects
-(
-    subject_id INT PRIMARY KEY,
-    subject_name VARCHAR
-(255) NOT NULL,
-    credit INT NOT NULL,
-    lecturer_id INT,
-    FOREIGN KEY
-(lecturer_id) REFERENCES lecturers
-(lecturer_id) ON
-DELETE
-SET NULL
+-- tạo bảng 'students'
+create table if not exists students (
+    student_id int auto_increment primary key,
+    person_id int not null,
+    foreign key (person_id) references persons(id) on delete cascade
 );
 
--- Giữ nguyên bảng 'enrollments' từ SQL cũ
-CREATE TABLE
-IF NOT EXISTS enrollments
-(
-    student_id INT,
-    subject_id INT,
-    PRIMARY KEY
-(student_id, subject_id),
-    FOREIGN KEY
-(student_id) REFERENCES students
-(student_id) ON
-DELETE CASCADE,
-    FOREIGN KEY (subject_id)
-REFERENCES subjects
-(subject_id) ON
-DELETE CASCADE
+-- bảng subjects với id tự sinh
+create table if not exists subjects (
+    subject_id int auto_increment primary key,
+    subject_name varchar(255) not null,
+    credits int not null,
+    lecturer_id int,
+    foreign key (lecturer_id) references lecturers(lecturer_id) on delete cascade
 );
 
--- Tạo bảng 'grades' (phù hợp với class Grade)
-CREATE TABLE
-IF NOT EXISTS grades
-(
-    student_id INT,
-    subject_id INT,
-    score DECIMAL
-(5,2) NOT NULL,
-    PRIMARY KEY
-(student_id, subject_id),
-    FOREIGN KEY
-(student_id) REFERENCES students
-(student_id) ON
-DELETE CASCADE,
-    FOREIGN KEY (subject_id)
-REFERENCES subjects
-(subject_id) ON
-DELETE CASCADE
+-- tạo bảng 'grades' tham chiếu trực tiếp đến subjects
+create table if not exists grades (
+    student_id int,
+    subject_id int,
+    score decimal(3, 2),
+    primary key (student_id, subject_id),
+    foreign key (student_id) references students(student_id) on delete cascade,
+    foreign key (subject_id) references subjects(subject_id) on delete cascade
 );
 
--- Thêm dữ liệu mẫu
-INSERT INTO students
-    (student_id, name, gender, date_of_birth)
-VALUES
-    (1, 'Nguyen Van A', 'Male', '2000-01-01'),
-    (2, 'Tran Thi B', 'Female', '2001-02-02'),
-    (3, 'Le Van C', 'Male', '1999-03-03');
+-- tạo bảng 'enrollments' tham chiếu trực tiếp đến subjects
+create table if not exists enrollments (
+    student_id int,
+    subject_id int,
+    primary key (student_id, subject_id),
+    foreign key (student_id) references students(student_id) on delete cascade,
+    foreign key (subject_id) references subjects(subject_id) on delete cascade
+);
 
-INSERT INTO lecturers
-    (lecturer_id, name, gender, date_of_birth)
-VALUES
-    (101, 'Professor X', 'Male', '1980-01-01'),
-    (102, 'Professor Y', 'Female', '1985-05-15');
+-- thêm dữ liệu vào bảng persons
+insert into persons (name, date_of_birth, gender) values
+('doan thi hoa', '1995-06-15', 'Female'),
+('phan van tuan', '1993-08-22', 'Male'),
+('nguyen thi lan', '1991-12-03', 'Female'),
+('tran van minh', '1990-07-10', 'Male'),
+('le thi thao', '1994-03-27', 'Female');
 
-INSERT INTO subjects
-    (subject_id, subject_name, credit, lecturer_id)
-VALUES
-    (1001, 'Mathematics', 3, 101),
-    (1002, 'Physics', 4, 101),
-    (1003, 'Chemistry', 3, 102);
+-- thêm 2 giảng viên
+insert into lecturers (person_id) values
+(1), (2);
 
--- Thêm dữ liệu vào bảng enrollments
-INSERT INTO enrollments
-    (student_id, subject_id)
-VALUES
-    (1, 1001),
-    (1, 1002),
-    (2, 1001),
-    (3, 1003);
+-- thêm 3 sinh viên
+insert into students (person_id) values
+(3), (4), (5);
 
--- Thêm dữ liệu vào bảng grades
-INSERT INTO grades
-    (student_id, subject_id, score)
-VALUES
-    (1, 1001, 8.5),
-    (1, 1002, 7.5),
-    (2, 1001, 9.0),
-    (3, 1003, 8.0);
+-- thêm 5 môn học
+insert into subjects (subject_name, credits, lecturer_id) values
+('data structures', 3, 1),
+('database systems', 4, 2),
+('operating systems', 3, 1),
+('network fundamentals', 4, 2),
+('software engineering', 3, 1);
+
+-- thêm điểm cho 3 sinh viên (tham chiếu đến subjects)
+insert into grades (student_id, subject_id, score) values
+(1, 1, 9.0),
+(2, 2, 8.0),
+(3, 3, 7.5);
+
+-- thêm đăng ký môn học
+insert into enrollments (student_id, subject_id) values
+(1, 1),
+(2, 2),
+(3, 3);
