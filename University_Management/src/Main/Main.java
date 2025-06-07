@@ -6,6 +6,7 @@ import model.Lecturer;
 import model.Subject;
 import model.Person;
 import bin.PersonDAO;
+import bin.EnrollmentManager;
 import University_Management.test.PersonDAOTest;
 import University_Management.test.TestEnrollmentManager;
 
@@ -14,7 +15,7 @@ public class Main {
         PersonDAOTest.main(args);
         TestEnrollmentManager.main(args);
     }
-    
+
 }
 
 /*
