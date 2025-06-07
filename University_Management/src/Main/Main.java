@@ -7,11 +7,14 @@ import model.Subject;
 import model.Person;
 import bin.PersonDAO;
 import University_Management.test.PersonDAOTest;
+import University_Management.test.TestEnrollmentManager;
 
 public class Main {
     public static void main(String[] args) {
         PersonDAOTest.main(args);
+        TestEnrollmentManager.main(args);
     }
+    
 }
 
 /*
