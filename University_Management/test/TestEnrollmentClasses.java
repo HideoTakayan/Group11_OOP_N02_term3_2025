@@ -42,8 +42,10 @@ public class TestEnrollmentClasses {
 
         // Test kiểm tra đăng ký (EnrollmentChecker)
         System.out.println("\n== Kiem tra dang ky ==");
-        System.out.println("Student1 da dang ky mon Math? " + checker.isEnrolled(student1.getStudentID(), math.getSubjectID()));
-        System.out.println("Student2 da dang ky mon Physics? " + checker.isEnrolled(student2.getStudentID(), physics.getSubjectID()));
+        System.out.println(
+                "Student1 da dang ky mon Math? " + checker.isEnrolled(student1.getStudentID(), math.getSubjectID()));
+        System.out.println("Student2 da dang ky mon Physics? "
+                + checker.isEnrolled(student2.getStudentID(), physics.getSubjectID()));
 
         // Test hủy đăng ký (EnrollmentCanceller)
         System.out.println("\n== Huy dang ky mon Physics cua student1 ==");
