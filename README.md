@@ -96,14 +96,28 @@ Nội dung 03:
 
 - Sequence Diagram ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
 
-## Chức năng hiện có:
-
-- Thêm, sửa, xóa, tìm kiếm Student, Lecturers, Subject
-- Test Student, Lecturers, Subject.
 ## Các phương thức hiện có:
 1. Phương thức đăng kí môn học.
 2. Phương thức hiển thị,tìm kiếm Lịch thi
 3. Phương thức tra cứu điểm, thông tin sinh viên thông qua mã sinh viên
-# Lưu đồ phương thức đăng kí môn học
-![d658f82043edf7b3aefc](https://github.com/user-attachments/assets/c932dc58-bc0a-42cf-b52f-c0b1ceeb411d)
+# Lưu đồ phương thức đăng kí môn học ( Phương thức chính ):
+![luudothuattoan](https://github.com/user-attachments/assets/4a3a7d8e-fbe3-446e-89c8-60d6e76fc119)
+Quản lý đăng kí môn học: Cho phép sv đăng kí môn học, Kiểm tra xem học sinh đã đki được môn học hay chưa, Hủy đăng kí môn học
+Phân chia công việc:
+# Trần Tuấn Duy: Hoàn thành phương thức đăng kí môn học
+# Phan Minh Trúc: Hoàn thành phương thức kiểm tra xem học sinh đã đăng kí môn học chưa.
+# Đỗ Như Minh HIếu: Hoàn thành phương thức hủy đăng kí môn học
+
+## Phương thức hủy đk môn học
+# Trình bày ý tưởng phương thức hủy đăng kí môn học: Phương thức này được sử dụng khi học sinh muốn hủy đăng ký một môn học do đăng ký nhầm hoặc vì các lý do cá nhân khác, chẳng hạn như thay đổi kế hoạch học tập hoặc trùng lịch học.
+# Mô tả phương thức: 
+# Phương thức cancelEnrollment có nhiệm vụ hủy đăng ký một môn học cụ thể cho một học sinh, dựa trên studentID và subjectID được truyền vào.
+# Khi được gọi, phương thức sẽ:
+Duyệt qua danh sách các đối tượng Enrollment hiện có.
+Tìm kiếm một đăng ký trùng với studentID và subjectID.
+Nếu tìm thấy, phương thức sẽ xóa đăng ký khỏi danh sách và in ra thông báo xác nhận đã hủy thành công.
+Nếu không tìm thấy, sẽ in ra thông báo không tìm thấy đăng ký tương ứng.
+Phương thức trả về true nếu hủy thành công, ngược lại trả về false. Đây là phương thức thường dùng khi học sinh cần rút lại đăng ký vì chọn nhầm môn hoặc vì lý do cá nhân không thể tiếp tục học môn đó.
+
+
 
