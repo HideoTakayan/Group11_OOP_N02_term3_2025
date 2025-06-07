@@ -104,4 +104,6 @@ Nội dung 03:
 1. Phương thức đăng kí môn học.
 2. Phương thức hiển thị,tìm kiếm Lịch thi
 3. Phương thức tra cứu điểm, thông tin sinh viên thông qua mã sinh viên
-   
+# Lưu đồ phương thức đăng kí môn học
+![d658f82043edf7b3aefc](https://github.com/user-attachments/assets/c932dc58-bc0a-42cf-b52f-c0b1ceeb411d)
+
