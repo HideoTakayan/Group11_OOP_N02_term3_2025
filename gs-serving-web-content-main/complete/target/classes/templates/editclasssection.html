@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="greeting :: head('Chỉnh sửa lớp học phần')"></head>
+  <body>
+    <div th:replace="greeting :: layout">
+      <div th:fragment="content">
+        <div class="container mt-5">
+          <h2 class="text-warning mb-4">
+            <i class="bi bi-pencil-square"></i> Chỉnh sửa lớp học phần
+          </h2>
+          <form th:action="@{/updateclasssection}" method="post">
+            <input
+              type="hidden"
+              name="classId"
+              th:value="${classSection.classId}"
+            />
+
+            <div class="mb-3">
+              <label class="form-label">Môn học:</label>
+              <select class="form-select" name="subjectId" required>
+                <option value="">-- Chọn môn học --</option>
+                <option
+                  th:each="s : ${subjects}"
+                  th:value="${s.subjectId}"
+                  th:text="${s.subjectName}"
+                  th:selected="${s.subjectId == classSection.subjectId}"
+                ></option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Tên lớp học phần:</label>
+              <input
+                type="text"
+                class="form-control"
+                name="className"
+                th:value="${classSection.className}"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Giảng viên:</label>
+              <select class="form-select" name="lectureId" required>
+                <option value="">-- Chọn giảng viên --</option>
+                <option
+                  th:each="l : ${lectures}"
+                  th:value="${l.lectureId}"
+                  th:text="${l.name}"
+                  th:selected="${l.lectureId == classSection.lectureId}"
+                ></option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-save"></i> Cập nhật
+            </button>
+            <a href="/classsectionlist" class="btn btn-secondary ms-2">
+              <i class="bi bi-arrow-left"></i> Quay lại
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

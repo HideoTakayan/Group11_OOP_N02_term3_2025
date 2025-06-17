@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="greeting :: head('Thêm lớp học')"></head>
+  <body>
+    <div th:replace="greeting :: layout">
+      <div th:fragment="content">
+        <div class="container mt-5">
+          <h2 class="text-primary mb-4">
+            <i class="bi bi-plus-circle"></i> Thêm lớp học mới
+          </h2>
+          <form action="/addclass" method="post">
+            <div class="mb-3">
+              <label class="form-label">Mã lớp:</label>
+              <input
+                type="text"
+                name="classId"
+                class="form-control"
+                placeholder="Nhập mã lớp"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Tên lớp:</label>
+              <input
+                type="text"
+                name="className"
+                class="form-control"
+                placeholder="Nhập tên lớp"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-circle"></i> Thêm lớp
+            </button>
+            <a href="/classlist" class="btn btn-secondary ms-2">
+              <i class="bi bi-arrow-left"></i> Quay lại
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -12,14 +12,13 @@ public class aivenConnection {
     private static final String PASSWORD = "AVNS_Mx60RHDvrs0lTAODxLE";
 
     public static Connection getConnection() {
-        Connection conn = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error in database connection: " + e.getMessage());
-            e.printStackTrace();
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Không tìm thấy JDBC Driver", e);
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi kết nối CSDL: " + e.getMessage(), e);
         }
-        return conn;
     }
 }

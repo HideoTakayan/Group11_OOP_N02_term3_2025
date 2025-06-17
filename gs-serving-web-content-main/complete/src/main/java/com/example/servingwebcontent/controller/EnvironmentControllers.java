@@ -19,15 +19,20 @@ public class EnvironmentControllers {
 
     @GetMapping("/environmentlist")
     public String environmentList(@RequestParam(required = false) String editId, Model model) {
-        environmentAiven ea = new environmentAiven();
-        ArrayList<Environment> environments = ea.getEnvironments();
-        model.addAttribute("environments", environments);
+        environmentAiven ea = null;
+        try {
+            ea = new environmentAiven();
+            ArrayList<Environment> environments = ea.getEnvironments();
+            model.addAttribute("environments", environments);
 
-        if (editId != null) {
-            Environment env = ea.getEnvironmentById(editId);
-            model.addAttribute("editEnvironment", env);
+            if (editId != null) {
+                Environment env = ea.getEnvironmentById(editId);
+                model.addAttribute("editEnvironment", env);
+            }
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi hiển thị danh sách phòng học: " + e.getMessage());
+        } finally {
         }
-
         return "environmentlist";
     }
 
@@ -39,19 +44,36 @@ public class EnvironmentControllers {
             @RequestParam String lectureId,
             @RequestParam int studentCount,
             @RequestParam String dayOfWeek,
-            @RequestParam String time) {
-        String envId = "env" + new Random().nextInt(1000);
-        Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek,
-                time);
-        new environmentAiven().insertEnvironment(env);
+            @RequestParam String time,
+            Model model) {
+        try {
+            String envId = "env" + new Random().nextInt(1000);
+            Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek,
+                    time);
+            new environmentAiven().insertEnvironment(env);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi thêm phòng học: " + e.getMessage());
+            return "addenvironment";
+        } finally {
+        }
         return "redirect:/environmentlist";
+    }
+
+    @GetMapping("/addenvironment")
+    public String showAddEnvironmentForm() {
+        return "addenvironment";
     }
 
     @GetMapping("/environmentlist/edit")
     public String editEnvironment(@RequestParam String envId, Model model) {
-        environmentAiven ea = new environmentAiven();
-        Environment env = ea.getEnvironmentById(envId);
-        model.addAttribute("env", env);
+        try {
+            environmentAiven ea = new environmentAiven();
+            Environment env = ea.getEnvironmentById(envId);
+            model.addAttribute("env", env);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi hiển thị thông tin phòng học để chỉnh sửa: " + e.getMessage());
+        } finally {
+        }
         return "editenvironment";
     }
 
@@ -64,16 +86,28 @@ public class EnvironmentControllers {
             @RequestParam String lectureId,
             @RequestParam int studentCount,
             @RequestParam String dayOfWeek,
-            @RequestParam String time) {
-        Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek,
-                time);
-        new environmentAiven().updateEnvironment(env);
+            @RequestParam String time,
+            Model model) {
+        try {
+            Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek,
+                    time);
+            new environmentAiven().updateEnvironment(env);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi cập nhật phòng học: " + e.getMessage());
+            return "editenvironment";
+        } finally {
+        }
         return "redirect:/environmentlist";
     }
 
     @GetMapping("/deleteenvironment")
-    public String deleteEnvironment(@RequestParam String envId) {
-        new environmentAiven().deleteEnvironment(envId);
+    public String deleteEnvironment(@RequestParam String envId, Model model) {
+        try {
+            new environmentAiven().deleteEnvironment(envId);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi xóa phòng học: " + e.getMessage());
+        } finally {
+        }
         return "redirect:/environmentlist";
     }
 }
