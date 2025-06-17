@@ -1,4 +1,4 @@
-package com.example.servingwebcontent;
+package University_Management.complete.src.main.java.com.example.servingwebcontent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
