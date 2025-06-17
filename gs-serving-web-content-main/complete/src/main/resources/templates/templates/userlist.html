@@ -40,22 +40,19 @@
         <thead >
             <tr ><p style="font-size:xx-large; color:darkcyan ;text-align: center;">List of User</p></tr>
             <tr>
-                <th><i class="bi bi-person-vcard"></i> Song ID </th>
-                <th><i class="bi bi-person-circle"></i> Song Name</th>
-                <th> <i class="bi bi-house-heart"></i> Song Author </th>
-                   <th> <i class="bi bi-house-heart"></i> Country </th>
+                <th><i class="bi bi-person-vcard"></i> User Identity </th>
+                <th><i class="bi bi-person-circle"></i> Username </th>
+                <th> <i class="bi bi-house-heart"></i> Address </th>
                 <th> <i class="bi bi-brush"></i>Edit </th>
                 <th> <i class="bi bi-calendar2-x"></i> Delete </th>
             </tr>
         </thead>
         <tbody>
 
-            <tr th:each="ListOfSong : ${ListOfSong}">
-                <td data-sortable="true"><span th:text="${ListOfSong.songID}"> SongID </span></td>
-                <td><span th:text="${ListOfSong.songName}"> Song Name </span></td>
-                <td><span th:text="${ListOfSong.songAuthor}"> Song Author </span></td>
-                <td><span th:text="${ListOfSong.country}"> Country </span></td>
-                              
+            <tr th:each="listOfArray : ${listOfArray}">
+                <td data-sortable="true"><span th:text="${listOfArray.userID}"> UserID </span></td>
+                <td><span th:text="${listOfArray.userName}"> Username </span></td>
+                <td><span th:text="${listOfArray.address}"> Address </span></td>
                 <td><button type="button" class="btn btn-success bi bi-brush"> </button></td>
                 <td><button type="button" class="btn btn-danger bi bi-calendar2-x"> </button></td>
                 
