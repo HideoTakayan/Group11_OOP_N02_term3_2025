@@ -21,7 +21,7 @@ public class StudentController {
 
     @GetMapping("/studentlist")
     public String studentList(@RequestParam(required = false) String editId, Model model, HttpSession session) {
-        if (session.getAttribute("isLoggedIn") == null) {
+        if (!"admin".equals(session.getAttribute("role"))) {
             return "redirect:/login";
         }
         studentAiven sa = null;

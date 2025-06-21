@@ -6,9 +6,10 @@ import java.sql.PreparedStatement;
 
 import java.sql.Statement;
 import java.util.Random;
-import java.lang.System;
 
-import com.example.servingwebcontent.User;
+import com.example.servingwebcontent.model.User;
+
+import java.lang.System;
 
 public class insertToAiven {
     public void insertToAivenDb(User u) {

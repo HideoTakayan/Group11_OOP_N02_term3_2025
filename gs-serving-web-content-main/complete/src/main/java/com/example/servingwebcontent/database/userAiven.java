@@ -1,71 +1,145 @@
 package com.example.servingwebcontent.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.example.servingwebcontent.model.User;
+import java.sql.*;
 import java.util.ArrayList;
-//import java.util.List;
-import com.example.servingwebcontent.User;
 
 public class userAiven {
 
-    ArrayList<User> items = new ArrayList<User>();
-    // User user = new User();
-
-    /**
-     * @return
-     */
-    public ArrayList<User> userAivenList() {
-
-        Connection conn = null;
-        try {
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://avnadmin:AVNS_RE3O2bhYZ_1_6ER7YK7@mysql-14737a33-nglthu-4e05.k.aivencloud.com:17237/defaultdb?ssl-mode=REQUIRED",
-                    "sqluser", "password");
-            Statement sta = conn.createStatement();
-
-            ResultSet setdata = sta.executeQuery("select * from user");
-            int index = 0;
-            int columnCount = setdata.getMetaData().getColumnCount();
-            System.out.println("column #" + columnCount);
-
-            while (setdata.next()) {
-                User user = new User();
-
-                String userID = setdata.getString("userId");
-
-                String username = setdata.getString("username");
-
-                String address = setdata.getString("address");
-                System.out.println("USER AIVEN TEST:");
-                System.out.println(userID + " " + username + " " + address);
-
-                user.setUserID(userID);
-                user.setUserName(username);
-                user.setAddress(address);
-
-                System.out.println("Get username in user Aiven");
-                System.out.println(user.getUserName());
-                System.out.println(index);
-
-                items.add(user);
-            }
-
-            setdata.close();
-            sta.close();
-            conn.close();
-
+    // ✅ Thêm user mới
+    public void insertUser(User user) {
+        try (Connection conn = aivenConnection.getConnection()) {
+            String sql = "INSERT INTO users (user_name, address, email, password, role) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, user.getUserName());
+            stmt.setString(2, user.getAddress());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getPassword());
+            stmt.setString(5, user.getRole());
+            stmt.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Error in database connecion");
-            System.out.println(e);
             e.printStackTrace();
         }
-
-        return items;
-
     }
 
+    // ✅ Tìm user để đăng nhập
+    public User findByEmailAndPassword(String email, String password) {
+        try (Connection conn = aivenConnection.getConnection()) {
+            String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User u = new User();
+                u.setUserID(rs.getInt("id"));
+                u.setUserName(rs.getString("user_name")); // 🔧 Sửa tại đây
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                return u;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // ✅ Lấy danh sách user
+    public ArrayList<User> userAivenList() {
+        ArrayList<User> list = new ArrayList<>();
+        try (Connection conn = aivenConnection.getConnection()) {
+            String sql = "SELECT * FROM users";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setUserID(rs.getInt("id"));
+                u.setUserName(rs.getString("user_name")); // 🔧 Sửa tại đây
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                list.add(u);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // ✅ Xóa user theo ID
+    public void deleteUserById(String id) {
+        try (Connection conn = aivenConnection.getConnection()) {
+            String sql = "DELETE FROM users WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ✅ Cập nhật thông tin user
+    public void updateUser(User user) {
+        try (Connection conn = aivenConnection.getConnection()) {
+            String sql = "UPDATE users SET user_name = ?, address = ?, email = ?, password = ?, role = ? WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, user.getUserName()); // 🔧 Sửa tên cột
+            stmt.setString(2, user.getAddress());
+            stmt.setString(3, user.getEmail());
+            stmt.setString(4, user.getPassword());
+            stmt.setString(5, user.getRole());
+            stmt.setInt(6, user.getUserID());
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public User findByEmail(String email) {
+        try (Connection conn = aivenConnection.getConnection()) {
+            String sql = "SELECT * FROM users WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User u = new User();
+                u.setUserID(rs.getInt("id"));
+                u.setUserName(rs.getString("user_name"));
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                return u;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // ✅ Lấy user theo ID (để chỉnh sửa)
+    public User getUserById(String id) {
+        try (Connection conn = aivenConnection.getConnection()) {
+            String sql = "SELECT * FROM users WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                User u = new User();
+                u.setUserID(rs.getInt("id"));
+                u.setUserName(rs.getString("user_name")); // 🔧 Sửa tại đây
+                u.setAddress(rs.getString("address"));
+                u.setEmail(rs.getString("email"));
+                u.setPassword(rs.getString("password"));
+                u.setRole(rs.getString("role"));
+                return u;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
