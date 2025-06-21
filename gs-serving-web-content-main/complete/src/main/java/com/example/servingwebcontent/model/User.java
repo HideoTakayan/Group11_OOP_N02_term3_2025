@@ -8,7 +8,6 @@ public class User {
     private String address;
     private String role;
 
-    // Getter & Setter cho userID
     public int getUserID() {
         return userID;
     }
@@ -17,7 +16,6 @@ public class User {
         this.userID = userID;
     }
 
-    // Getter & Setter cho userName
     public String getUserName() {
         return userName;
     }
@@ -26,7 +24,6 @@ public class User {
         this.userName = userName;
     }
 
-    // Getter & Setter cho email
     public String getEmail() {
         return email;
     }
@@ -35,7 +32,6 @@ public class User {
         this.email = email;
     }
 
-    // Getter & Setter cho password
     public String getPassword() {
         return password;
     }
@@ -44,7 +40,6 @@ public class User {
         this.password = password;
     }
 
-    // Getter & Setter cho address
     public String getAddress() {
         return address;
     }
@@ -53,7 +48,6 @@ public class User {
         this.address = address;
     }
 
-    // Getter & Setter cho role
     public String getRole() {
         return role;
     }

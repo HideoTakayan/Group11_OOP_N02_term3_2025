@@ -12,7 +12,6 @@ import java.util.ArrayList;
 @Controller
 public class UserController {
 
-    // ✅ Danh sách user (chỉ admin xem được)
     @GetMapping("/userlist")
     public String userList(Model model, HttpSession session) {
         if (!"admin".equals(session.getAttribute("role"))) {
@@ -25,13 +24,11 @@ public class UserController {
         return "userlist";
     }
 
-    // ✅ Hiển thị form đăng ký
     @GetMapping("/register")
     public String showRegisterForm() {
         return "register";
     }
 
-    // ✅ Xử lý form đăng ký
     @PostMapping("/register")
     public String registerUser(
             @RequestParam String userName,
@@ -42,7 +39,6 @@ public class UserController {
 
         userAiven ua = new userAiven();
 
-        // Kiểm tra email đã tồn tại
         if (ua.findByEmail(email) != null) {
             model.addAttribute("error", "Email đã tồn tại.");
             return "register";
@@ -54,7 +50,7 @@ public class UserController {
             user.setAddress(address);
             user.setEmail(email);
             user.setPassword(password);
-            user.setRole("user"); // mặc định là user
+            user.setRole("user");
 
             ua.insertUser(user);
             return "redirect:/login";
@@ -64,7 +60,6 @@ public class UserController {
         }
     }
 
-    // ✅ Hiển thị form sửa user
     @GetMapping("/edituser")
     public String editUser(@RequestParam String id, Model model) {
         userAiven ua = new userAiven();
@@ -73,7 +68,6 @@ public class UserController {
         return "edituser";
     }
 
-    // ✅ Xử lý cập nhật user
     @PostMapping("/updateuser")
     public String updateUser(
             @RequestParam int id,
@@ -96,7 +90,6 @@ public class UserController {
         return "redirect:/userlist";
     }
 
-    // ✅ Xóa user
     @GetMapping("/deleteuser")
     public String deleteUser(@RequestParam String id) {
         userAiven ua = new userAiven();
