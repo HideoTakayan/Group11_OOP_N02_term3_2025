@@ -5,12 +5,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class GreetingController {
 
 	@GetMapping("/greeting")
-	public String greeting(@RequestParam(name="name", required=false, defaultValue="OOP Class !") String name, Model model) {
-		model.addAttribute("name", name);
+	public String greeting(HttpSession session, Model model) {
+		if (session.getAttribute("isLoggedIn") == null) {
+			return "redirect:/login";
+		}
+		model.addAttribute("name", "OOP Class Admin");
 		return "greeting";
 	}
 

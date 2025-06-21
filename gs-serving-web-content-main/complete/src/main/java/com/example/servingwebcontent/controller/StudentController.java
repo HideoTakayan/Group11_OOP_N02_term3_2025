@@ -10,6 +10,8 @@ import com.example.servingwebcontent.database.studentAiven;
 import com.example.servingwebcontent.model.ClassRoom;
 import com.example.servingwebcontent.model.Student;
 
+import jakarta.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,7 +20,10 @@ import java.util.Random;
 public class StudentController {
 
     @GetMapping("/studentlist")
-    public String studentList(@RequestParam(required = false) String editId, Model model) {
+    public String studentList(@RequestParam(required = false) String editId, Model model, HttpSession session) {
+        if (session.getAttribute("isLoggedIn") == null) {
+            return "redirect:/login";
+        }
         studentAiven sa = null;
         try {
             sa = new studentAiven();
