@@ -1,27 +1,21 @@
 package com.example.servingwebcontent.controller;
 
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.example.servingwebcontent.database.environmentAiven;
 import com.example.servingwebcontent.model.Environment;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.UUID;
 
 @Controller
-@Primary
 public class EnvironmentControllers {
 
     @GetMapping("/environmentlist")
     public String environmentList(@RequestParam(required = false) String editId, Model model) {
-        environmentAiven ea = null;
         try {
-            ea = new environmentAiven();
+            environmentAiven ea = new environmentAiven();
             ArrayList<Environment> environments = ea.getEnvironments();
             model.addAttribute("environments", environments);
 
@@ -31,9 +25,13 @@ public class EnvironmentControllers {
             }
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi hiển thị danh sách phòng học: " + e.getMessage());
-        } finally {
         }
         return "environmentlist";
+    }
+
+    @GetMapping("/addenvironment")
+    public String showAddEnvironmentForm() {
+        return "addenvironment";
     }
 
     @PostMapping("/addenvironment")
@@ -47,21 +45,14 @@ public class EnvironmentControllers {
             @RequestParam String time,
             Model model) {
         try {
-            String envId = "env" + new Random().nextInt(1000);
-            Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek,
-                    time);
+            String envId = "env" + UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+            Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek, time);
             new environmentAiven().insertEnvironment(env);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi thêm phòng học: " + e.getMessage());
             return "addenvironment";
-        } finally {
         }
         return "redirect:/environmentlist";
-    }
-
-    @GetMapping("/addenvironment")
-    public String showAddEnvironmentForm() {
-        return "addenvironment";
     }
 
     @GetMapping("/environmentlist/edit")
@@ -72,7 +63,6 @@ public class EnvironmentControllers {
             model.addAttribute("env", env);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi hiển thị thông tin phòng học để chỉnh sửa: " + e.getMessage());
-        } finally {
         }
         return "editenvironment";
     }
@@ -89,13 +79,11 @@ public class EnvironmentControllers {
             @RequestParam String time,
             Model model) {
         try {
-            Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek,
-                    time);
+            Environment env = new Environment(envId, roomNumber, building, subject, lectureId, studentCount, dayOfWeek, time);
             new environmentAiven().updateEnvironment(env);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi cập nhật phòng học: " + e.getMessage());
             return "editenvironment";
-        } finally {
         }
         return "redirect:/environmentlist";
     }
@@ -106,7 +94,6 @@ public class EnvironmentControllers {
             new environmentAiven().deleteEnvironment(envId);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi xóa phòng học: " + e.getMessage());
-        } finally {
         }
         return "redirect:/environmentlist";
     }

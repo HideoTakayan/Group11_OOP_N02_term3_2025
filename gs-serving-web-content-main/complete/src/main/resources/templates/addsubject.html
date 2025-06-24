@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="greeting :: head('Thêm môn học')"></head>
-  <body class="bg-light container mt-4">
+  <body>
     <div th:replace="greeting :: layout">
-      <div th:fragment="content">
+      <div th:fragment="content" class="bg-light container mt-4">
         <h2 class="text-primary mb-4">
           <i class="bi bi-journal-plus"></i> Thêm môn học mới
         </h2>

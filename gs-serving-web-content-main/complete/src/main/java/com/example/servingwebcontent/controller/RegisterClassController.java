@@ -15,52 +15,82 @@ import java.util.UUID;
 @Controller
 public class RegisterClassController {
 
+    private final registerClassAiven registerDAO = new registerClassAiven();
+    private final studentAiven studentDAO = new studentAiven();
+    private final classSectionAiven classSectionDAO = new classSectionAiven();
+
     @GetMapping("/registerclasslist")
     public String viewRegisterClassList(Model model) {
-        List<RegisterClassSection> registerList = new registerClassAiven().getRegisterClassList();
-        model.addAttribute("registerList", registerList);
+        try {
+            List<RegisterClassSection> registerList = registerDAO.getRegisterClassList();
+            model.addAttribute("registerList", registerList);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi tải danh sách đăng ký lớp: " + e.getMessage());
+        }
         return "registerclasslist";
     }
 
     @GetMapping("/addregisterclass")
     public String showAddForm(Model model) {
-        model.addAttribute("studentList", new studentAiven().getStudentList());
-        model.addAttribute("classSectionList", new classSectionAiven().getAllClassSections());
+        try {
+            model.addAttribute("studentList", studentDAO.getStudentList());
+            model.addAttribute("classSectionList", classSectionDAO.getAllClassSections());
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi tải dữ liệu thêm đăng ký: " + e.getMessage());
+        }
         return "addregisterclass";
     }
 
     @PostMapping("/addregisterclass")
     public String addRegisterClass(@RequestParam String studentId,
-            @RequestParam String classSectionId) {
-        System.out.println("POST ADD: " + studentId + " - " + classSectionId);
-        String registerId = UUID.randomUUID().toString();
-        RegisterClassSection rc = new RegisterClassSection(registerId, studentId, classSectionId);
-        new registerClassAiven().insertRegisterClass(rc);
+                                   @RequestParam String classSectionId,
+                                   Model model) {
+        try {
+            String registerId = UUID.randomUUID().toString();
+            RegisterClassSection rc = new RegisterClassSection(registerId, studentId, classSectionId);
+            registerDAO.insertRegisterClass(rc);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi thêm đăng ký lớp: " + e.getMessage());
+            return "addregisterclass";
+        }
         return "redirect:/registerclasslist";
     }
 
     @GetMapping("/registerclass/edit")
     public String editRegisterClass(@RequestParam("id") String registerId, Model model) {
-        registerClassAiven dao = new registerClassAiven();
-        RegisterClassSection rc = dao.getRegisterClassById(registerId);
-        model.addAttribute("registerClass", rc);
-        model.addAttribute("studentList", new studentAiven().getStudentList());
-        model.addAttribute("classSectionList", new classSectionAiven().getAllClassSections());
+        try {
+            RegisterClassSection rc = registerDAO.getRegisterClassById(registerId);
+            model.addAttribute("registerClass", rc);
+            model.addAttribute("studentList", studentDAO.getStudentList());
+            model.addAttribute("classSectionList", classSectionDAO.getAllClassSections());
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi tải thông tin đăng ký để chỉnh sửa: " + e.getMessage());
+        }
         return "editregisterclass";
     }
 
     @PostMapping("/updateregisterclass")
     public String updateRegisterClass(@RequestParam String registerId,
-            @RequestParam String studentId,
-            @RequestParam String classSectionId) {
-        RegisterClassSection rc = new RegisterClassSection(registerId, studentId, classSectionId);
-        new registerClassAiven().updateRegisterClass(rc);
+                                      @RequestParam String studentId,
+                                      @RequestParam String classSectionId,
+                                      Model model) {
+        try {
+            RegisterClassSection rc = new RegisterClassSection(registerId, studentId, classSectionId);
+            registerDAO.updateRegisterClass(rc);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi cập nhật đăng ký lớp: " + e.getMessage());
+            return "editregisterclass";
+        }
         return "redirect:/registerclasslist";
     }
 
     @GetMapping("/deleteregisterclass")
-    public String deleteRegisterClass(@RequestParam("id") String registerId) {
-        new registerClassAiven().deleteRegisterClass(registerId);
+    public String deleteRegisterClass(@RequestParam("id") String registerId, Model model) {
+        try {
+            registerDAO.deleteRegisterClass(registerId);
+        } catch (Exception e) {
+            model.addAttribute("error", "Lỗi khi xóa đăng ký lớp: " + e.getMessage());
+        }
         return "redirect:/registerclasslist";
     }
 }

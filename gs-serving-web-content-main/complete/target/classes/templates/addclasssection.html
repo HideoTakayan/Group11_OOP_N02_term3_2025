@@ -8,16 +8,20 @@
           <h2 class="text-primary mb-4">
             <i class="bi bi-plus-circle"></i> Thêm lớp học phần mới
           </h2>
+
+          <!-- Thông báo lỗi nếu có -->
+          <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
           <form th:action="@{/addclasssection}" method="post">
             <div class="mb-3">
               <label class="form-label">Môn học:</label>
-              <select class="form-select" name="subjectId" required>
+              <select class="form-select" name="subjectId" required autocomplete="off">
                 <option value="">-- Chọn môn học --</option>
                 <option
                   th:each="s : ${subjects}"
                   th:value="${s.subjectId}"
-                  th:text="${s.subjectName}"
-                ></option>
+                  th:text="${s.subjectName}">
+                </option>
               </select>
             </div>
 
@@ -29,25 +33,26 @@
                 name="className"
                 placeholder="Nhập tên lớp học phần"
                 required
+                autocomplete="off"
               />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Giảng viên:</label>
-              <select class="form-select" name="lectureId" required>
+              <select class="form-select" name="lectureId" required autocomplete="off">
                 <option value="">-- Chọn giảng viên --</option>
                 <option
                   th:each="l : ${lectures}"
                   th:value="${l.lectureId}"
-                  th:text="${l.name}"
-                ></option>
+                  th:text="${l.name}">
+                </option>
               </select>
             </div>
 
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-check-circle"></i> Thêm lớp
             </button>
-            <a href="/classsectionlist" class="btn btn-secondary ms-2">
+            <a th:href="@{/classsectionlist}" class="btn btn-secondary ms-2">
               <i class="bi bi-arrow-left"></i> Quay lại
             </a>
           </form>

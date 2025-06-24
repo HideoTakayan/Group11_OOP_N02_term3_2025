@@ -2,7 +2,6 @@ package com.example.servingwebcontent.controller;
 
 import com.example.servingwebcontent.database.classAiven;
 import com.example.servingwebcontent.model.ClassRoom;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +13,8 @@ public class ClassRoomController {
 
     @GetMapping("/classlist")
     public String classList(@RequestParam(required = false) String editId, Model model) {
-        classAiven ca = null;
         try {
-            ca = new classAiven();
+            classAiven ca = new classAiven();
             ArrayList<ClassRoom> classes = ca.getClassList();
             model.addAttribute("classes", classes);
 
@@ -26,13 +24,12 @@ public class ClassRoomController {
             }
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi tải danh sách lớp: " + e.getMessage());
-        } finally {
         }
         return "classlist";
     }
 
     @GetMapping("/classlist/add")
-    public String showAddStudentForm() {
+    public String showAddClassForm() {  // ✅ Sửa lại tên hàm cho đúng mục đích
         return "addclass";
     }
 
@@ -40,11 +37,11 @@ public class ClassRoomController {
     public String addClass(@RequestParam String classId, @RequestParam String className, Model model) {
         try {
             ClassRoom c = new ClassRoom(classId, className);
-            new classAiven().insertClass(c);
+            classAiven ca = new classAiven();
+            ca.insertClass(c);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi thêm lớp: " + e.getMessage());
             return "addclass";
-        } finally {
         }
         return "redirect:/classlist";
     }
@@ -57,7 +54,6 @@ public class ClassRoomController {
             model.addAttribute("classroom", c);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi tải lớp để chỉnh sửa: " + e.getMessage());
-        } finally {
         }
         return "editclass";
     }
@@ -70,11 +66,13 @@ public class ClassRoomController {
             if (c != null) {
                 c.setClassName(className);
                 ca.updateClass(c);
+            } else {
+                model.addAttribute("error", "Không tìm thấy lớp để cập nhật.");
+                return "editclass";
             }
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi cập nhật lớp: " + e.getMessage());
             return "editclass";
-        } finally {
         }
         return "redirect:/classlist";
     }
@@ -82,10 +80,10 @@ public class ClassRoomController {
     @GetMapping("/deleteclass")
     public String deleteClass(@RequestParam String classId, Model model) {
         try {
-            new classAiven().deleteClass(classId);
+            classAiven ca = new classAiven();
+            ca.deleteClass(classId);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi xóa lớp: " + e.getMessage());
-        } finally {
         }
         return "redirect:/classlist";
     }

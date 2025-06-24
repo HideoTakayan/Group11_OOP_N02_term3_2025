@@ -12,14 +12,15 @@ import java.util.ArrayList;
 @Controller
 public class UserController {
 
+    private final userAiven ua = new userAiven();  // ✅ Tái sử dụng DAO
+
     @GetMapping("/userlist")
     public String userList(Model model, HttpSession session) {
         if (!"admin".equals(session.getAttribute("role"))) {
             return "redirect:/login";
         }
 
-        userAiven ua = new userAiven();
-        ArrayList<User> users = ua.userAivenList();
+        ArrayList<User> users = ua.getAllUsers(); // ✅ dùng tên hàm mới
         model.addAttribute("users", users);
         return "userlist";
     }
@@ -36,8 +37,6 @@ public class UserController {
             @RequestParam String email,
             @RequestParam String password,
             Model model) {
-
-        userAiven ua = new userAiven();
 
         if (ua.findByEmail(email) != null) {
             model.addAttribute("error", "Email đã tồn tại.");
@@ -61,9 +60,8 @@ public class UserController {
     }
 
     @GetMapping("/edituser")
-    public String editUser(@RequestParam String id, Model model) {
-        userAiven ua = new userAiven();
-        User u = ua.getUserById(id);
+    public String editUser(@RequestParam int id, Model model) {
+        User u = ua.getUserById(String.valueOf(id));  // ✅ ép kiểu lại vì DAO dùng String
         model.addAttribute("user", u);
         return "edituser";
     }
@@ -85,15 +83,13 @@ public class UserController {
         u.setPassword(password);
         u.setRole(role);
 
-        userAiven ua = new userAiven();
         ua.updateUser(u);
         return "redirect:/userlist";
     }
 
     @GetMapping("/deleteuser")
-    public String deleteUser(@RequestParam String id) {
-        userAiven ua = new userAiven();
-        ua.deleteUserById(id);
+    public String deleteUser(@RequestParam int id) {
+        ua.deleteUserById(String.valueOf(id));  // ✅ DAO dùng String
         return "redirect:/userlist";
     }
 }

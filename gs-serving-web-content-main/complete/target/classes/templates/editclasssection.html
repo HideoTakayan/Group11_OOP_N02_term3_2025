@@ -4,10 +4,11 @@
   <body>
     <div th:replace="greeting :: layout">
       <div th:fragment="content">
-        <div class="container mt-5">
+        <div class="container mt-4">
           <h2 class="text-warning mb-4">
             <i class="bi bi-pencil-square"></i> Chỉnh sửa lớp học phần
           </h2>
+
           <form th:action="@{/updateclasssection}" method="post">
             <input
               type="hidden"
@@ -15,8 +16,9 @@
               th:value="${classSection.classId}"
             />
 
+            <!-- Môn học -->
             <div class="mb-3">
-              <label class="form-label">Môn học:</label>
+              <label class="form-label">Môn học</label>
               <select class="form-select" name="subjectId" required>
                 <option value="">-- Chọn môn học --</option>
                 <option
@@ -28,8 +30,9 @@
               </select>
             </div>
 
+            <!-- Tên lớp học phần -->
             <div class="mb-3">
-              <label class="form-label">Tên lớp học phần:</label>
+              <label class="form-label">Tên lớp học phần</label>
               <input
                 type="text"
                 class="form-control"
@@ -39,8 +42,9 @@
               />
             </div>
 
+            <!-- Giảng viên -->
             <div class="mb-3">
-              <label class="form-label">Giảng viên:</label>
+              <label class="form-label">Giảng viên</label>
               <select class="form-select" name="lectureId" required>
                 <option value="">-- Chọn giảng viên --</option>
                 <option
@@ -52,6 +56,7 @@
               </select>
             </div>
 
+            <!-- Nút thao tác -->
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-save"></i> Cập nhật
             </button>

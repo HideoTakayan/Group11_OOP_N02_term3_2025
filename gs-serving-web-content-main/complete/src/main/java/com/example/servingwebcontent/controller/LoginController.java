@@ -10,6 +10,7 @@ import com.example.servingwebcontent.model.User;
 
 @Controller
 public class LoginController {
+
 	@GetMapping("/login")
 	public String showLoginForm() {
 		return "login";
@@ -20,22 +21,32 @@ public class LoginController {
 			@RequestParam String password,
 			HttpSession session,
 			Model model) {
+		try {
+			// Admin đăng nhập
+			if (email.equals("admin@gmail.com") && password.equals("admin123")) {
+				session.setAttribute("isLoggedIn", true);
+				session.setAttribute("role", "admin");
+				session.setAttribute("userEmail", email);
+				session.setAttribute("userName", "Admin");
+				return "redirect:/studentlist";
+			}
 
-		if (email.equals("admin@gmail.com") && password.equals("admin123")) {
-			session.setAttribute("isLoggedIn", true);
-			session.setAttribute("role", "admin");
-			return "redirect:/studentlist";
+			userAiven ua = new userAiven();
+			User user = ua.findByEmailAndPassword(email, password);
+			if (user != null) {
+				session.setAttribute("isLoggedIn", true);
+				session.setAttribute("role", user.getRole());
+				session.setAttribute("userEmail", user.getEmail());
+				session.setAttribute("userName", user.getUserName());
+				return "redirect:/home";
+			} else {
+				model.addAttribute("error", "Email hoặc mật khẩu không đúng!");
+				return "login";
+			}
+		} catch (Exception e) {
+			model.addAttribute("error", "Đã xảy ra lỗi: " + e.getMessage());
+			return "login";
 		}
-		userAiven ua = new userAiven();
-		User user = ua.findByEmailAndPassword(email, password);
-		if (user != null) {
-			session.setAttribute("isLoggedIn", true);
-			session.setAttribute("role", user.getRole());
-			session.setAttribute("userEmail", user.getEmail());
-			return "home";
-		}
-		model.addAttribute("error", "Email hoặc mật khẩu không đúng!");
-		return "login";
 	}
 
 	@GetMapping("/logout")

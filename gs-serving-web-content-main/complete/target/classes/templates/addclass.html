@@ -8,7 +8,11 @@
           <h2 class="text-primary mb-4">
             <i class="bi bi-plus-circle"></i> Thêm lớp học mới
           </h2>
-          <form action="/addclass" method="post">
+
+          <!-- Hiển thị lỗi nếu có -->
+          <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+          <form th:action="@{/addclass}" method="post">
             <div class="mb-3">
               <label class="form-label">Mã lớp:</label>
               <input
@@ -17,6 +21,7 @@
                 class="form-control"
                 placeholder="Nhập mã lớp"
                 required
+                autocomplete="off"
               />
             </div>
             <div class="mb-3">
@@ -27,12 +32,13 @@
                 class="form-control"
                 placeholder="Nhập tên lớp"
                 required
+                autocomplete="off"
               />
             </div>
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-check-circle"></i> Thêm lớp
             </button>
-            <a href="/classlist" class="btn btn-secondary ms-2">
+            <a th:href="@{/classlist}" class="btn btn-secondary ms-2">
               <i class="bi bi-arrow-left"></i> Quay lại
             </a>
           </form>

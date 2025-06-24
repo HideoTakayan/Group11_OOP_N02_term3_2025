@@ -1,70 +1,30 @@
 package com.example.servingwebcontent.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-
-import java.sql.Statement;
-import java.util.Random;
-
 import com.example.servingwebcontent.model.User;
 
-import java.lang.System;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Random;
 
 public class insertToAiven {
+
     public void insertToAivenDb(User u) {
-        Connection conn = null;
-        /*
-         * String user = System.getenv("user");
-         * String password = System.getenv("password");
-         * String host = System.getenv("host");
-         * String port = System.getenv("port");
-         * String databaseName = System.getenv("databaseName");
-         */
+        String sql = "INSERT INTO user (userId, username, address) VALUES (?, ?, ?)";
 
-        System.out.println(
-                String.format("The current shell is: %s.", System.getenv("port")));
+        // Sinh userId ngẫu nhiên (nếu cần đảm bảo không trùng, dùng UUID hoặc sequence trong DB)
+        String userId = "u" + new Random().nextInt(1000000);
 
-        // System.out.println("port"+port);
+        try (Connection conn = aivenConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            pstmt.setString(1, userId);
+            pstmt.setString(2, u.getUserName());
+            pstmt.setString(3, u.getAddress());
+            pstmt.executeUpdate();
 
-            conn = DriverManager.getConnection(
-                    "jdbc:mysql://avnadmin:AVNS_RE3O2bhYZ_1_6ER7YK7@mysql-14737a33-nglthu-4e05.k.aivencloud.com:17237/defaultdb?ssl-mode=REQUIRED",
-                    "sqluser", "password");
-
-            /*
-             * conn =
-             * DriverManager.getConnection("jdbc:mysql://"+user+":"+password+"@"+host+":"+
-             * port+"/"+databaseName+"?ssl-mode=REQUIRED", user, password);
-             */
-            Statement sta = conn.createStatement();
-
-            // random userID
-            Random rand = new Random();
-            int id = rand.nextInt(1000);
-            //
-            String userIdVal = "u" + id;
-            String ur = u.getUserName();
-            String ad = u.getAddress();
-
-            String reset = "INSERT INTO user(userId, username, address) VALUES(?, ?, ?)";
-            try (PreparedStatement pst = conn.prepareStatement(reset)) {
-                pst.setString(1, userIdVal);
-                pst.setString(2, ur);
-                pst.setString(3, ad);
-                pst.executeUpdate();
-            }
-            System.out.println("Display data from database: ");
-
-            sta.close();
-            conn.close();
-        } catch (Exception e) {
-            System.out.println("Error in database connecion");
-            System.out.println(e);
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi chèn dữ liệu người dùng vào Aiven: " + e.getMessage(), e);
         }
     }
-
 }
