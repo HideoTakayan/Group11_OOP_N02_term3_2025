@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="greeting :: head('Quản lý phòng học')"></head>
+  <head th:replace="greeting :: head('Quản lý lịch học')"></head>
   <body>
     <div th:replace="~{greeting :: layout}">
       <div th:fragment="content">
         <div class="container mt-4">
           <h2 class="mb-4 text-primary">
-            <i class="bi bi-building"></i> Quản lý phòng học
+            <i class="bi bi-calendar-week"></i> Quản lý lịch học
           </h2>
 
           <div
@@ -16,54 +16,57 @@
           ></div>
 
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4>Danh sách phòng học</h4>
+            <h4>Danh sách lịch học theo môn học</h4>
             <a th:href="@{/addenvironment}" class="btn btn-success">
-              <i class="bi bi-plus-circle"></i> Thêm phòng học
+              <i class="bi bi-plus-circle"></i> Thêm lịch học
             </a>
           </div>
 
-          <table class="table table-bordered table-striped align-middle">
-            <thead class="table-dark">
-              <tr>
-                <th>ID</th>
-                <th>Số phòng</th>
-                <th>Tòa</th>
-                <th>Môn học</th>
-                <th>ID Giảng viên</th>
-                <th>Số SV</th>
-                <th>Ngày học</th>
-                <th>Giờ học</th>
-                <th>Hành động</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="env : ${environments}">
-                <td th:text="${env.envId}"></td>
-                <td th:text="${env.roomNumber}"></td>
-                <td th:text="${env.building}"></td>
-                <td th:text="${env.subject}"></td>
-                <td th:text="${env.lectureId}"></td>
-                <td th:text="${env.studentCount}"></td>
-                <td th:text="${env.dayOfWeek}"></td>
-                <td th:text="${env.time}"></td>
-                <td>
-                  <a
-                    th:href="@{/environmentlist/edit(envId=${env.envId})}"
-                    class="btn btn-sm btn-warning me-1"
-                  >
-                    <i class="bi bi-pencil-square"></i> Sửa
-                  </a>
-                  <a
-                    th:href="@{/deleteenvironment(envId=${env.envId})}"
-                    class="btn btn-sm btn-danger"
-                    onclick="return confirm('Bạn có chắc chắn muốn xóa phòng học này?')"
-                  >
-                    <i class="bi bi-trash"></i> Xóa
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <!-- Duyệt từng nhóm môn học -->
+          <div th:each="entry : ${groupedEnvironments}">
+            <h5 class="mt-4 text-success" th:text="${entry.key}">Tên môn</h5>
+            <table class="table table-bordered table-striped align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <!-- Ẩn ID và Mã lớp -->
+                  <th style="display: none;">ID</th>
+                  <th style="display: none;">Mã lớp</th>
+                  <th>Tên lớp</th>
+                  <th>Giảng viên</th>
+                  <th>Phòng học</th>
+                  <th>Thứ</th>
+                  <th>Giờ học</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="env : ${entry.value}">
+                  <td th:text="${env.enviromentId}" style="display: none;"></td>
+                  <td th:text="${env.classId}" style="display: none;"></td>
+                  <td th:text="${env.className}"></td>
+                  <td th:text="${env.lecturerName}"></td>
+                  <td th:text="${env.location}"></td>
+                  <td th:text="${env.dayOfWeek}"></td>
+                  <td th:text="${env.time}"></td>
+                  <td>
+                    <a
+                      th:href="@{/environmentlist/edit(enviromentId=${env.enviromentId})}"
+                      class="btn btn-sm btn-warning me-1"
+                    >
+                      <i class="bi bi-pencil-square"></i> Sửa
+                    </a>
+                    <a
+                      th:href="@{/deleteenvironment(enviromentId=${env.enviromentId})}"
+                      class="btn btn-sm btn-danger"
+                      onclick="return confirm('Bạn có chắc chắn muốn xóa lịch học này?')"
+                    >
+                      <i class="bi bi-trash"></i> Xóa
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="StudentUser/student-layout :: head('Lịch học đã đăng ký')">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 40px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #343a40;
+    }
+
+    h4 {
+      margin-top: 30px;
+      color: #0d6efd;
+    }
+
+    .table {
+      margin-top: 10px;
+    }
+
+    .table th {
+      background-color: #e9ecef;
+    }
+
+    .table td, .table th {
+      vertical-align: middle;
+    }
+
+    .no-data {
+      font-style: italic;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="StudentUser/student-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container">
+      <h2>Lịch học đã đăng ký</h2>
+
+      <div th:if="${#lists.isEmpty(scheduleMap)}">
+        <p class="no-data">Chưa có lịch học nào được đăng ký.</p>
+      </div>
+
+      <div th:each="entry : ${scheduleMap}">
+        <h4 th:text="${entry.key}">Tên môn học</h4>
+
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Ngày</th>
+            <th>Giờ</th>
+            <th>Phòng học</th>
+            <th>Giảng viên</th>
+            <th>Mã lớp học phần</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="schedule : ${entry.value}">
+            <td th:text="${schedule.dayOfWeek}">Thứ 2</td>
+            <td th:text="${schedule.time}">07:00 - 09:00</td>
+            <td th:text="${schedule.location}">P.101</td>
+            <td th:text="${schedule.lecturerName}">Nguyễn Văn A</td>
+            <td th:text="${schedule.classId}">CL01</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

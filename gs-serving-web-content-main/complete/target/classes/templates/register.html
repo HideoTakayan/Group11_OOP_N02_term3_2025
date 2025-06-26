@@ -66,6 +66,13 @@
       a:hover {
         text-decoration: underline;
       }
+
+      .error-message {
+        color: red;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -73,37 +80,9 @@
       <div class="logo-text">QLDH Beta</div>
       <h4 class="text-center text-success mb-4">Đăng ký tài khoản</h4>
 
-      <div
-        th:if="${error}"
-        class="alert alert-danger"
-        th:text="${error}"
-      ></div>
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-      <form th:action="@{/register}" method="post">
-        <div class="mb-3">
-          <label for="userName" class="form-label">Họ tên:</label>
-          <input
-            type="text"
-            class="form-control"
-            name="userName"
-            id="userName"
-            required
-            placeholder="Nguyễn Văn A"
-          />
-        </div>
-
-        <div class="mb-3">
-          <label for="address" class="form-label">Địa chỉ:</label>
-          <input
-            type="text"
-            class="form-control"
-            name="address"
-            id="address"
-            required
-            placeholder="123 Đường ABC, Quận 1"
-          />
-        </div>
-
+      <form th:action="@{/register}" method="post" id="registerForm" onsubmit="return validatePasswords()">
         <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
           <input
@@ -113,6 +92,7 @@
             id="email"
             required
             placeholder="email@example.com"
+            autofocus
           />
         </div>
 
@@ -125,12 +105,57 @@
             id="password"
             required
             placeholder="********"
+            oninput="clearPasswordError()"
           />
+        </div>
+
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Xác nhận mật khẩu:</label>
+          <input
+            type="password"
+            class="form-control"
+            name="confirmPassword"
+            id="confirmPassword"
+            required
+            placeholder="Nhập lại mật khẩu"
+            oninput="clearPasswordError()"
+          />
+          <div id="errorPassword" class="error-message">Mật khẩu xác nhận không khớp!</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="role" class="form-label">Vai trò:</label>
+          <select class="form-select" name="role" id="role" required>
+            <option value="" disabled selected>Chọn vai trò</option>
+            <option value="student">Sinh viên</option>
+            <option value="lecturer">Giảng viên</option>
+          </select>
         </div>
 
         <a href="/login">Đã có tài khoản? Đăng nhập</a>
         <button type="submit" class="btn btn-success w-100 mt-3">Đăng ký</button>
       </form>
     </div>
+
+    <script>
+      function validatePasswords() {
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('confirmPassword').value;
+        const errorDiv = document.getElementById('errorPassword');
+
+        if (password !== confirm) {
+          errorDiv.style.display = 'block';
+          return false; // ngăn form submit
+        } else {
+          errorDiv.style.display = 'none';
+          return true; // cho phép submit
+        }
+      }
+
+      function clearPasswordError() {
+        const errorDiv = document.getElementById('errorPassword');
+        errorDiv.style.display = 'none';
+      }
+    </script>
   </body>
 </html>

@@ -39,11 +39,11 @@
 
             <div class="mb-3">
               <label class="form-label">Giảng viên:</label>
-              <select class="form-select" name="lectureId" required autocomplete="off">
+              <select class="form-select" name="lecturerId" required autocomplete="off">
                 <option value="">-- Chọn giảng viên --</option>
                 <option
-                  th:each="l : ${lectures}"
-                  th:value="${l.lectureId}"
+                  th:each="l : ${lecturers}"
+                  th:value="${l.lecturerId}"
                   th:text="${l.name}">
                 </option>
               </select>

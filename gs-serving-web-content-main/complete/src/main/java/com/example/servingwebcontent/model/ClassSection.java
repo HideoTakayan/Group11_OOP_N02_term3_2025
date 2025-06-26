@@ -4,31 +4,21 @@ public class ClassSection {
     private String classId;
     private String className;
     private String subjectId;
-    private String lectureId;
     private String subjectName;
-    private String lectureName;
+    private String lecturerId;
+    private String lecturerName;
 
-    public String getSubjectName() {
-        return subjectName;
+    public ClassSection() {
     }
 
-    public ClassSection(String classId, String className, String subjectId, String lectureId) {
+    public ClassSection(String classId, String className, String subjectId, String subjectName,
+                        String lecturerId, String lecturerName) {
         this.classId = classId;
         this.className = className;
         this.subjectId = subjectId;
-        this.lectureId = lectureId;
-    }
-
-    public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
-    }
-
-    public String getLectureName() {
-        return lectureName;
-    }
-
-    public void setLectureName(String lectureName) {
-        this.lectureName = lectureName;
+        this.lecturerId = lecturerId;
+        this.lecturerName = lecturerName;
     }
 
     public String getClassId() {
@@ -55,11 +45,27 @@ public class ClassSection {
         this.subjectId = subjectId;
     }
 
-    public String getLectureId() {
-        return lectureId;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setLectureId(String lectureId) {
-        this.lectureId = lectureId;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getLecturerId() {
+        return lecturerId;
+    }
+
+    public void setLecturerId(String lecturerId) {
+        this.lecturerId = lecturerId;
+    }
+
+    public String getLecturerName() {
+        return lecturerName;
+    }
+
+    public void setLecturerName(String lecturerName) {
+        this.lecturerName = lecturerName;
     }
 }

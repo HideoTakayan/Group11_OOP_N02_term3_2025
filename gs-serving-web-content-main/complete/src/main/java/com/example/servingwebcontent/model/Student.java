@@ -1,19 +1,21 @@
 package com.example.servingwebcontent.model;
 
+import java.sql.Date;
+
 public class Student extends Person {
     private String studentId;
-    private String major;
     private String classId;
+    private String className;
 
     public Student() {
+        super();
     }
 
-    public Student(String studentId, String personId, String name, String address, String email, String major,
-            String classId) {
-        super(personId, name, address, email);
+    public Student(String studentId, String personId, String name, String address, String email, Date dateOfBirth, String gender, String classId, String className) {
+        super(personId, name, address, email, dateOfBirth, gender);
         this.studentId = studentId;
-        this.major = major;
         this.classId = classId;
+        this.className = className;
     }
 
     // Getters and Setters
@@ -25,14 +27,6 @@ public class Student extends Person {
         this.studentId = studentId;
     }
 
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
-
     public String getClassId() {
         return classId;
     }
@@ -40,5 +34,12 @@ public class Student extends Person {
     public void setClassId(String classId) {
         this.classId = classId;
     }
-    
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.controller;
+package com.example.servingwebcontent.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,20 +31,21 @@ public class SubjectController {
     }
 
     @GetMapping("/subjectlist/add")
-    public String showAddSubjectForm() {
+    public String showAddSubjectForm(Model model) {
+        model.addAttribute("subject", new Subject());
         return "addsubject";
     }
 
     @PostMapping("/addsubject")
     public String addSubject(@RequestParam String subjectName,
-            @RequestParam int credits,
-            Model model) {
+                             @RequestParam int credits,
+                             @RequestParam String lecturerId,
+                             Model model) {
         try {
-            // Sinh ID dạng subXYZ (XYZ là số ngẫu nhiên từ 000–999)
-            int randomNum = (int) (Math.random() * 1000); // từ 0 đến 999
+            int randomNum = (int) (Math.random() * 1000);
             String subjectId = String.format("sub%03d", randomNum);
 
-            Subject subject = new Subject(subjectId, subjectName, credits);
+            Subject subject = new Subject(subjectId, subjectName, credits, lecturerId);
             sa.insertSubject(subject);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi thêm môn học: " + e.getMessage());
@@ -66,14 +67,16 @@ public class SubjectController {
 
     @PostMapping("/updatesubject")
     public String updateSubject(@RequestParam String subjectId,
-            @RequestParam String subjectName,
-            @RequestParam int credits,
-            Model model) {
+                                @RequestParam String subjectName,
+                                @RequestParam int credits,
+                                @RequestParam String lecturerId,
+                                Model model) {
         try {
             Subject s = sa.getSubjectById(subjectId);
             if (s != null) {
                 s.setSubjectName(subjectName);
                 s.setCredits(credits);
+                s.setLecturerId(lecturerId);
                 sa.updateSubject(s);
             }
         } catch (Exception e) {

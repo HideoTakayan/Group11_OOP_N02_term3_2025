@@ -6,6 +6,9 @@
       <div th:fragment="content">
         <div class="container mt-4">
 
+          <!-- Hiển thị lỗi nếu có -->
+          <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
           <h2 class="text-warning mb-4">
             <i class="bi bi-pencil-square"></i> Chỉnh sửa lớp học
           </h2>

@@ -4,30 +4,32 @@ import java.sql.Date;
 import java.sql.Time;
 
 public class ExamSchedule {
-    private String subject; // Tên môn thi
-    private Date examDate; // Ngày thi
-    private Time examTime; // Giờ thi
-    private String room; // Phòng thi
-    private String building; // Tòa nhà
+    private String subjectName;     // Tên môn thi
+    private Date examDate;          // Ngày thi
+    private Time startTime;         // Giờ bắt đầu thi
+    private int durationMinutes;    // Thời lượng thi (phút)
+    private String examFormat;      // Hình thức thi
+    private String location;        // Địa điểm thi
 
     public ExamSchedule() {
     }
 
-    public ExamSchedule(String subject, Date examDate, Time examTime, String room, String building) {
-        this.subject = subject;
+    public ExamSchedule(String subjectName, Date examDate, Time startTime, int durationMinutes, String examFormat, String location) {
+        this.subjectName = subjectName;
         this.examDate = examDate;
-        this.examTime = examTime;
-        this.room = room;
-        this.building = building;
+        this.startTime = startTime;
+        this.durationMinutes = durationMinutes;
+        this.examFormat = examFormat;
+        this.location = location;
     }
 
     // Getters and Setters
-    public String getSubject() {
-        return subject;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public Date getExamDate() {
@@ -38,27 +40,35 @@ public class ExamSchedule {
         this.examDate = examDate;
     }
 
-    public Time getExamTime() {
-        return examTime;
+    public Time getStartTime() {
+        return startTime;
     }
 
-    public void setExamTime(Time examTime) {
-        this.examTime = examTime;
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
     }
 
-    public String getRoom() {
-        return room;
+    public int getDurationMinutes() {
+        return durationMinutes;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
     }
 
-    public String getBuilding() {
-        return building;
+    public String getExamFormat() {
+        return examFormat;
     }
 
-    public void setBuilding(String building) {
-        this.building = building;
+    public void setExamFormat(String examFormat) {
+        this.examFormat = examFormat;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

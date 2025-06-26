@@ -13,17 +13,19 @@
           <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
           <form th:action="@{/addexamschedule}" method="post">
+            <!-- Môn học -->
             <div class="mb-3">
               <label class="form-label">Môn học:</label>
               <input
                 type="text"
-                name="subject"
+                name="subjectName"
                 class="form-control"
                 placeholder="Nhập tên môn học"
                 required
               />
             </div>
 
+            <!-- Ngày thi -->
             <div class="mb-3">
               <label class="form-label">Ngày thi:</label>
               <input
@@ -34,6 +36,7 @@
               />
             </div>
 
+            <!-- Giờ thi -->
             <div class="mb-3">
               <label class="form-label">Giờ thi:</label>
               <input
@@ -44,28 +47,43 @@
               />
             </div>
 
+            <!-- Thời lượng -->
             <div class="mb-3">
-              <label class="form-label">Phòng:</label>
+              <label class="form-label">Thời lượng (phút):</label>
               <input
-                type="text"
-                name="room"
+                type="number"
+                name="durationMinutes"
                 class="form-control"
-                placeholder="Nhập số phòng"
+                placeholder="VD: 90"
                 required
               />
             </div>
 
+            <!-- Hình thức thi -->
             <div class="mb-3">
-              <label class="form-label">Tòa:</label>
+              <label class="form-label">Hình thức thi:</label>
               <input
                 type="text"
-                name="building"
+                name="examFormat"
                 class="form-control"
-                placeholder="Nhập tên tòa"
+                placeholder="Viết, trắc nghiệm, vấn đáp..."
                 required
               />
             </div>
 
+            <!-- Địa điểm -->
+            <div class="mb-3">
+              <label class="form-label">Địa điểm thi:</label>
+              <input
+                type="text"
+                name="location"
+                class="form-control"
+                placeholder="Nhập địa điểm thi"
+                required
+              />
+            </div>
+
+            <!-- Nút thao tác -->
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-check-circle"></i> Thêm lịch thi
             </button>

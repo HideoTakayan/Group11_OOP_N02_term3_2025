@@ -1,86 +1,76 @@
 package com.example.servingwebcontent.model;
 
 public class Environment {
-    private String envId;
-    private String roomNumber;
-    private String building;
-    private String subject;
-    private String lectureId;
-    private String lectureName;
-    private int studentCount;
-    private String dayOfWeek;
+    private String enviromentId;
+    private String classId;
+    private String className;
+    private String subjectName;
+    private String lecturerName;
+    private String location;
+    private String dayOfWeek; // VD: "Thứ 2 - 2025-07-01"
     private String time;
 
     public Environment() {
     }
 
-    // Getters and Setters
-    public String getEnvId() {
-        return envId;
-    }
-
-    public Environment(String envId, String roomNumber, String building, String subject, String lectureId,
-            int studentCount, String dayOfWeek, String time) {
-        this.envId = envId;
-        this.roomNumber = roomNumber;
-        this.building = building;
-        this.subject = subject;
-        this.lectureId = lectureId;
-        this.studentCount = studentCount;
+    public Environment(String enviromentId, String classId, String className, String subjectName,
+                       String lecturerName, String location, String dayOfWeek, String time) {
+        this.enviromentId = enviromentId;
+        this.classId = classId;
+        this.className = className;
+        this.subjectName = subjectName;
+        this.lecturerName = lecturerName;
+        this.location = location;
         this.dayOfWeek = dayOfWeek;
         this.time = time;
     }
 
-    public void setEnvId(String envId) {
-        this.envId = envId;
+    public String getEnviromentId() {
+        return enviromentId;
     }
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public void setEnviromentId(String enviromentId) {
+        this.enviromentId = enviromentId;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public String getClassId() {
+        return classId;
     }
 
-    public String getBuilding() {
-        return building;
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
-    public void setBuilding(String building) {
-        this.building = building;
+    public String getClassName() {
+        return className;
     }
 
-    public String getSubject() {
-        return subject;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public String getLectureId() {
-        return lectureId;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
-    public void setLectureId(String lectureId) {
-        this.lectureId = lectureId;
+    public String getLecturerName() {
+        return lecturerName;
     }
 
-    public int getStudentCount() {
-        return studentCount;
+    public void setLecturerName(String lecturerName) {
+        this.lecturerName = lecturerName;
     }
 
-    public void setStudentCount(int studentCount) {
-        this.studentCount = studentCount;
+    public String getLocation() {
+        return location;
     }
 
-    public String getLectureName() {
-        return lectureName;
-    }
-
-    public void setLectureName(String lectureName) {
-        this.lectureName = lectureName;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getDayOfWeek() {
@@ -98,5 +88,4 @@ public class Environment {
     public void setTime(String time) {
         this.time = time;
     }
-
 }

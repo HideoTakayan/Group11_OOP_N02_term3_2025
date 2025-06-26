@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.controller;
+package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.model.User;
 import com.example.servingwebcontent.database.userAiven;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Controller
 public class UserController {
 
-    private final userAiven ua = new userAiven();  // ✅ Tái sử dụng DAO
+    private final userAiven ua = new userAiven();
 
     @GetMapping("/userlist")
     public String userList(Model model, HttpSession session) {
@@ -20,7 +20,7 @@ public class UserController {
             return "redirect:/login";
         }
 
-        ArrayList<User> users = ua.getAllUsers(); // ✅ dùng tên hàm mới
+        ArrayList<User> users = ua.getAllUsers();
         model.addAttribute("users", users);
         return "userlist";
     }
@@ -32,10 +32,9 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(
-            @RequestParam String userName,
-            @RequestParam String address,
             @RequestParam String email,
             @RequestParam String password,
+            @RequestParam String role,
             Model model) {
 
         if (ua.findByEmail(email) != null) {
@@ -44,13 +43,7 @@ public class UserController {
         }
 
         try {
-            User user = new User();
-            user.setUserName(userName);
-            user.setAddress(address);
-            user.setEmail(email);
-            user.setPassword(password);
-            user.setRole("user");
-
+            User user = new User(email, password, role);
             ua.insertUser(user);
             return "redirect:/login";
         } catch (Exception e) {
@@ -60,36 +53,28 @@ public class UserController {
     }
 
     @GetMapping("/edituser")
-    public String editUser(@RequestParam int id, Model model) {
-        User u = ua.getUserById(String.valueOf(id));  // ✅ ép kiểu lại vì DAO dùng String
+    public String editUser(@RequestParam String id, Model model) {  // sửa int -> String
+        User u = ua.getUserById(id);
         model.addAttribute("user", u);
         return "edituser";
     }
 
     @PostMapping("/updateuser")
     public String updateUser(
-            @RequestParam int id,
-            @RequestParam String userName,
-            @RequestParam String address,
+            @RequestParam String id,   // sửa int -> String
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam String role) {
 
-        User u = new User();
+        User u = new User(email, password, role);
         u.setUserID(id);
-        u.setUserName(userName);
-        u.setAddress(address);
-        u.setEmail(email);
-        u.setPassword(password);
-        u.setRole(role);
-
         ua.updateUser(u);
         return "redirect:/userlist";
     }
 
     @GetMapping("/deleteuser")
-    public String deleteUser(@RequestParam int id) {
-        ua.deleteUserById(String.valueOf(id));  // ✅ DAO dùng String
+    public String deleteUser(@RequestParam String id) {  // sửa int -> String
+        ua.deleteUserById(id);
         return "redirect:/userlist";
     }
 }

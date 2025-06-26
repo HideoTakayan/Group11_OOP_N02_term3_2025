@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="greeting :: head('Thêm phòng học')"></head>
+  <head th:replace="greeting :: head('Thêm lịch học')"></head>
   <body>
     <div th:replace="greeting :: layout">
       <div th:fragment="content">
         <div class="container mt-5">
           <h2 class="text-primary mb-4">
-            <i class="bi bi-building-add"></i> Thêm phòng học mới
+            <i class="bi bi-calendar-plus"></i> Thêm lịch học mới
           </h2>
 
           <!-- Thông báo lỗi nếu có -->
@@ -14,82 +14,91 @@
 
           <form th:action="@{/addenvironment}" method="post">
             <div class="mb-3">
-              <label class="form-label">Số phòng</label>
+              <label class="form-label">Mã lớp</label>
               <input
                 type="text"
-                name="roomNumber"
+                name="classId"
                 class="form-control"
                 required
                 autocomplete="off"
+                placeholder="Ví dụ: cs001"
               />
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Tòa</label>
+              <label class="form-label">Tên lớp</label>
               <input
                 type="text"
-                name="building"
+                name="className"
                 class="form-control"
                 required
                 autocomplete="off"
+                placeholder="Ví dụ: Java 01"
               />
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Môn học</label>
+              <label class="form-label">Tên môn học</label>
               <input
                 type="text"
-                name="subject"
+                name="subjectName"
                 class="form-control"
                 required
                 autocomplete="off"
+                placeholder="Ví dụ: Lập trình Java"
               />
             </div>
 
             <div class="mb-3">
-              <label class="form-label">ID Giảng viên</label>
+              <label class="form-label">Tên giảng viên</label>
               <input
                 type="text"
-                name="lectureId"
+                name="lecturerName"
                 class="form-control"
                 required
                 autocomplete="off"
+                placeholder="Ví dụ: Nguyễn Văn A"
               />
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Số sinh viên</label>
+              <label class="form-label">Phòng học</label>
               <input
-                type="number"
-                name="studentCount"
+                type="text"
+                name="location"
                 class="form-control"
                 required
                 autocomplete="off"
+                placeholder="Ví dụ: A6-203"
               />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Ngày học</label>
               <input
-                type="date"
+                type="text"
                 name="dayOfWeek"
                 class="form-control"
                 required
+                autocomplete="off"
+                placeholder="Ví dụ: Thứ 2 - 2025-07-01"
               />
             </div>
 
             <div class="mb-3">
               <label class="form-label">Giờ học</label>
               <input
-                type="time"
+                type="text"
                 name="time"
                 class="form-control"
                 required
+                autocomplete="off"
+                placeholder="Ví dụ: 08:00 - 10:00"
               />
             </div>
 
             <button type="submit" class="btn btn-success">
-              <i class="bi bi-save"></i> Lưu phòng học
+              <i class="bi bi-save"></i> Lưu lịch học
             </button>
             <a th:href="@{/environmentlist}" class="btn btn-secondary ms-2">
               <i class="bi bi-arrow-left"></i> Quay lại

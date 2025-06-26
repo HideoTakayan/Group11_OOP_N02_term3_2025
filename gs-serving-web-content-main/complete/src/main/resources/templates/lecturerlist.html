@@ -11,7 +11,7 @@
         <!-- Tiêu đề và nút thêm -->
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h2 class="text-primary">Danh sách giảng viên</h2>
-          <a href="/lecturelist/addlecture" class="btn btn-outline-primary">
+          <a th:href="@{/lecturerlist/add}" class="btn btn-outline-primary">
             <i class="bi bi-plus-circle"></i> Thêm giảng viên
           </a>
         </div>
@@ -29,18 +29,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr th:each="lecture : ${lectures}">
-              <td th:text="${lecture.lectureId}"></td>
-              <td th:text="${lecture.name}"></td>
-              <td th:text="${lecture.address}"></td>
-              <td th:text="${lecture.email}"></td>
-              <td th:text="${lecture.department}"></td>
+            <tr th:each="lecturer : ${lecturers}">
+              <td th:text="${lecturer.lecturerId}">L001</td>
+              <td th:text="${lecturer.name}">Nguyễn Văn A</td>
+              <td th:text="${lecturer.address}">Hà Nội</td>
+              <td th:text="${lecturer.email}">a@example.com</td>
+              <td th:text="${lecturer.department}">CNTT</td>
               <td>
-                <a th:href="@{/lecturelist/edit(lectureId=${lecture.lectureId})}"
+                <a th:href="@{/lecturerlist/edit(lecturerId=${lecturer.lecturerId})}"
                    class="btn btn-success btn-sm me-2">
                   <i class="bi bi-pencil-square"></i> Sửa
                 </a>
-                <a th:href="@{/deletelecture(lectureId=${lecture.lectureId})}"
+                <a th:href="@{/deletelecturer(lecturerId=${lecturer.lecturerId})}"
                    onclick="return confirm('Bạn có chắc muốn xóa?')"
                    class="btn btn-danger btn-sm">
                   <i class="bi bi-trash3-fill"></i> Xóa

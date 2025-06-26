@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.controller;
+package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.database.examScheduleAiven;
 import com.example.servingwebcontent.model.ExamSchedule;
@@ -14,15 +14,16 @@ import java.util.ArrayList;
 @Controller
 public class ExamScheduleController {
 
+    private final examScheduleAiven examScheduleDao = new examScheduleAiven();
+
     @GetMapping("/examschedulelist")
-    public String examScheduleList(@RequestParam(required = false) String editSubject, Model model) {
+    public String examScheduleList(@RequestParam(required = false) String editSubjectName, Model model) {
         try {
-            examScheduleAiven esa = new examScheduleAiven();
-            ArrayList<ExamSchedule> examSchedules = esa.getExamSchedules();
+            ArrayList<ExamSchedule> examSchedules = examScheduleDao.getExamSchedules();
             model.addAttribute("examSchedules", examSchedules);
 
-            if (editSubject != null) {
-                ExamSchedule editExam = esa.getExamBySubject(editSubject);
+            if (editSubjectName != null) {
+                ExamSchedule editExam = examScheduleDao.getExamBySubject(editSubjectName);
                 if (editExam != null) {
                     model.addAttribute("editExam", editExam);
                 }
@@ -40,19 +41,20 @@ public class ExamScheduleController {
 
     @PostMapping("/addexamschedule")
     public String addExamSchedule(
-            @RequestParam String subject,
+            @RequestParam String subjectName,
             @RequestParam String date,
             @RequestParam String time,
-            @RequestParam String room,
-            @RequestParam String building,
+            @RequestParam int durationMinutes,
+            @RequestParam String examFormat,
+            @RequestParam String location,
             Model model) {
         try {
-            LocalTime localTime = LocalTime.parse(time); // Phải là định dạng "HH:mm"
+            LocalTime localTime = LocalTime.parse(time);
             Time sqlTime = Time.valueOf(localTime.withSecond(0));
-            Date sqlDate = Date.valueOf(date); // Phải là "yyyy-MM-dd"
+            Date sqlDate = Date.valueOf(date);
 
-            ExamSchedule exam = new ExamSchedule(subject, sqlDate, sqlTime, room, building);
-            new examScheduleAiven().insertExamSchedule(exam);
+            ExamSchedule exam = new ExamSchedule(subjectName, sqlDate, sqlTime, durationMinutes, examFormat, location);
+            examScheduleDao.insertExamSchedule(exam);
             return "redirect:/examschedulelist";
 
         } catch (IllegalArgumentException e) {
@@ -64,13 +66,13 @@ public class ExamScheduleController {
     }
 
     @GetMapping("/examschedulelist/edit")
-    public String editExamSchedule(@RequestParam String subject, Model model) {
+    public String editExamSchedule(@RequestParam String subjectName, Model model) {
         try {
-            ExamSchedule exam = new examScheduleAiven().getExamBySubject(subject);
+            ExamSchedule exam = examScheduleDao.getExamBySubject(subjectName);
             if (exam != null) {
                 model.addAttribute("exam", exam);
             } else {
-                model.addAttribute("error", "Không tìm thấy lịch thi cho môn học: " + subject);
+                model.addAttribute("error", "Không tìm thấy lịch thi cho môn học: " + subjectName);
             }
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi mở form chỉnh sửa lịch thi: " + e.getMessage());
@@ -80,20 +82,21 @@ public class ExamScheduleController {
 
     @PostMapping("/updateexamschedule")
     public String updateExamSchedule(
-            @RequestParam String originalSubject,
-            @RequestParam String subject,
+            @RequestParam String originalSubjectName,
+            @RequestParam String subjectName,
             @RequestParam String date,
             @RequestParam String time,
-            @RequestParam String room,
-            @RequestParam String building,
+            @RequestParam int durationMinutes,
+            @RequestParam String examFormat,
+            @RequestParam String location,
             Model model) {
         try {
             LocalTime localTime = LocalTime.parse(time);
             Time sqlTime = Time.valueOf(localTime.withSecond(0));
             Date sqlDate = Date.valueOf(date);
 
-            ExamSchedule exam = new ExamSchedule(subject, sqlDate, sqlTime, room, building);
-            new examScheduleAiven().updateExamSchedule(originalSubject, exam);
+            ExamSchedule exam = new ExamSchedule(subjectName, sqlDate, sqlTime, durationMinutes, examFormat, location);
+            examScheduleDao.updateExamSchedule(originalSubjectName, exam);
             return "redirect:/examschedulelist";
 
         } catch (Exception e) {
@@ -103,9 +106,9 @@ public class ExamScheduleController {
     }
 
     @GetMapping("/deleteexamschedule")
-    public String deleteExamSchedule(@RequestParam String subject, Model model) {
+    public String deleteExamSchedule(@RequestParam String subjectName, Model model) {
         try {
-            new examScheduleAiven().deleteExamSchedule(subject);
+            examScheduleDao.deleteExamSchedule(subjectName);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi xóa lịch thi: " + e.getMessage());
         }

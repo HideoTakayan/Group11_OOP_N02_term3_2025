@@ -14,66 +14,80 @@
             <i class="bi bi-pencil-square"></i> Chỉnh sửa lịch thi
           </h2>
 
+          <!-- Hiển thị lỗi nếu có -->
+          <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
           <form th:action="@{/updateexamschedule}" method="post">
-            <!-- Hidden field để giữ môn học cũ -->
+            <!-- Hidden: tên môn học gốc -->
             <input
               type="hidden"
-              name="originalSubject"
-              th:value="${exam.subject}"
-            />
+              name="originalSubjectName"
+              th:value="${exam.subjectName}" />
 
+            <!-- Môn học -->
             <div class="mb-3">
               <label class="form-label">Môn học</label>
               <input
                 class="form-control"
-                name="subject"
-                th:value="${exam.subject}"
-                required
-              />
+                name="subjectName"
+                th:value="${exam.subjectName}"
+                required />
             </div>
 
+            <!-- Ngày thi -->
             <div class="mb-3">
               <label class="form-label">Ngày thi</label>
               <input
                 type="date"
                 class="form-control"
                 name="date"
-                th:value="${exam.examDate}"
-                required
-              />
+                th:value="${#dates.format(exam.examDate, 'yyyy-MM-dd')}"
+                required />
             </div>
 
+            <!-- Giờ thi -->
             <div class="mb-3">
               <label class="form-label">Giờ thi</label>
               <input
                 type="time"
                 class="form-control"
                 name="time"
-                th:value="${exam.examTime}"
-                required
-              />
+                th:value="${#dates.format(exam.startTime, 'HH:mm')}"
+                required />
             </div>
 
+            <!-- Thời lượng thi -->
             <div class="mb-3">
-              <label class="form-label">Phòng</label>
+              <label class="form-label">Thời lượng (phút)</label>
+              <input
+                type="number"
+                class="form-control"
+                name="durationMinutes"
+                th:value="${exam.durationMinutes}"
+                required />
+            </div>
+
+            <!-- Hình thức thi -->
+            <div class="mb-3">
+              <label class="form-label">Hình thức thi</label>
               <input
                 class="form-control"
-                name="room"
-                th:value="${exam.room}"
-                required
-              />
+                name="examFormat"
+                th:value="${exam.examFormat}"
+                required />
             </div>
 
+            <!-- Địa điểm -->
             <div class="mb-3">
-              <label class="form-label">Tòa</label>
+              <label class="form-label">Địa điểm</label>
               <input
                 class="form-control"
-                name="building"
-                th:value="${exam.building}"
-                required
-              />
+                name="location"
+                th:value="${exam.location}"
+                required />
             </div>
 
+            <!-- Nút gửi -->
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-check-circle"></i> Cập nhật
             </button>

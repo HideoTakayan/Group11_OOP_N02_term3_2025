@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="greeting :: head('Quản lý lịch thi')"></head>
-  <body>
-    <div th:replace="~{greeting :: layout}">
-      <div th:fragment="content">
-        <div class="container mt-4">
-          <div
-            th:if="${error}"
-            class="alert alert-danger"
-            th:text="${error}"
-          ></div>
+<head th:replace="greeting :: head('Quản lý lịch thi')"></head>
+<body>
+  <div th:replace="~{greeting :: layout}">
+    <div th:fragment="content">
+      <div class="container mt-4">
 
-          <h1 class="mb-4 text-primary">
-            <i class="bi bi-calendar-check"></i> Quản lý lịch thi
-          </h1>
+        <!-- Hiển thị lỗi nếu có -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4>Danh sách lịch thi</h4>
-            <a href="/examschedulelist/addschedule" class="btn btn-primary">
-              <i class="bi bi-plus-circle"></i> Thêm lịch thi
-            </a>
-          </div>
+        <h1 class="mb-4 text-primary">
+          <i class="bi bi-calendar-check"></i> Quản lý lịch thi
+        </h1>
 
-          <table class="table table-bordered table-striped align-middle">
-            <thead class="table-dark">
-              <tr>
-                <th><i class="bi bi-book"></i> Môn học</th>
-                <th><i class="bi bi-calendar-event"></i> Ngày thi</th>
-                <th><i class="bi bi-clock"></i> Giờ thi</th>
-                <th><i class="bi bi-door-open"></i> Phòng</th>
-                <th><i class="bi bi-building"></i> Tòa</th>
-                <th><i class="bi bi-tools"></i> Hành động</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="exam : ${examSchedules}">
-                <td th:text="${exam.subject}"></td>
-                <td th:text="${exam.examDate}"></td>
-                <td th:text="${exam.examTime}"></td>
-                <td th:text="${exam.room}"></td>
-                <td th:text="${exam.building}"></td>
-                <td>
-                  <a
-                    th:href="@{/examschedulelist/edit(subject=${exam.subject})}"
-                    class="btn btn-success btn-sm me-2"
-                  >
-                    <i class="bi bi-pencil-square"></i> Sửa
-                  </a>
-                  <a
-                    th:href="@{/deleteexamschedule(subject=${exam.subject})}"
-                    class="btn btn-danger btn-sm"
-                    onclick="return confirm('Bạn có chắc muốn xóa?')"
-                  >
-                    <i class="bi bi-trash"></i> Xóa
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Header: tiêu đề + nút thêm lịch thi -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4>Danh sách lịch thi</h4>
+          <a th:href="@{/examschedulelist/addschedule}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Thêm lịch thi
+          </a>
         </div>
+
+        <!-- Bảng danh sách lịch thi -->
+        <table class="table table-bordered table-striped align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th><i class="bi bi-book"></i> Môn học</th>
+              <th><i class="bi bi-calendar-event"></i> Ngày thi</th>
+              <th><i class="bi bi-clock"></i> Giờ bắt đầu</th>
+              <th><i class="bi bi-hourglass-split"></i> Thời lượng (phút)</th>
+              <th><i class="bi bi-card-checklist"></i> Hình thức thi</th>
+              <th><i class="bi bi-geo-alt"></i> Địa điểm</th>
+              <th><i class="bi bi-tools"></i> Hành động</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="exam : ${examSchedules}">
+              <td th:text="${exam.subjectName}">Môn học</td>
+              <td th:text="${#dates.format(exam.examDate, 'dd/MM/yyyy')}">Ngày</td>
+              <td th:text="${#dates.format(exam.startTime, 'HH:mm')}">Giờ</td>
+              <td th:text="${exam.durationMinutes}">Thời lượng</td>
+              <td th:text="${exam.examFormat}">Hình thức</td>
+              <td th:text="${exam.location}">Địa điểm</td>
+              <td>
+                <a th:href="@{/examschedulelist/edit(subjectName=${exam.subjectName})}"
+                   class="btn btn-success btn-sm me-2">
+                  <i class="bi bi-pencil-square"></i> Sửa
+                </a>
+                <a th:href="@{/deleteexamschedule(subjectName=${exam.subjectName})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Bạn có chắc muốn xóa lịch thi này không?')">
+                  <i class="bi bi-trash"></i> Xóa
+                </a>
+              </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(examSchedules)}">
+              <td colspan="7" class="text-center text-muted">Chưa có lịch thi nào.</td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </html>

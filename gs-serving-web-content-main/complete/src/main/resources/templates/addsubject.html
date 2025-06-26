@@ -4,6 +4,13 @@
   <body>
     <div th:replace="greeting :: layout">
       <div th:fragment="content" class="bg-light container mt-4">
+        <!-- Hiển thị lỗi nếu có -->
+        <div
+          th:if="${error}"
+          class="alert alert-danger"
+          th:text="${error}"
+        ></div>
+
         <h2 class="text-primary mb-4">
           <i class="bi bi-journal-plus"></i> Thêm môn học mới
         </h2>
@@ -19,7 +26,21 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Số tín chỉ</label>
-            <input type="number" class="form-control" name="credits" required />
+            <input
+              type="number"
+              class="form-control"
+              name="credits"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Mã giảng viên</label>
+            <input
+              type="text"
+              class="form-control"
+              name="lecturerId"
+              required
+            />
           </div>
           <button type="submit" class="btn btn-primary">
             <i class="bi bi-plus-circle"></i> Thêm môn học

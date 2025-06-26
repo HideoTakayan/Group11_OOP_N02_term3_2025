@@ -26,6 +26,7 @@
               <th>ID</th>
               <th>Tên môn</th>
               <th>Số tín chỉ</th>
+              <th>Giảng viên</th>
               <th>Hành động</th>
             </tr>
           </thead>
@@ -34,6 +35,7 @@
               <td th:text="${subject.subjectId}"></td>
               <td th:text="${subject.subjectName}"></td>
               <td th:text="${subject.credits}"></td>
+              <td th:text="${subject.lecturerId}"></td>
               <td>
                 <a
                   th:href="@{/subjectlist/edit(subjectId=${subject.subjectId})}"

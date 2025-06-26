@@ -1,13 +1,13 @@
 package com.example.servingwebcontent.model;
 
-public class ClassRoom {
+public class StudentClass {
     private String classId;
     private String className;
 
-    public ClassRoom() {
+    public StudentClass() {
     }
 
-    public ClassRoom(String classId, String className) {
+    public StudentClass(String classId, String className) {
         this.classId = classId;
         this.className = className;
     }

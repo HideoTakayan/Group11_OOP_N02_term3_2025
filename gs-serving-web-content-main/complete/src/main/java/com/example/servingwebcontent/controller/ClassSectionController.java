@@ -1,11 +1,11 @@
-package com.example.servingwebcontent.controller;
+package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.database.classSectionAiven;
 import com.example.servingwebcontent.database.subjectAiven;
 import com.example.servingwebcontent.model.ClassSection;
-import com.example.servingwebcontent.model.Lecture;
+import com.example.servingwebcontent.model.Lecturer;
 import com.example.servingwebcontent.model.Subject;
-import com.example.servingwebcontent.database.lectureAiven;
+import com.example.servingwebcontent.database.lecturerAiven;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +19,7 @@ public class ClassSectionController {
     public String listClassSections(@RequestParam(required = false) String editId, Model model) {
         try {
             classSectionAiven csa = new classSectionAiven();
-            subjectAiven sa = new subjectAiven();
-            lectureAiven la = new lectureAiven();
-
             List<ClassSection> list = csa.getAllClassSections();
-            for (ClassSection cs : list) {
-                Subject subject = sa.getSubjectById(cs.getSubjectId());
-                Lecture lecture = la.getLectureById(cs.getLectureId());
-
-                if (subject != null) cs.setSubjectName(subject.getSubjectName());
-                if (lecture != null) cs.setLectureName(lecture.getName());
-            }
-
             model.addAttribute("classSections", list);
 
             if (editId != null) {
@@ -49,9 +38,9 @@ public class ClassSectionController {
     public String showAddForm(Model model) {
         try {
             subjectAiven sa = new subjectAiven();
-            lectureAiven la = new lectureAiven();
+            lecturerAiven la = new lecturerAiven();
             model.addAttribute("subjects", sa.getSubjectList());
-            model.addAttribute("lectures", la.getLectureList());
+            model.addAttribute("lecturers", la.getLecturerList());
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi hiển thị form thêm lớp học: " + e.getMessage());
         }
@@ -63,11 +52,17 @@ public class ClassSectionController {
     public String addClassSection(
             @RequestParam String className,
             @RequestParam String subjectId,
-            @RequestParam String lectureId,
+            @RequestParam String lecturerId,
             Model model) {
         try {
-            String classId = "cls" + new Random().nextInt(1000);  // Có thể đổi sang UUID.randomUUID().toString() nếu cần
-            ClassSection cs = new ClassSection(classId, className, subjectId, lectureId);
+            String classId = "cls" + new Random().nextInt(1000);
+
+            ClassSection cs = new ClassSection();
+            cs.setClassId(classId);
+            cs.setClassName(className);
+            cs.setSubjectId(subjectId);
+            cs.setLecturerId(lecturerId);
+
             classSectionAiven csa = new classSectionAiven();
             csa.insertClassSection(cs);
         } catch (Exception e) {
@@ -85,7 +80,7 @@ public class ClassSectionController {
             ClassSection cs = csa.getClassSectionById(classId);
             model.addAttribute("classSection", cs);
             model.addAttribute("subjects", new subjectAiven().getSubjectList());
-            model.addAttribute("lectures", new lectureAiven().getLectureList());
+            model.addAttribute("lecturers", new lecturerAiven().getLecturerList());
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi hiển thị form chỉnh sửa lớp học: " + e.getMessage());
         }
@@ -98,10 +93,15 @@ public class ClassSectionController {
             @RequestParam String classId,
             @RequestParam String className,
             @RequestParam String subjectId,
-            @RequestParam String lectureId,
+            @RequestParam String lecturerId,
             Model model) {
         try {
-            ClassSection cs = new ClassSection(classId, className, subjectId, lectureId);
+            ClassSection cs = new ClassSection();
+            cs.setClassId(classId);
+            cs.setClassName(className);
+            cs.setSubjectId(subjectId);
+            cs.setLecturerId(lecturerId);
+
             classSectionAiven csa = new classSectionAiven();
             csa.updateClassSection(cs);
         } catch (Exception e) {

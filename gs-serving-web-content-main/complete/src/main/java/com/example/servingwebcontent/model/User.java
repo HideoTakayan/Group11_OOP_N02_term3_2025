@@ -1,27 +1,34 @@
 package com.example.servingwebcontent.model;
 
 public class User {
-    private int userID; // Kiểu int để phù hợp với DB
-    private String userName;
+    private String userID; // Thay int thành String vì user_id trong DB là varchar(50)
     private String email;
     private String password;
-    private String address;
     private String role;
 
-    public int getUserID() {
+    public User() {
+    }
+
+    public User(String userID, String email, String password, String role) {
+        this.userID = userID;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(String email, String password, String role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    // Getters và Setters
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getEmail() {
@@ -40,14 +47,6 @@ public class User {
         this.password = password;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getRole() {
         return role;
     }
@@ -56,8 +55,11 @@ public class User {
         this.role = role;
     }
 
-    public void printUserName(User u) {
-        System.out.println("Submitted Name:");
-        System.out.println(u.userName);
+    // Debug method
+    public void printInfo() {
+        System.out.println("User Info:");
+        System.out.println("UserID: " + userID);
+        System.out.println("Email: " + email);
+        System.out.println("Role: " + role);
     }
 }

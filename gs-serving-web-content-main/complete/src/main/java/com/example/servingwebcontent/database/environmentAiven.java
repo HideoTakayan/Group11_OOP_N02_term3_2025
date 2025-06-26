@@ -8,18 +8,24 @@ import java.util.ArrayList;
 public class environmentAiven {
 
     public void insertEnvironment(Environment env) {
-        String sql = "INSERT INTO environment (env_id, room_number, building, subject, lecture_id, student_count, day_of_week, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = aivenConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = """
+            INSERT INTO enviroment (enviroment_id, class_id, class_name, subject_name,
+                                    lecturer_name, location, day_of_week, time)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """;
 
-            pstmt.setString(1, env.getEnvId());
-            pstmt.setString(2, env.getRoomNumber());
-            pstmt.setString(3, env.getBuilding());
-            pstmt.setString(4, env.getSubject());
-            pstmt.setString(5, env.getLectureId());
-            pstmt.setInt(6, env.getStudentCount());
+        try (Connection conn = aivenConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, env.getEnviromentId());
+            pstmt.setString(2, env.getClassId());
+            pstmt.setString(3, env.getClassName());
+            pstmt.setString(4, env.getSubjectName());
+            pstmt.setString(5, env.getLecturerName());
+            pstmt.setString(6, env.getLocation());
             pstmt.setString(7, env.getDayOfWeek());
             pstmt.setString(8, env.getTime());
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi khi thêm môi trường lớp học: " + e.getMessage(), e);
@@ -28,22 +34,23 @@ public class environmentAiven {
 
     public ArrayList<Environment> getEnvironments() {
         ArrayList<Environment> list = new ArrayList<>();
-        String sql = "SELECT * FROM environment";
+        String sql = "SELECT * FROM enviroment";
 
         try (Connection conn = aivenConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery()) {
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 Environment env = new Environment(
-                        rs.getString("env_id"),
-                        rs.getString("room_number"),
-                        rs.getString("building"),
-                        rs.getString("subject"),
-                        rs.getString("lecture_id"),
-                        rs.getInt("student_count"),
+                        rs.getString("enviroment_id"),
+                        rs.getString("class_id"),
+                        rs.getString("class_name"),
+                        rs.getString("subject_name"),
+                        rs.getString("lecturer_name"),
+                        rs.getString("location"),
                         rs.getString("day_of_week"),
-                        rs.getString("time"));
+                        rs.getString("time")
+                );
                 list.add(env);
             }
         } catch (SQLException e) {
@@ -53,22 +60,24 @@ public class environmentAiven {
     }
 
     public Environment getEnvironmentById(String envId) {
-        String sql = "SELECT * FROM environment WHERE env_id = ?";
+        String sql = "SELECT * FROM enviroment WHERE enviroment_id = ?";
+
         try (Connection conn = aivenConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, envId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return new Environment(
-                            rs.getString("env_id"),
-                            rs.getString("room_number"),
-                            rs.getString("building"),
-                            rs.getString("subject"),
-                            rs.getString("lecture_id"),
-                            rs.getInt("student_count"),
+                            rs.getString("enviroment_id"),
+                            rs.getString("class_id"),
+                            rs.getString("class_name"),
+                            rs.getString("subject_name"),
+                            rs.getString("lecturer_name"),
+                            rs.getString("location"),
                             rs.getString("day_of_week"),
-                            rs.getString("time"));
+                            rs.getString("time")
+                    );
                 }
             }
         } catch (SQLException e) {
@@ -78,18 +87,25 @@ public class environmentAiven {
     }
 
     public void updateEnvironment(Environment env) {
-        String sql = "UPDATE environment SET room_number = ?, building = ?, subject = ?, lecture_id = ?, student_count = ?, day_of_week = ?, time = ? WHERE env_id = ?";
-        try (Connection conn = aivenConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = """
+            UPDATE enviroment
+            SET class_id = ?, class_name = ?, subject_name = ?, lecturer_name = ?,
+                location = ?, day_of_week = ?, time = ?
+            WHERE enviroment_id = ?
+        """;
 
-            pstmt.setString(1, env.getRoomNumber());
-            pstmt.setString(2, env.getBuilding());
-            pstmt.setString(3, env.getSubject());
-            pstmt.setString(4, env.getLectureId());
-            pstmt.setInt(5, env.getStudentCount());
+        try (Connection conn = aivenConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, env.getClassId());
+            pstmt.setString(2, env.getClassName());
+            pstmt.setString(3, env.getSubjectName());
+            pstmt.setString(4, env.getLecturerName());
+            pstmt.setString(5, env.getLocation());
             pstmt.setString(6, env.getDayOfWeek());
             pstmt.setString(7, env.getTime());
-            pstmt.setString(8, env.getEnvId());
+            pstmt.setString(8, env.getEnviromentId());
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi khi cập nhật môi trường lớp học: " + e.getMessage(), e);
@@ -97,9 +113,10 @@ public class environmentAiven {
     }
 
     public void deleteEnvironment(String envId) {
-        String sql = "DELETE FROM environment WHERE env_id = ?";
+        String sql = "DELETE FROM enviroment WHERE enviroment_id = ?";
+
         try (Connection conn = aivenConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, envId);
             pstmt.executeUpdate();

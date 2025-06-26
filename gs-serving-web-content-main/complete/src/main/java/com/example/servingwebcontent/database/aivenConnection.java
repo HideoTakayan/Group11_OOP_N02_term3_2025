@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class aivenConnection {
-    private static final String URL = "jdbc:mysql://avnadmin:AVNS_Mx60RHDvrs0lTAODxLE@mysql-3c1fff18-phantruc314-a2a8.e.aivencloud.com:16005/defaultdb?ssl-mode=REQUIRED";
+    private static final String URL = "jdbc:mysql://avnadmin:AVNS_sKstp-4yWqfIfSJ_IBb@mysql-1e39359f-anhlasinhvien2k51-56ec.b.aivencloud.com:25535/defaultdb?ssl-mode=REQUIRED";
     private static final String USER = "avnadmin";
-    private static final String PASSWORD = "AVNS_Mx60RHDvrs0lTAODxLE";
+    private static final String PASSWORD = "AVNS_sKstp-4yWqfIfSJ_IBb";
 
     public static Connection getConnection() {
         try {

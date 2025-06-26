@@ -5,32 +5,35 @@
     <div th:replace="greeting :: layout">
       <div th:fragment="content">
         <div class="container mt-4">
+          <!-- Hiển thị lỗi nếu có -->
           <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
           <h1 class="mb-4 text-primary">
             <i class="bi bi-collection"></i> Quản lý lớp học
           </h1>
 
+          <!-- Thanh tiêu đề và nút thêm lớp -->
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0">Danh sách lớp học</h2>
-            <a href="/classlist/add" class="btn btn-primary">
+            <a th:href="@{/classlist/add}" class="btn btn-primary">
               <i class="bi bi-plus-circle"></i> Thêm lớp
             </a>
           </div>
 
-          <table class="table table-bordered table-striped">
+          <!-- Bảng danh sách lớp -->
+          <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">
               <tr>
                 <th><i class="bi bi-building"></i> Mã lớp</th>
                 <th><i class="bi bi-book"></i> Tên lớp</th>
-                <th><i class="bi bi-tools"></i> Hành động</th>
+                <th class="text-center"><i class="bi bi-tools"></i> Hành động</th>
               </tr>
             </thead>
             <tbody>
               <tr th:each="classroom : ${classes}">
                 <td th:text="${classroom.classId}"></td>
                 <td th:text="${classroom.className}"></td>
-                <td>
+                <td class="text-center">
                   <a th:href="@{/classlist/edit(classId=${classroom.classId})}" class="btn btn-success btn-sm me-2">
                     <i class="bi bi-pencil-square"></i> Sửa
                   </a>
@@ -40,6 +43,10 @@
                     <i class="bi bi-trash3-fill"></i> Xóa
                   </a>
                 </td>
+              </tr>
+              <!-- Nếu không có lớp nào -->
+              <tr th:if="${#lists.isEmpty(classes)}">
+                <td colspan="3" class="text-center text-muted">Chưa có lớp học nào được thêm.</td>
               </tr>
             </tbody>
           </table>

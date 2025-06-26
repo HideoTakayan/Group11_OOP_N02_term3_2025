@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="StudentUser/student-layout :: head('Lớp đã đăng ký')">
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 40px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #343a40;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    .table thead {
+      background-color: #dee2e6;
+    }
+
+    .table th, .table td {
+      vertical-align: middle !important;
+    }
+
+    .alert-danger {
+      border-radius: 8px;
+    }
+
+    form {
+      display: inline;
+    }
+
+    .btn-unregister {
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="StudentUser/student-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container">
+
+      <h2>Danh sách lớp đã đăng ký</h2>
+
+      <div th:if="${#lists.isEmpty(registeredClasses)}">
+        <p>Chưa có lớp học phần nào được đăng ký.</p>
+      </div>
+
+      <div th:if="${!#lists.isEmpty(registeredClasses)}">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Tên học phần</th>
+            <th>Mã lớp học phần</th>
+            <th>Mã đăng ký</th>
+            <th>Hành động</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="rc, stat : ${registeredClasses}">
+            <td th:text="${stat.count}">1</td>
+            <td th:text="${rc.className}">Cơ sở dữ liệu</td>
+            <td th:text="${rc.classSectionId}">CL01</td>
+            <td th:text="${rc.registerId}">abc-123</td>
+            <td>
+              <form th:action="@{/student/unregister-class}" method="post"
+                    onsubmit="return confirm('Bạn có chắc chắn muốn huỷ đăng ký lớp học phần này không?');">
+                <input type="hidden" name="registerId" th:value="${rc.registerId}"/>
+                <button type="submit" class="btn btn-danger btn-sm btn-unregister">Huỷ đăng ký</button>
+              </form>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

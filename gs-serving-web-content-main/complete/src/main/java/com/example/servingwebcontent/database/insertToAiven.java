@@ -1,26 +1,22 @@
 package com.example.servingwebcontent.database;
 
 import com.example.servingwebcontent.model.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Random;
 
 public class insertToAiven {
 
     public void insertToAivenDb(User u) {
-        String sql = "INSERT INTO user (userId, username, address) VALUES (?, ?, ?)";
-
-        // Sinh userId ngẫu nhiên (nếu cần đảm bảo không trùng, dùng UUID hoặc sequence trong DB)
-        String userId = "u" + new Random().nextInt(1000000);
+        // Chèn vào bảng `users` các cột email, password, role (user_id tự tăng)
+        String sql = "INSERT INTO users (email, password, role) VALUES (?, ?, ?)";
 
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, userId);
-            pstmt.setString(2, u.getUserName());
-            pstmt.setString(3, u.getAddress());
+            pstmt.setString(1, u.getEmail());
+            pstmt.setString(2, u.getPassword());
+            pstmt.setString(3, u.getRole());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

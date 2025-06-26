@@ -1,87 +1,81 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="greeting :: head('Chỉnh sửa sinh viên')"></head>
-  <body>
-    <div th:replace="greeting :: layout">
-      <div th:fragment="content">
-        <div class="container mt-5">
-          <h2 class="text-warning mb-4">
-            <i class="bi bi-pencil-square"></i> Chỉnh sửa thông tin sinh viên
-          </h2>
+<head th:replace="greeting :: head('Chỉnh sửa sinh viên')"></head>
+<body>
+<div th:replace="greeting :: layout">
+  <div th:fragment="content">
+    <div class="container mt-5">
+      <h2 class="text-warning mb-4">
+        <i class="bi bi-pencil-square"></i> Chỉnh sửa thông tin sinh viên
+      </h2>
 
-          <form th:action="@{/updatestudent}" method="post">
-            <input
-              type="hidden"
-              name="studentId"
-              th:value="${student.studentId}"
-            />
+      <!-- Hiển thị lỗi nếu có -->
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-            <div class="mb-3">
-              <label class="form-label">Họ tên</label>
-              <input
-                type="text"
-                class="form-control"
-                name="name"
-                th:value="${student.name}"
-                required
-              />
-            </div>
+      <form th:action="@{/updatestudent}" method="post">
+        <!-- ID ẩn -->
+        <input type="hidden" name="studentId" th:value="${student.studentId}" />
 
-            <div class="mb-3">
-              <label class="form-label">Địa chỉ</label>
-              <input
-                type="text"
-                class="form-control"
-                name="address"
-                th:value="${student.address}"
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                name="email"
-                th:value="${student.email}"
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Chuyên ngành</label>
-              <input
-                type="text"
-                class="form-control"
-                name="major"
-                th:value="${student.major}"
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Lớp</label>
-              <select class="form-select" name="classId" required>
-                <option value="">-- Chọn lớp --</option>
-                <option
-                  th:each="cls : ${classList}"
-                  th:value="${cls.classId}"
-                  th:text="${cls.className}"
-                  th:selected="${cls.classId == student.classId}"
-                ></option>
-              </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary">
-              <i class="bi bi-check-lg"></i> Cập nhật
-            </button>
-            <a href="/studentlist" class="btn btn-secondary ms-2">
-              Quay lại
-            </a>
-          </form>
+        <!-- Họ tên -->
+        <div class="mb-3">
+          <label class="form-label">Họ tên</label>
+          <input type="text" class="form-control" name="name" th:value="${student.name}" required />
         </div>
-      </div>
+
+        <!-- Địa chỉ -->
+        <div class="mb-3">
+          <label class="form-label">Địa chỉ</label>
+          <input type="text" class="form-control" name="address" th:value="${student.address}" required />
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" th:value="${student.email}" required />
+        </div>
+
+        <!-- Ngày sinh -->
+        <div class="mb-3">
+          <label class="form-label">Ngày sinh</label>
+          <!-- Thêm format yyyy-MM-dd nếu cần -->
+          <input type="date" class="form-control" name="dateOfBirth" 
+                 th:value="${#dates.format(student.dateOfBirth, 'yyyy-MM-dd')}" required />
+        </div>
+
+        <!-- Giới tính -->
+        <div class="mb-3">
+          <label class="form-label">Giới tính</label>
+          <select class="form-select" name="gender" required>
+            <option value="">-- Chọn giới tính --</option>
+            <option value="Nam" th:selected="${student.gender == 'Nam'}">Nam</option>
+            <option value="Nữ" th:selected="${student.gender == 'Nữ'}">Nữ</option>
+          </select>
+        </div>
+
+        <!-- Lớp -->
+        <div class="mb-3">
+          <label class="form-label">Lớp</label>
+          <select class="form-select" name="classId" required>
+            <option value="">-- Chọn lớp --</option>
+            <th:block th:each="cls : ${classList}">
+              <option th:value="${cls.classId}"
+                      th:text="${cls.className}"
+                      th:selected="${cls.classId == student.classId}">
+              </option>
+            </th:block>
+          </select>
+        </div>
+
+        <!-- Nút hành động -->
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-check-lg"></i> Cập nhật
+        </button>
+        <a th:href="@{/studentlist}" class="btn btn-secondary ms-2">
+          Quay lại
+        </a>
+      </form>
     </div>
-  </body>
+  </div>
+</div>
+</body>
 </html>

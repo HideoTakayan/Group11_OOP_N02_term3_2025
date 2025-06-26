@@ -45,13 +45,13 @@
             <!-- Giảng viên -->
             <div class="mb-3">
               <label class="form-label">Giảng viên</label>
-              <select class="form-select" name="lectureId" required>
+              <select class="form-select" name="lecturerId" required>
                 <option value="">-- Chọn giảng viên --</option>
                 <option
-                  th:each="l : ${lectures}"
-                  th:value="${l.lectureId}"
+                  th:each="l : ${lecturers}"
+                  th:value="${l.lecturerId}"
                   th:text="${l.name}"
-                  th:selected="${l.lectureId == classSection.lectureId}"
+                  th:selected="${l.lecturerId == classSection.lecturerId}"
                 ></option>
               </select>
             </div>

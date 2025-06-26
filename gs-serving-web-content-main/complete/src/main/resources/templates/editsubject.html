@@ -5,6 +5,13 @@
     <div th:replace="greeting :: layout">
       <div th:fragment="content">
         <div class="container mt-5">
+          <!-- Hiển thị lỗi nếu có -->
+          <div
+            th:if="${error}"
+            class="alert alert-danger"
+            th:text="${error}"
+          ></div>
+
           <h2 class="text-warning mb-4">
             <i class="bi bi-pencil-square"></i> Chỉnh sửa môn học
           </h2>
@@ -34,6 +41,17 @@
                 class="form-control"
                 name="credits"
                 th:value="${subject.credits}"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mã giảng viên</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lecturerId"
+                th:value="${subject.lecturerId}"
                 required
               />
             </div>

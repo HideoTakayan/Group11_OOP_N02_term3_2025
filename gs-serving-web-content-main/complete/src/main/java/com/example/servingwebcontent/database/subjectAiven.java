@@ -8,13 +8,14 @@ import java.util.ArrayList;
 public class subjectAiven {
 
     public void insertSubject(Subject subject) {
-        String sql = "INSERT INTO subject (subject_id, subject_name, credits) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO subject (subject_id, subject_name, credits, lecturer_id) VALUES (?, ?, ?, ?)";
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, subject.getSubjectId());
             pstmt.setString(2, subject.getSubjectName());
             pstmt.setInt(3, subject.getCredits());
+            pstmt.setString(4, subject.getLecturerId());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -24,7 +25,7 @@ public class subjectAiven {
 
     public ArrayList<Subject> getSubjectList() {
         ArrayList<Subject> subjects = new ArrayList<>();
-        String sql = "SELECT subject_id, subject_name, credits FROM subject";
+        String sql = "SELECT subject_id, subject_name, credits, lecturer_id FROM subject";
 
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -34,7 +35,8 @@ public class subjectAiven {
                 subjects.add(new Subject(
                         rs.getString("subject_id"),
                         rs.getString("subject_name"),
-                        rs.getInt("credits")));
+                        rs.getInt("credits"),
+                        rs.getString("lecturer_id")));
             }
 
         } catch (SQLException e) {
@@ -45,7 +47,7 @@ public class subjectAiven {
     }
 
     public Subject getSubjectById(String subjectId) {
-        String sql = "SELECT subject_id, subject_name, credits FROM subject WHERE subject_id = ?";
+        String sql = "SELECT subject_id, subject_name, credits, lecturer_id FROM subject WHERE subject_id = ?";
 
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -56,7 +58,8 @@ public class subjectAiven {
                     return new Subject(
                             rs.getString("subject_id"),
                             rs.getString("subject_name"),
-                            rs.getInt("credits"));
+                            rs.getInt("credits"),
+                            rs.getString("lecturer_id"));
                 }
             }
 
@@ -68,14 +71,15 @@ public class subjectAiven {
     }
 
     public void updateSubject(Subject subject) {
-        String sql = "UPDATE subject SET subject_name = ?, credits = ? WHERE subject_id = ?";
+        String sql = "UPDATE subject SET subject_name = ?, credits = ?, lecturer_id = ? WHERE subject_id = ?";
 
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, subject.getSubjectName());
             pstmt.setInt(2, subject.getCredits());
-            pstmt.setString(3, subject.getSubjectId());
+            pstmt.setString(3, subject.getLecturerId());
+            pstmt.setString(4, subject.getSubjectId());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

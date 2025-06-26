@@ -1,21 +1,26 @@
 package com.example.servingwebcontent.database;
 
 import com.example.servingwebcontent.model.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 
 public class userAiven {
 
     public void insertUser(User user) {
-        String sql = "INSERT INTO users (user_name, address, email, password, role) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (user_id, email, password, role) VALUES (?, ?, ?, ?)";
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, user.getUserName());
-            stmt.setString(2, user.getAddress());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPassword());
-            stmt.setString(5, user.getRole());
+            // Nếu userID null thì tạo mới UUID
+            if (user.getUserID() == null || user.getUserID().isEmpty()) {
+                user.setUserID(java.util.UUID.randomUUID().toString());
+            }
+
+            stmt.setString(1, user.getUserID());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getPassword());
+            stmt.setString(4, user.getRole());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -59,7 +64,7 @@ public class userAiven {
     }
 
     public void deleteUserById(String id) {
-        String sql = "DELETE FROM users WHERE id = ?";
+        String sql = "DELETE FROM users WHERE user_id = ?";
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -72,16 +77,14 @@ public class userAiven {
     }
 
     public void updateUser(User user) {
-        String sql = "UPDATE users SET user_name = ?, address = ?, email = ?, password = ?, role = ? WHERE id = ?";
+        String sql = "UPDATE users SET email = ?, password = ?, role = ? WHERE user_id = ?";
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, user.getUserName());
-            stmt.setString(2, user.getAddress());
-            stmt.setString(3, user.getEmail());
-            stmt.setString(4, user.getPassword());
-            stmt.setString(5, user.getRole());
-            stmt.setInt(6, user.getUserID());
+            stmt.setString(1, user.getEmail());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getRole());
+            stmt.setString(4, user.getUserID());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -106,7 +109,7 @@ public class userAiven {
     }
 
     public User getUserById(String id) {
-        String sql = "SELECT * FROM users WHERE id = ?";
+        String sql = "SELECT * FROM users WHERE user_id = ?";
         try (Connection conn = aivenConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -121,12 +124,9 @@ public class userAiven {
         return null;
     }
 
-    // 👇 Tách riêng phần map User để tái sử dụng
     private User mapUser(ResultSet rs) throws SQLException {
         User u = new User();
-        u.setUserID(rs.getInt("id"));
-        u.setUserName(rs.getString("user_name"));
-        u.setAddress(rs.getString("address"));
+        u.setUserID(rs.getString("user_id"));
         u.setEmail(rs.getString("email"));
         u.setPassword(rs.getString("password"));
         u.setRole(rs.getString("role"));

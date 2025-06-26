@@ -9,8 +9,9 @@
             <i class="bi bi-pencil-square"></i> Chỉnh sửa thông tin giảng viên
           </h2>
 
-          <form th:action="@{/updatelecture}" method="post">
-            <input type="hidden" name="lectureId" th:value="${lecture.lectureId}" />
+          <form th:action="@{/updatelecturer}" method="post">
+            <input type="hidden" name="lecturerId" th:value="${lecturer.lecturerId}" />
+            <input type="hidden" name="personId" th:value="${lecturer.personId}" />
 
             <!-- Tên -->
             <div class="mb-3">
@@ -19,7 +20,7 @@
                 type="text"
                 class="form-control"
                 name="name"
-                th:value="${lecture.name}"
+                th:value="${lecturer.name}"
                 required
               />
             </div>
@@ -31,7 +32,7 @@
                 type="text"
                 class="form-control"
                 name="address"
-                th:value="${lecture.address}"
+                th:value="${lecturer.address}"
                 required
               />
             </div>
@@ -43,9 +44,31 @@
                 type="email"
                 class="form-control"
                 name="email"
-                th:value="${lecture.email}"
+                th:value="${lecturer.email}"
                 required
               />
+            </div>
+
+            <!-- Ngày sinh -->
+            <div class="mb-3">
+              <label class="form-label">Ngày sinh</label>
+              <input
+                type="date"
+                class="form-control"
+                name="dateOfBirth"
+                th:value="${lecturer.dateOfBirth}"
+                required
+              />
+            </div>
+
+            <!-- Giới tính -->
+            <div class="mb-3">
+              <label class="form-label">Giới tính</label>
+              <select class="form-select" name="gender" required>
+                <option value="">-- Chọn giới tính --</option>
+                <option value="Nam" th:selected="${lecturer.gender == 'Nam'}">Nam</option>
+                <option value="Nữ" th:selected="${lecturer.gender == 'Nữ'}">Nữ</option>
+              </select>
             </div>
 
             <!-- Môn dạy -->
@@ -57,7 +80,7 @@
                   th:each="sub : ${subjects}"
                   th:value="${sub.subjectName}"
                   th:text="${sub.subjectName}"
-                  th:selected="${sub.subjectName == lecture.department}"
+                  th:selected="${sub.subjectName == lecturer.department}"
                 ></option>
               </select>
             </div>
@@ -66,7 +89,7 @@
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-check-lg"></i> Cập nhật
             </button>
-            <a href="/lecturelist" class="btn btn-secondary ms-2">
+            <a href="/lecturerlist" class="btn btn-secondary ms-2">
               <i class="bi bi-arrow-left"></i> Quay lại
             </a>
           </form>

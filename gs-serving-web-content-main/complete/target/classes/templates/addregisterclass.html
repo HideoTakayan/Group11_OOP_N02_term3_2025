@@ -8,11 +8,7 @@
           <i class="bi bi-journal-plus"></i> Đăng ký lớp học mới
         </h2>
 
-        <div
-          th:if="${error}"
-          class="alert alert-danger"
-          th:text="${error}"
-        ></div>
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
         <form th:action="@{/addregisterclass}" method="post">
           <div class="mb-3">
@@ -22,8 +18,8 @@
               <option
                 th:each="s : ${studentList}"
                 th:value="${s.studentId}"
-                th:text="${s.name}"
-              ></option>
+                th:text="${s.name}">
+              </option>
             </select>
           </div>
 
@@ -34,8 +30,8 @@
               <option
                 th:each="c : ${classSectionList}"
                 th:value="${c.classId}"
-                th:text="${c.className}"
-              ></option>
+                th:text="${c.className}">
+              </option>
             </select>
           </div>
 

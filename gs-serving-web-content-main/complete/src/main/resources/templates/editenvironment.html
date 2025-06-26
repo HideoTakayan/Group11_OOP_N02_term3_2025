@@ -1,74 +1,73 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="greeting :: head('Chỉnh sửa phòng học')"></head>
+  <head th:replace="greeting :: head('Chỉnh sửa lịch học')"></head>
   <body>
     <div th:replace="greeting :: layout">
       <div th:fragment="content">
         <div class="container mt-4">
           <h2 class="text-warning mb-4">
-            <i class="bi bi-pencil-square"></i> Chỉnh sửa thông tin phòng học
+            <i class="bi bi-pencil-square"></i> Chỉnh sửa lịch học
           </h2>
 
           <form th:action="@{/updateenvironment}" method="post">
-            <input type="hidden" name="envId" th:value="${env.envId}" />
+            <input type="hidden" name="enviromentId" th:value="${env.enviromentId}" />
 
-            <!-- Số phòng -->
+            <!-- Mã lớp -->
             <div class="mb-3">
-              <label class="form-label">Số phòng</label>
+              <label class="form-label">Mã lớp</label>
               <input
                 type="text"
                 class="form-control"
-                name="roomNumber"
-                th:value="${env.roomNumber}"
+                name="classId"
+                th:value="${env.classId}"
                 required
               />
             </div>
 
-            <!-- Tòa -->
+            <!-- Tên lớp -->
             <div class="mb-3">
-              <label class="form-label">Tòa</label>
+              <label class="form-label">Tên lớp</label>
               <input
                 type="text"
                 class="form-control"
-                name="building"
-                th:value="${env.building}"
+                name="className"
+                th:value="${env.className}"
                 required
               />
             </div>
 
-            <!-- Môn học -->
+            <!-- Tên môn học -->
             <div class="mb-3">
-              <label class="form-label">Môn học</label>
+              <label class="form-label">Tên môn học</label>
               <input
                 type="text"
                 class="form-control"
-                name="subject"
-                th:value="${env.subject}"
+                name="subjectName"
+                th:value="${env.subjectName}"
                 required
               />
             </div>
 
-            <!-- Giảng viên -->
+            <!-- Tên giảng viên -->
             <div class="mb-3">
-              <label class="form-label">ID Giảng viên</label>
+              <label class="form-label">Tên giảng viên</label>
               <input
                 type="text"
                 class="form-control"
-                name="lectureId"
-                th:value="${env.lectureId}"
+                name="lecturerName"
+                th:value="${env.lecturerName}"
                 required
               />
             </div>
 
-            <!-- Số sinh viên -->
+            <!-- Phòng học -->
             <div class="mb-3">
-              <label class="form-label">Số sinh viên</label>
+              <label class="form-label">Phòng học</label>
               <input
-                type="number"
+                type="text"
                 class="form-control"
-                name="studentCount"
-                min="0"
-                th:value="${env.studentCount}"
+                name="location"
+                th:value="${env.location}"
                 required
               />
             </div>
@@ -77,7 +76,7 @@
             <div class="mb-3">
               <label class="form-label">Ngày học</label>
               <input
-                type="date"
+                type="text"
                 class="form-control"
                 name="dayOfWeek"
                 th:value="${env.dayOfWeek}"
@@ -89,7 +88,7 @@
             <div class="mb-3">
               <label class="form-label">Giờ học</label>
               <input
-                type="time"
+                type="text"
                 class="form-control"
                 name="time"
                 th:value="${env.time}"

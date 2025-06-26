@@ -10,21 +10,13 @@
           </h2>
 
           <!-- Hiển thị lỗi nếu có -->
-          <div
-            th:if="${error}"
-            class="alert alert-danger"
-            th:text="${error}"
-          ></div>
+          <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
           <form th:action="@{/updateregisterclass}" method="post">
-            <!-- ID ẩn -->
-            <input
-              type="hidden"
-              name="registerId"
-              th:value="${registerClass.registerId}"
-            />
+            <!-- ID đăng ký lớp (ẩn) -->
+            <input type="hidden" name="registerId" th:value="${registerClass.registerId}" />
 
-            <!-- Sinh viên -->
+            <!-- Chọn sinh viên -->
             <div class="mb-3">
               <label class="form-label">Sinh viên</label>
               <select class="form-select" name="studentId" required>
@@ -33,12 +25,12 @@
                   th:each="s : ${studentList}"
                   th:value="${s.studentId}"
                   th:text="${s.name}"
-                  th:selected="${s.studentId == registerClass.studentId}"
-                ></option>
+                  th:selected="${s.studentId == registerClass.studentId}">
+                </option>
               </select>
             </div>
 
-            <!-- Lớp học phần -->
+            <!-- Chọn lớp học phần -->
             <div class="mb-3">
               <label class="form-label">Lớp học phần</label>
               <select class="form-select" name="classSectionId" required>
@@ -46,9 +38,9 @@
                 <option
                   th:each="c : ${classSectionList}"
                   th:value="${c.classId}"
-                  th:text="${c.className}"
-                  th:selected="${c.classId == registerClass.classSectionId}"
-                ></option>
+                  th:text="${c.classId + ' - ' + c.className}"
+                  th:selected="${c.classId == registerClass.classSectionId}">
+                </option>
               </select>
             </div>
 

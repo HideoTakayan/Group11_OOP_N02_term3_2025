@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="StudentUser/student-layout :: head('Đăng ký học phần')">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 40px;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #343a40;
+    }
+
+    .table {
+      margin-top: 10px;
+    }
+
+    .table th {
+      background-color: #e9ecef;
+    }
+
+    .btn-register {
+      font-weight: 500;
+    }
+
+    .no-data {
+      font-style: italic;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="StudentUser/student-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container">
+      <h2>Đăng ký học phần</h2>
+
+      <div th:if="${#lists.isEmpty(availableClasses)}">
+        <p class="no-data">Bạn đã đăng ký tất cả các học phần có sẵn.</p>
+      </div>
+
+      <div th:if="${!#lists.isEmpty(availableClasses)}">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Mã lớp</th>
+              <th>Tên lớp</th>
+              <th>Môn học</th>
+              <th>Giảng viên</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="cls : ${availableClasses}">
+              <td th:text="${cls.classId}">CL01</td>
+              <td th:text="${cls.className}">Công nghệ Web</td>
+              <td th:text="${cls.subjectName}">Web Programming</td>
+              <td th:text="${cls.lecturerName}">Nguyễn Văn A</td>
+              <td>
+                <form th:action="@{/student/register-class}" method="post">
+                  <input type="hidden" name="classId" th:value="${cls.classId}" />
+                  <button type="submit" class="btn btn-sm btn-success btn-register">
+                    <i class="bi bi-plus-circle"></i> Đăng ký
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
