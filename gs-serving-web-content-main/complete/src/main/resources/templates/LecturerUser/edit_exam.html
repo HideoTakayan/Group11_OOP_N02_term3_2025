@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="LecturerUser/lecturer-layout :: head('Sửa lịch thi')"></head>
+<body>
+<div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container mt-4">
+      <h2 class="text-warning mb-4">Sửa lịch thi</h2>
+      <form th:action="@{/lecturer/exam/update}" th:object="${exam}" method="post">
+        <input type="hidden" th:name="originalSubjectName" th:value="${originalSubjectName}" />
+
+        <div class="mb-3">
+          <label class="form-label">Tên môn học</label>
+          <input type="text" th:field="*{subjectName}" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Ngày thi</label>
+          <input type="date" th:field="*{examDate}" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Giờ bắt đầu</label>
+          <input type="time" th:field="*{startTime}" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Thời lượng (phút)</label>
+          <input type="number" th:field="*{durationMinutes}" class="form-control" min="1" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Hình thức thi</label>
+          <input type="text" th:field="*{examFormat}" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Địa điểm thi</label>
+          <input type="text" th:field="*{location}" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <a href="/lecturer/exams" class="btn btn-secondary">Hủy</a>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

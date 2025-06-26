@@ -21,10 +21,10 @@ public class LoginController {
 
     @PostMapping("/login")
     public String handleLogin(@RequestParam String email,
-                              @RequestParam String password,
-                              @RequestParam String role,
-                              HttpSession session,
-                              Model model) {
+            @RequestParam String password,
+            @RequestParam String role,
+            HttpSession session,
+            Model model) {
         try {
             // ✅ Trường hợp đăng nhập admin đặc biệt
             if ("admin@gmail.com".equals(email) && "admin123".equals(password) && "admin".equals(role)) {
@@ -32,45 +32,42 @@ public class LoginController {
                 session.setAttribute("role", "admin");
                 session.setAttribute("userEmail", email);
                 session.setAttribute("userName", "Admin");
-                return "redirect:/studentlist"; // ✅ chuyển về giao diện admin
+                return "redirect:/studentlist";
             }
 
             // ✅ Kiểm tra thông tin người dùng trong bảng users
             userAiven ua = new userAiven();
             User user = ua.findByEmailAndPassword(email, password);
 
-            // ❌ Nếu không tìm thấy hoặc role không đúng
             if (user == null || !user.getRole().equals(role)) {
                 model.addAttribute("error", "Sai email, mật khẩu hoặc vai trò.");
                 return "login";
             }
 
-            // ✅ Lưu thông tin vào session
+            // ✅ Lưu thông tin cơ bản
             session.setAttribute("isLoggedIn", true);
-            session.setAttribute("role", user.getRole());
-            session.setAttribute("userEmail", user.getEmail());
+            session.setAttribute("role", role);
+            session.setAttribute("userEmail", email);
 
-            // ✅ Nếu là student
+            // ✅ Phân loại theo vai trò
             if ("student".equals(role)) {
                 studentAiven sa = new studentAiven();
                 Student s = sa.getStudentByEmail(email);
                 if (s != null) {
                     session.setAttribute("userName", s.getName());
-                    return "redirect:/student/home"; // chuyển về giao diện sinh viên
+                    return "redirect:/student/home";
                 }
             }
 
-            // ✅ Nếu là lecturer
             if ("lecturer".equals(role)) {
                 lecturerAiven la = new lecturerAiven();
                 Lecturer l = la.getLecturerByEmail(email);
                 if (l != null) {
                     session.setAttribute("userName", l.getName());
-                    return "redirect:/home-lecturer"; // chuyển về giao diện giảng viên
+                    return "redirect:/lecturer/home";
                 }
             }
 
-            // ❌ Nếu không khớp dữ liệu vai trò
             model.addAttribute("error", "Không tìm thấy thông tin người dùng.");
             return "login";
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="LecturerUser/lecturer-layout :: head('Học phần phụ trách')">
+  <style>
+    h2 {
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #052659;
+    }
+
+    table {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    th {
+      background-color: #f0f2f5;
+    }
+
+    td, th {
+      padding: 12px 16px;
+      vertical-align: middle;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container">
+      <div class="top-bar">
+        <h2>Học phần phụ trách</h2>
+        <a href="/lecturer/class-section/add-form" class="btn btn-primary btn-sm">
+          <i class="bi bi-plus-circle me-1"></i> Thêm học phần
+        </a>
+      </div>
+
+      <!-- Danh sách học phần -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Mã lớp</th>
+            <th>Tên lớp</th>
+            <th>Môn học</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="cs : ${classSections}">
+            <td th:text="${cs.classId}">C01</td>
+            <td th:text="${cs.className}">Lớp Java</td>
+            <td th:text="${cs.subjectName}">Lập trình Java</td>
+            <td>
+              <a th:href="@{'/lecturer/class-section/remove'(classId=${cs.classId})}" 
+                 class="btn btn-danger btn-sm"
+                 onclick="return confirm('Xác nhận gỡ học phần này khỏi danh sách?')">
+                Gỡ
+              </a>
+            </td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(classSections)}">
+            <td colspan="4" class="text-center text-muted">Bạn chưa phụ trách học phần nào.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

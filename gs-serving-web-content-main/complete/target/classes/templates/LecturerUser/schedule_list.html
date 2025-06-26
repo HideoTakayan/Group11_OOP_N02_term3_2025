@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="LecturerUser/lecturer-layout :: head('Lịch học')">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+      font-weight: 600;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-success {
+      font-weight: 500;
+      padding: 8px 16px;
+    }
+
+    .table {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .table th {
+      background-color: #343a40;
+      color: white;
+      font-weight: 500;
+    }
+
+    .table td {
+      vertical-align: middle;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 0.875rem;
+    }
+
+    .me-1 {
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container mt-4">
+      <h2 class="mb-3 text-primary">Lịch dạy của giảng viên</h2>
+      <a class="btn btn-success mb-3" href="/lecturer/schedule/add">+ Thêm lịch mới</a>
+
+      <table class="table table-hover table-bordered">
+        <thead class="text-center">
+        <tr>
+          <th>Lớp</th>
+          <th>Môn học</th>
+          <th>Địa điểm</th>
+          <th>Ngày</th>
+          <th>Thời gian</th>
+          <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="s : ${schedules}" class="text-center align-middle">
+          <td th:text="${s.className}">Lớp</td>
+          <td th:text="${s.subjectName}">Môn</td>
+          <td th:text="${s.location}">Địa điểm</td>
+          <td th:text="${s.dayOfWeek}">Ngày</td>
+          <td th:text="${s.time}">Thời gian</td>
+          <td>
+            <a th:href="@{'/lecturer/schedule/edit'(enviromentId=${s.enviromentId})}" class="btn btn-sm btn-warning me-1">Sửa</a>
+            <a th:href="@{'/lecturer/schedule/delete'(enviromentId=${s.enviromentId})}" class="btn btn-sm btn-danger"
+               onclick="return confirm('Bạn có chắc muốn xoá lịch này?')">Xoá</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>  

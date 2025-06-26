@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="LecturerUser/lecturer-layout :: head('Thêm lịch học')"></head>
+<body>
+<div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container mt-4">
+      <h2 class="mb-4 text-success">Thêm lịch học mới</h2>
+      <form th:action="@{/lecturer/schedule/add}" th:object="${schedule}" method="post">
+        
+        <!-- Chọn mã lớp phụ trách -->
+        <div class="mb-3">
+          <label for="classId" class="form-label">Lớp bạn phụ trách</label>
+          <select th:field="*{classId}" class="form-select" required>
+            <option value="" disabled selected>-- Chọn lớp --</option>
+            <option th:each="section : ${managedSections}"
+                    th:value="${section.classId}"
+                    th:text="${section.classId + ' - ' + section.className}"></option>
+          </select>
+        </div>
+
+        <!-- Nhập địa điểm -->
+        <div class="mb-3">
+          <label for="location" class="form-label">Địa điểm</label>
+          <input type="text" th:field="*{location}" class="form-control" required />
+        </div>
+
+        <!-- Nhập ngày -->
+        <div class="mb-3">
+          <label for="dayOfWeek" class="form-label">Ngày (VD: Thứ Hai)</label>
+          <input type="text" th:field="*{dayOfWeek}" class="form-control" required />
+        </div>
+
+        <!-- Nhập thời gian -->
+        <div class="mb-3">
+          <label for="time" class="form-label">Thời gian (VD: 08:00–10:00)</label>
+          <input type="text" th:field="*{time}" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-success">Thêm lịch</button>
+        <a href="/lecturer/schedule" class="btn btn-secondary">Hủy</a>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

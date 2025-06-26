@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="LecturerUser/lecturer-layout :: head('Lịch thi')"></head>
+<style>
+  .exam-table th, .exam-table td {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .exam-table th {
+    background-color: #343a40;
+    color: #fff;
+  }
+
+  .exam-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .table-wrapper {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn + .btn {
+    margin-left: 6px;
+  }
+</style>
+<body>
+<div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-success">Quản lý lịch thi</h2>
+        <a href="/lecturer/exam/add" class="btn btn-primary shadow-sm">
+          <i class="bi bi-plus-circle"></i> Thêm lịch thi
+        </a>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="table table-bordered table-striped exam-table">
+          <thead>
+          <tr>
+            <th>Môn học</th>
+            <th>Ngày thi</th>
+            <th>Giờ thi</th>
+            <th>Thời lượng (phút)</th>
+            <th>Hình thức</th>
+            <th>Địa điểm</th>
+            <th>Thao tác</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="e : ${exams}">
+            <td th:text="${e.subjectName}">Tên môn</td>
+            <td th:text="${e.examDate}">Ngày</td>
+            <td th:text="${#dates.format(e.startTime, 'HH:mm')}">Giờ</td>
+            <td th:text="${e.durationMinutes}">Thời lượng</td>
+            <td th:text="${e.examFormat}">Hình thức</td>
+            <td th:text="${e.location}">Địa điểm</td>
+            <td>
+              <a th:href="@{/lecturer/exam/edit(subjectName=${e.subjectName})}" class="btn btn-sm btn-warning">
+                <i class="bi bi-pencil-square"></i> Sửa
+              </a>
+              <a th:href="@{/lecturer/exam/delete(subjectName=${e.subjectName})}"
+                 class="btn btn-sm btn-danger"
+                 onclick="return confirm('Bạn có chắc chắn muốn xóa lịch thi này?');">
+                <i class="bi bi-trash"></i> Xóa
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="LecturerUser/lecturer-layout :: head('Thông tin giảng viên')">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #343a40;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+      max-width: 700px;
+    }
+
+    .table {
+      margin-bottom: 30px;
+    }
+
+    .table th {
+      width: 180px;
+      background-color: #f1f3f5;
+      color: #495057;
+    }
+
+    .table td {
+      color: #212529;
+    }
+
+    .btn {
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+
+    .btn-warning {
+      background-color: #f0ad4e;
+      border-color: #eea236;
+      color: white;
+    }
+
+    .btn-warning:hover {
+      background-color: #ec971f;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      color: white;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #495057;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select.form-select {
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      width: 100%;
+    }
+
+    .alert-danger {
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="container">
+
+      <!-- Thông báo lỗi nếu có -->
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+      <!-- Xem thông tin -->
+      <div id="viewProfile" th:if="${editing == null or not editing}">
+        <h2>Thông tin giảng viên</h2>
+        <table class="table table-bordered">
+          <tr><th>Họ tên</th><td th:text="${lecturer.name}">Tên</td></tr>
+          <tr><th>Email</th><td th:text="${lecturer.email}">Email</td></tr>
+          <tr><th>Địa chỉ</th><td th:text="${lecturer.address}">Địa chỉ</td></tr>
+          <tr><th>Ngày sinh</th><td th:text="${#dates.format(lecturer.dateOfBirth, 'dd/MM/yyyy')}">Ngày sinh</td></tr>
+          <tr><th>Giới tính</th><td th:text="${lecturer.gender}">Giới tính</td></tr>
+          <tr><th>Khoa</th><td th:text="${lecturer.department}">Công nghệ thông tin</td></tr>
+          <tr><th>Vai trò</th><td>Giảng viên</td></tr>
+        </table>
+        <a th:href="@{/lecturer/profile/edit}" class="btn btn-warning">Sửa thông tin</a>
+      </div>
+
+      <!-- Form chỉnh sửa -->
+      <div id="editProfile" th:if="${editing}">
+        <h2>Chỉnh sửa thông tin</h2>
+        <form th:action="@{/lecturer/profile/edit}" th:object="${lecturer}" method="post">
+          <div class="mb-3">
+            <label class="form-label">Họ tên</label>
+            <input type="text" class="form-control" th:field="*{name}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" th:field="*{email}" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Địa chỉ</label>
+            <input type="text" class="form-control" th:field="*{address}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ngày sinh</label>
+            <input type="date" class="form-control" th:field="*{dateOfBirth}" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Giới tính</label>
+            <select class="form-select" th:field="*{gender}">
+              <option value="Nam">Nam</option>
+              <option value="Nữ">Nữ</option>
+              <option value="Khác">Khác</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Khoa</label>
+            <input type="text" class="form-control" th:field="*{department}" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+          <a th:href="@{/lecturer/profile}" class="btn btn-secondary">Hủy</a>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

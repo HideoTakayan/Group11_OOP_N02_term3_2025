@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="LecturerUser/lecturer-layout :: head('Thêm học phần')">
+  <style>
+    h2 {
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #052659;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #495057;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid #ced4da;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
+  <div th:fragment="content">
+    <div class="form-container">
+      <h2>Thêm học phần phụ trách</h2>
+      <form th:action="@{/lecturer/class-section/add}" method="post">
+        <div class="mb-3">
+          <label class="form-label">Mã lớp học phần</label>
+          <input type="text" class="form-control" name="classId" placeholder="VD: C01, CS2023..." required />
+        </div>
+        <button type="submit" class="btn btn-primary">Xác nhận</button>
+        <a href="/lecturer/class-sections" class="btn btn-secondary">Hủy</a>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
