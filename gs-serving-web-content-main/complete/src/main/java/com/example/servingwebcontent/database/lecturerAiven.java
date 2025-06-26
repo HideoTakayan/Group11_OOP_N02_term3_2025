@@ -4,9 +4,28 @@ import com.example.servingwebcontent.model.Lecturer;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class lecturerAiven {
 
+    // ✅ Thêm giảng viên trống từ person_id (dùng sau khi đăng ký)
+    public void insertLecturerWithPersonId(String personId) {
+        String insertSql = "INSERT INTO lecturer (lecturer_id, person_id, department) VALUES (?, ?, ?)";
+
+        try (Connection conn = aivenConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+
+            pstmt.setString(1, UUID.randomUUID().toString()); // lecturer_id random
+            pstmt.setString(2, personId);                     // person_id có sẵn
+            pstmt.setString(3, "");                           // department rỗng
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tạo giảng viên trống: " + e.getMessage(), e);
+        }
+    }
+
+    // ✅ Hàm cũ insert đầy đủ person + lecturer
     public void insertLecturer(Lecturer lecturer) {
         String personSql = "INSERT INTO person (person_id, name, address, email, date_of_birth, gender) VALUES (?, ?, ?, ?, ?, ?)";
         String lecturerSql = "INSERT INTO lecturer (lecturer_id, person_id, department) VALUES (?, ?, ?)";

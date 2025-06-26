@@ -4,15 +4,12 @@ import com.example.servingwebcontent.database.lecturerAiven;
 import com.example.servingwebcontent.database.personAiven;
 import com.example.servingwebcontent.database.studentAiven;
 import com.example.servingwebcontent.database.userAiven;
-import com.example.servingwebcontent.model.Lecturer;
-import com.example.servingwebcontent.model.Student;
 import com.example.servingwebcontent.model.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -56,36 +53,17 @@ public class UserController {
             // Tạo person_id mới
             String personId = UUID.randomUUID().toString();
 
-            // Chèn bản ghi vào bảng person
+            // Chèn bản ghi vào bảng person nếu chưa tồn tại
             pa.insertPersonWithIdIfNotExists(personId, email.trim());
 
             // Nếu role là student => tạo bản ghi student trống
             if ("student".equalsIgnoreCase(role.trim())) {
-                Student s = new Student();
-                s.setStudentId(UUID.randomUUID().toString());
-                s.setPersonId(personId);
-                s.setEmail(email);
-                s.setName("Chưa cập nhật");
-                s.setAddress("Chưa cập nhật");
-                s.setDateOfBirth(Date.valueOf("2000-01-01"));
-                s.setGender("Nam");
-                s.setClassId("");
-                s.setClassName("");
-                sa.insertStudentOnly(s);
+                sa.insertStudentWithPersonId(personId);
             }
 
             // Nếu role là lecturer => tạo bản ghi lecturer trống
             if ("lecturer".equalsIgnoreCase(role.trim())) {
-                Lecturer l = new Lecturer();
-                l.setLecturerId(UUID.randomUUID().toString());
-                l.setPersonId(personId);
-                l.setEmail(email);
-                l.setName("Chưa cập nhật");
-                l.setAddress("Chưa cập nhật");
-                l.setDateOfBirth(Date.valueOf("2000-01-01"));
-                l.setGender("Nam");
-                l.setDepartment("");
-                la.insertLecturerOnly(l);
+                la.insertLecturerWithPersonId(personId);
             }
 
             // Thêm người dùng vào bảng users

@@ -4,9 +4,30 @@ import com.example.servingwebcontent.model.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class studentAiven {
 
+    // ✅ Hàm tạo student từ person_id đã có sẵn (dành cho bước đăng ký)
+public void insertStudentWithPersonId(String personId) {
+    String insertSql = "INSERT INTO student (student_id, person_id, class_id, class_name) VALUES (?, ?, ?, ?)";
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+
+        pstmt.setString(1, UUID.randomUUID().toString()); // student_id
+        pstmt.setString(2, personId);                     // person_id
+        pstmt.setNull(3, java.sql.Types.VARCHAR);         // class_id => NULL (không có lớp)
+        pstmt.setString(4, "");                           // class_name => rỗng
+        pstmt.executeUpdate();
+
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tạo student trống: " + e.getMessage(), e);
+    }
+}
+
+
+    // ✅ Hàm cũ insert đầy đủ person + student
     public void insertStudent(Student student) {
         String personSql = "INSERT INTO person (person_id, name, address, email, date_of_birth, gender) VALUES (?, ?, ?, ?, ?, ?)";
         String studentSql = "INSERT INTO student (student_id, person_id, class_id, class_name) VALUES (?, ?, ?, ?)";
@@ -39,6 +60,7 @@ public class studentAiven {
         }
     }
 
+    // ✅ Các hàm get/update/delete giữ nguyên
     public ArrayList<Student> getStudentList() {
         ArrayList<Student> students = new ArrayList<>();
         String sql = """
