@@ -6,6 +6,10 @@
   <div th:fragment="content">
     <div class="container mt-4">
       <h2 class="mb-4 text-warning">Cập nhật lịch học</h2>
+
+      <!-- Hiển thị thông báo lỗi nếu có -->
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
       <form th:action="@{/lecturer/schedule/update}" th:object="${schedule}" method="post">
         <!-- Hidden fields để không mất dữ liệu -->
         <input type="hidden" th:field="*{enviromentId}" />

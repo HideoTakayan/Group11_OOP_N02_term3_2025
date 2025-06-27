@@ -27,18 +27,18 @@
             <thead class="table-dark">
               <tr>
                 <th><i class="bi bi-hash"></i> ID</th>
-                <th><i class="bi bi-book"></i> Mã môn học</th>
                 <th><i class="bi bi-building"></i> Tên lớp</th>
-                <th><i class="bi bi-person"></i> Mã giảng viên</th>
+                <th><i class="bi bi-book"></i> Học phần</th> <!-- ✅ Đổi từ mã môn học sang tên -->
+                <th><i class="bi bi-person"></i> Giảng viên</th> <!-- ✅ Đổi từ mã giảng viên sang tên -->
                 <th><i class="bi bi-tools"></i> Hành động</th>
               </tr>
             </thead>
             <tbody>
               <tr th:each="cs : ${classSections}">
                 <td th:text="${cs.classId}"></td>
-                <td th:text="${cs.subjectId}"></td>
                 <td th:text="${cs.className}"></td>
-                <td th:text="${cs.lecturerId}"></td>
+                <td th:text="${cs.subjectName}"></td> <!-- ✅ Hiển thị tên môn học -->
+                <td th:text="${cs.lecturerName}"></td> <!-- ✅ Hiển thị tên giảng viên -->
                 <td>
                   <a th:href="@{/classsectionlist/edit(classId=${cs.classId})}" class="btn btn-success btn-sm me-2">
                     <i class="bi bi-pencil-square"></i> Sửa

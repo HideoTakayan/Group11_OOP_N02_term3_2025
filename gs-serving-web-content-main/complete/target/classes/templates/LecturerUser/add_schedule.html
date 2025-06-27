@@ -6,8 +6,11 @@
   <div th:fragment="content">
     <div class="container mt-4">
       <h2 class="mb-4 text-success">Thêm lịch học mới</h2>
+
+      <!-- Thông báo lỗi nếu có -->
+      <div th:if="${error}" class="alert alert-danger mb-3" th:text="${error}"></div>
+
       <form th:action="@{/lecturer/schedule/add}" th:object="${schedule}" method="post">
-        
         <!-- Chọn mã lớp phụ trách -->
         <div class="mb-3">
           <label for="classId" class="form-label">Lớp bạn phụ trách</label>

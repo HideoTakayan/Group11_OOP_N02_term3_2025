@@ -139,11 +139,11 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Lớp đang học</label>
-            <select class="form-select" th:field="*{className}">
-              <option th:each="cls : ${allClassNames}"
-                      th:value="${cls}"
-                      th:text="${cls}"
-                      th:selected="${cls == student.className}">
+            <select class="form-select" th:field="*{classId}">
+              <option th:each="cls : ${allClasses}"
+                      th:value="${cls.classId}"
+                      th:text="${cls.className}"
+                      th:selected="${cls.classId == student.classId}">
               </option>
             </select>
           </div>

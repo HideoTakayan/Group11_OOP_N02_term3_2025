@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Controller
 public class ClassController {
 
-    private final classAiven dao = new classAiven(); // ✅ Đổi ClassDAO -> classAiven
+    private final classAiven dao = new classAiven(); // ✅ class DAO instance dùng chung
 
     @GetMapping("/classlist")
     public String classList(@RequestParam(required = false) String editId, Model model) {
@@ -21,28 +21,36 @@ public class ClassController {
 
             if (editId != null) {
                 StudentClass editClass = dao.getClassById(editId);
-                model.addAttribute("editClass", editClass);
+                if (editClass != null) {
+                    model.addAttribute("editClass", editClass);
+                } else {
+                    model.addAttribute("error", "Không tìm thấy lớp với ID: " + editId);
+                }
             }
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi tải danh sách lớp: " + e.getMessage());
         }
+
         return "classlist";
     }
 
     @GetMapping("/classlist/add")
-    public String showAddClassForm() {
+    public String showAddClassForm(Model model) {
         return "addclass";
     }
 
     @PostMapping("/addclass")
-    public String addClass(@RequestParam String classId, @RequestParam String className, Model model) {
+    public String addClass(@RequestParam String classId,
+                           @RequestParam String className,
+                           Model model) {
         try {
-            StudentClass c = new StudentClass(classId, className);
-            dao.insertClass(c);
+            StudentClass newClass = new StudentClass(classId, className);
+            dao.insertClass(newClass);
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi thêm lớp: " + e.getMessage());
             return "addclass";
         }
+
         return "redirect:/classlist";
     }
 
@@ -58,11 +66,14 @@ public class ClassController {
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi tải lớp để chỉnh sửa: " + e.getMessage());
         }
+
         return "editclass";
     }
 
     @PostMapping("/updateclass")
-    public String updateClass(@RequestParam String classId, @RequestParam String className, Model model) {
+    public String updateClass(@RequestParam String classId,
+                              @RequestParam String className,
+                              Model model) {
         try {
             StudentClass c = dao.getClassById(classId);
             if (c != null) {
@@ -76,6 +87,7 @@ public class ClassController {
             model.addAttribute("error", "Lỗi khi cập nhật lớp: " + e.getMessage());
             return "editclass";
         }
+
         return "redirect:/classlist";
     }
 
@@ -86,6 +98,7 @@ public class ClassController {
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi xóa lớp: " + e.getMessage());
         }
+
         return "redirect:/classlist";
     }
 }

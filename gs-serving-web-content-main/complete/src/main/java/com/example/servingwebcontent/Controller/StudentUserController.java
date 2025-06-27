@@ -1,13 +1,7 @@
 package com.example.servingwebcontent.Controller;
 
-import com.example.servingwebcontent.database.registerClassAiven;
-import com.example.servingwebcontent.database.studentAiven;
-import com.example.servingwebcontent.database.classSectionAiven;
-import com.example.servingwebcontent.database.environmentAiven;
-import com.example.servingwebcontent.model.RegisterClassSection;
-import com.example.servingwebcontent.model.Student;
-import com.example.servingwebcontent.model.ClassSection;
-import com.example.servingwebcontent.model.Environment;
+import com.example.servingwebcontent.database.*;
+import com.example.servingwebcontent.model.*;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -25,10 +19,11 @@ public class StudentUserController {
     private final registerClassAiven registerDao = new registerClassAiven();
     private final classSectionAiven classDao = new classSectionAiven();
     private final environmentAiven envDao = new environmentAiven();
+    private final classAiven classAivenDao = new classAiven();
 
     @GetMapping("/profile")
     public String viewProfile(@RequestParam(value = "edit", required = false) Boolean edit,
-            HttpSession session, Model model) {
+                               HttpSession session, Model model) {
         String email = (String) session.getAttribute("userEmail");
         if (email == null)
             return "redirect:/login";
@@ -40,14 +35,14 @@ public class StudentUserController {
         model.addAttribute("student", student);
         model.addAttribute("editing", edit != null && edit);
         model.addAttribute("role", "Sinh viên");
-        model.addAttribute("className", student.getClassName());
+
+        StudentClass studentClass = classAivenDao.getClassById(student.getClassId());
+        String className = (studentClass != null) ? studentClass.getClassName() : "Chưa rõ";
+        model.addAttribute("className", className);
 
         if (edit != null && edit) {
-            List<String> classNames = classDao.getAllClassSections().stream()
-                    .map(ClassSection::getClassName)
-                    .distinct()
-                    .collect(Collectors.toList());
-            model.addAttribute("allClassNames", classNames);
+            List<StudentClass> classList = classAivenDao.getClassList();
+            model.addAttribute("allClasses", classList);
         }
 
         return "StudentUser/profile";
@@ -75,13 +70,13 @@ public class StudentUserController {
             model.addAttribute("student", student);
             model.addAttribute("editing", true);
             model.addAttribute("role", "Sinh viên");
-            model.addAttribute("className", student.getClassName());
 
-            List<String> classNames = classDao.getAllClassSections().stream()
-                    .map(ClassSection::getClassName)
-                    .distinct()
-                    .collect(Collectors.toList());
-            model.addAttribute("allClassNames", classNames);
+            StudentClass studentClass = classAivenDao.getClassById(student.getClassId());
+            String className = (studentClass != null) ? studentClass.getClassName() : "Chưa rõ";
+            model.addAttribute("className", className);
+
+            List<StudentClass> classList = classAivenDao.getClassList();
+            model.addAttribute("allClasses", classList);
 
             return "StudentUser/profile";
         }
@@ -108,14 +103,37 @@ public class StudentUserController {
                 })
                 .collect(Collectors.toList());
 
+        Map<String, String> subjectNameMap = new HashMap<>();
+        Map<String, String> lecturerNameMap = new HashMap<>();
+
+        subjectAiven subjectDao = new subjectAiven();
+        lecturerAiven lecturerDao = new lecturerAiven();
+
+        for (RegisterClassSection rc : registeredClasses) {
+            ClassSection cs = classDao.getClassSectionById(rc.getClassSectionId());
+            if (cs != null) {
+                Subject subject = subjectDao.getSubjectById(cs.getSubjectId());
+                if (subject != null) {
+                    subjectNameMap.put(rc.getRegisterId(), subject.getSubjectName());
+
+                    Lecturer lecturer = lecturerDao.getLecturerById(subject.getLecturerId());
+                    if (lecturer != null) {
+                        lecturerNameMap.put(rc.getRegisterId(), lecturer.getName());
+                    }
+                }
+            }
+        }
+
         model.addAttribute("registeredClasses", registeredClasses);
+        model.addAttribute("subjectNameMap", subjectNameMap);
+        model.addAttribute("lecturerNameMap", lecturerNameMap);
+
         return "StudentUser/registered_classes";
     }
 
-    // Thêm phương thức huỷ đăng ký lớp
     @PostMapping("/unregister-class")
     public String unregisterClass(@RequestParam("registerId") String registerId,
-            HttpSession session) {
+                                   HttpSession session) {
         String email = (String) session.getAttribute("userEmail");
         if (email == null)
             return "redirect:/login";
@@ -123,7 +141,7 @@ public class StudentUserController {
         try {
             registerDao.deleteRegisterClass(registerId);
         } catch (Exception e) {
-            // Có thể thêm log hoặc chuyển thông báo lỗi qua Model nếu cần
+            // log nếu cần
         }
 
         return "redirect:/student/registered-classes";
@@ -162,7 +180,7 @@ public class StudentUserController {
 
     @GetMapping("/register-class")
     public String showAvailableClasses(HttpSession session, Model model,
-            @RequestParam(value = "error", required = false) String error) {
+                                       @RequestParam(value = "error", required = false) String error) {
         String email = (String) session.getAttribute("userEmail");
         if (email == null)
             return "redirect:/login";

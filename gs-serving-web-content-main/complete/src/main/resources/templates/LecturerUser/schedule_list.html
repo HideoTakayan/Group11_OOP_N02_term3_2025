@@ -46,12 +46,21 @@
     .me-1 {
       margin-right: 6px;
     }
+
+    .alert {
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
 <div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
   <div th:fragment="content">
     <div class="container mt-4">
+
+      <!-- Thông báo lỗi hoặc thành công -->
+      <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+      <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
       <h2 class="mb-3 text-primary">Lịch dạy của giảng viên</h2>
       <a class="btn btn-success mb-3" href="/lecturer/schedule/add">+ Thêm lịch mới</a>
 
@@ -79,10 +88,13 @@
                onclick="return confirm('Bạn có chắc muốn xoá lịch này?')">Xoá</a>
           </td>
         </tr>
+        <tr th:if="${#lists.isEmpty(schedules)}">
+          <td colspan="6" class="text-center text-muted">Không có lịch dạy nào được tìm thấy.</td>
+        </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
 </body>
-</html>  
+</html>

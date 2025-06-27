@@ -40,7 +40,7 @@
 <body>
 <div th:replace="LecturerUser/lecturer-layout :: layout(~{::content})">
   <div th:fragment="content">
-    <div class="container">
+    <div class="container mt-4">
       <div class="top-bar">
         <h2>Học phần phụ trách</h2>
         <a href="/lecturer/class-section/add-form" class="btn btn-primary btn-sm">
@@ -48,8 +48,11 @@
         </a>
       </div>
 
+      <!-- Thông báo lỗi nếu có -->
+      <div th:if="${error}" class="alert alert-danger mb-3" th:text="${error}"></div>
+
       <!-- Danh sách học phần -->
-      <table class="table table-bordered">
+      <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th>Mã lớp</th>

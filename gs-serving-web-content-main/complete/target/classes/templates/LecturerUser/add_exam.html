@@ -6,6 +6,10 @@
   <div th:fragment="content">
     <div class="container mt-4">
       <h2 class="text-primary mb-4">Thêm lịch thi</h2>
+
+      <!-- Hiển thị lỗi nếu có -->
+      <div th:if="${error}" class="alert alert-danger mb-3" th:text="${error}"></div>
+
       <form th:action="@{/lecturer/exam/add}" method="post">
 
         <div class="mb-3">

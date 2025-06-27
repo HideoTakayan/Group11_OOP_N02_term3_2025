@@ -5,14 +5,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.servingwebcontent.database.subjectAiven;
+import com.example.servingwebcontent.database.lecturerAiven;
+import com.example.servingwebcontent.model.Lecturer;
 import com.example.servingwebcontent.model.Subject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class SubjectController {
 
     private final subjectAiven sa = new subjectAiven();
+    private final lecturerAiven la = new lecturerAiven();
 
     @GetMapping("/subjectlist")
     public String subjectList(@RequestParam(required = false) String editId, Model model) {
@@ -20,13 +25,24 @@ public class SubjectController {
             ArrayList<Subject> subjects = sa.getSubjectList();
             model.addAttribute("subjects", subjects);
 
-            if (editId != null) {
-                Subject s = sa.getSubjectById(editId);
-                model.addAttribute("editSubject", s);
+            // ✅ Tạo Map: lecturerId -> lecturerName
+            Map<String, String> lecturerNameMap = new HashMap<>();
+            for (Subject s : subjects) {
+                String lecturerId = s.getLecturerId();
+                if (lecturerId != null && !lecturerId.isEmpty() && !lecturerNameMap.containsKey(lecturerId)) {
+                    Lecturer lecturer = la.getLecturerById(lecturerId);
+                    if (lecturer != null) {
+                        lecturerNameMap.put(lecturerId, lecturer.getName());
+                    }
+                }
             }
+
+            model.addAttribute("lecturerNameMap", lecturerNameMap);
+
         } catch (Exception e) {
             model.addAttribute("error", "Lỗi khi tải danh sách môn học: " + e.getMessage());
         }
+
         return "subjectlist";
     }
 

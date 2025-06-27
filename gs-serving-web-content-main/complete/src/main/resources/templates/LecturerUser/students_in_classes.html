@@ -40,12 +40,21 @@
             background-color: #bb2d3b;
             border-color: #b02a37;
         }
+
+        .alert {
+            border-radius: 8px;
+        }
     </style>
 </head>
 
 <body>
 <div th:replace="~{LecturerUser/lecturer-layout :: layout(content=~{::content})}">
-    <div th:fragment="content">
+    <div th:fragment="content" class="container mt-4">
+
+        <!-- Thông báo lỗi hoặc thành công -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
         <h2 class="mb-4">Danh sách sinh viên trong các lớp bạn quản lý</h2>
 
         <div th:each="entry : ${groupedStudents}" class="mb-5">
@@ -80,10 +89,14 @@
                             </a>
                         </td>
                     </tr>
+                    <tr th:if="${#lists.isEmpty(entry.value)}">
+                        <td colspan="7" class="text-center text-muted">Không có sinh viên nào trong lớp này.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
     </div>
 </div>
 </body>

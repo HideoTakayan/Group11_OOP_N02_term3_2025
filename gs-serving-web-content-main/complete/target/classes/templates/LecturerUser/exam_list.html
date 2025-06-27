@@ -39,38 +39,44 @@
         </a>
       </div>
 
+      <!-- Thông báo lỗi nếu có -->
+      <div th:if="${error}" class="alert alert-danger mb-3" th:text="${error}"></div>
+
       <div class="table-wrapper">
         <table class="table table-bordered table-striped exam-table">
           <thead>
-          <tr>
-            <th>Môn học</th>
-            <th>Ngày thi</th>
-            <th>Giờ thi</th>
-            <th>Thời lượng (phút)</th>
-            <th>Hình thức</th>
-            <th>Địa điểm</th>
-            <th>Thao tác</th>
-          </tr>
+            <tr>
+              <th>Môn học</th>
+              <th>Ngày thi</th>
+              <th>Giờ thi</th>
+              <th>Thời lượng (phút)</th>
+              <th>Hình thức</th>
+              <th>Địa điểm</th>
+              <th>Thao tác</th>
+            </tr>
           </thead>
           <tbody>
-          <tr th:each="e : ${exams}">
-            <td th:text="${e.subjectName}">Tên môn</td>
-            <td th:text="${e.examDate}">Ngày</td>
-            <td th:text="${#dates.format(e.startTime, 'HH:mm')}">Giờ</td>
-            <td th:text="${e.durationMinutes}">Thời lượng</td>
-            <td th:text="${e.examFormat}">Hình thức</td>
-            <td th:text="${e.location}">Địa điểm</td>
-            <td>
-              <a th:href="@{/lecturer/exam/edit(subjectName=${e.subjectName})}" class="btn btn-sm btn-warning">
-                <i class="bi bi-pencil-square"></i> Sửa
-              </a>
-              <a th:href="@{/lecturer/exam/delete(subjectName=${e.subjectName})}"
-                 class="btn btn-sm btn-danger"
-                 onclick="return confirm('Bạn có chắc chắn muốn xóa lịch thi này?');">
-                <i class="bi bi-trash"></i> Xóa
-              </a>
-            </td>
-          </tr>
+            <tr th:each="e : ${exams}">
+              <td th:text="${e.subjectName}">Tên môn</td>
+              <td th:text="${e.examDate}">Ngày</td>
+              <td th:text="${#dates.format(e.startTime, 'HH:mm')}">Giờ</td>
+              <td th:text="${e.durationMinutes}">Thời lượng</td>
+              <td th:text="${e.examFormat}">Hình thức</td>
+              <td th:text="${e.location}">Địa điểm</td>
+              <td>
+                <a th:href="@{/lecturer/exam/edit(subjectName=${e.subjectName})}" class="btn btn-sm btn-warning">
+                  <i class="bi bi-pencil-square"></i> Sửa
+                </a>
+                <a th:href="@{/lecturer/exam/delete(subjectName=${e.subjectName})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Bạn có chắc chắn muốn xóa lịch thi này?');">
+                  <i class="bi bi-trash"></i> Xóa
+                </a>
+              </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(exams)}">
+              <td colspan="7" class="text-muted text-center">Không có lịch thi nào.</td>
+            </tr>
           </tbody>
         </table>
       </div>

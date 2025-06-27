@@ -8,7 +8,6 @@ import java.util.UUID;
 
 public class lecturerAiven {
 
-    // ✅ Thêm giảng viên trống từ person_id (dùng sau khi đăng ký)
     public void insertLecturerWithPersonId(String personId) {
         String insertSql = "INSERT INTO lecturer (lecturer_id, person_id, department) VALUES (?, ?, ?)";
 

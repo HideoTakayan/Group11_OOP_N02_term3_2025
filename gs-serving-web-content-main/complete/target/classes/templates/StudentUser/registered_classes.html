@@ -63,7 +63,8 @@
             <th>#</th>
             <th>Tên học phần</th>
             <th>Mã lớp học phần</th>
-            <th>Mã đăng ký</th>
+            <th>Tên môn học</th>
+            <th>Giảng viên phụ trách</th>
             <th>Hành động</th>
           </tr>
           </thead>
@@ -72,7 +73,8 @@
             <td th:text="${stat.count}">1</td>
             <td th:text="${rc.className}">Cơ sở dữ liệu</td>
             <td th:text="${rc.classSectionId}">CL01</td>
-            <td th:text="${rc.registerId}">abc-123</td>
+            <td th:text="${subjectNameMap[rc.registerId]}">CSDL</td>
+            <td th:text="${lecturerNameMap[rc.registerId]}">Nguyễn Văn A</td>
             <td>
               <form th:action="@{/student/unregister-class}" method="post"
                     onsubmit="return confirm('Bạn có chắc chắn muốn huỷ đăng ký lớp học phần này không?');">
