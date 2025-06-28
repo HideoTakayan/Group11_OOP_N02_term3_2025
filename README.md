@@ -1,123 +1,152 @@
-# Group11_OOP_N02_term3_2025
+🎓 Group11_OOP_N02_Term3_2025 – Quản Lý Đại Học
+👥 Thành viên nhóm 11 – Lập trình hướng đối tượng K17
+STT	Họ và tên	Mã sinh viên
+1	Đỗ Như Minh Hiếu	23010291
+2	Phan Minh Trúc	23010818
+3	Triệu Tuấn Duy	23010449
 
-#Group 11: OOP Term 3 2025 K17
+🔗 Giới thiệu dự án
+📄 Link README giới thiệu chi tiết:
+https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/
 
-# Thành viên:
+🏫 Mục tiêu đề tài – Quản lý Đại học (University Management System)
+🖥 Giao diện:
+Ứng dụng được xây dựng bằng Java Spring Boot với giao diện web.
 
-1. Đỗ Như Minh Hiếu - 23010291;
-2. Phan Minh Trúc - 23010818;
-3. Triệu Tuấn Duy -23010449
+🔧 Chức năng chính:
+Quản lý Môn học, Sinh viên, Giảng viên: Thêm, sửa, xoá, tìm kiếm.
 
-## Tiêu đề : Quản lý đại học
+Đăng ký môn học và gán môn học cho giảng viên.
 
-##Link Readme giới thiệu project
+Cập nhật và tra cứu điểm sinh viên cho từng môn học.
 
-Link: https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/
-
-# Đối tượng
-
-## Đối tượng
-
+🧩 Các lớp đối tượng chính
+java
+Sao chép
+Chỉnh sửa
 class Student {
-String studentId;
-String name;
-String dateOfBirth;
-String gender;
+    String studentId;
+    String name;
+    String dateOfBirth;
+    String gender;
 }
+
 class Lecturer {
-String lecturerId;
-String name;
-String dateOfBirth;
-String gender;
+    String lecturerId;
+    String name;
+    String dateOfBirth;
+    String gender;
 }
+
 class Subject {
-String subjectId;
-String subjectName;
-int credit;
-String lecturerId;
-List<String> studentIds;
+    String subjectId;
+    String subjectName;
+    int credit;
+    String lecturerId;
+    List<String> studentIds;
 }
 
 class Grade {
-String studentId;
-String subjectId;
-double score;
+    String studentId;
+    String subjectId;
+    double score;
 }
+🗂️ Yêu cầu chi tiết
+📚 Quản lý môn học (Subject)
+Thêm, sửa, xoá môn học.
 
-## Xây dựng ứng dụng Quản lý đại học ( University Management )
+Liệt kê thông tin môn học, lọc theo mã hoặc tên môn.
 
-# Yêu cầu:
+Gán giảng viên phụ trách cho từng môn học.
 
-- Giao diện : Java Spring Boot.
-- Chức năng chính:
-  Thêm, sửa, xóa, truy vấn Môn học, Học sinh, Giảng viên.y
-  Đăng kí môn học, gán môn học cho giảng viên phụ trách.
-  Cập nhật và truy vấn điểm của sinh viên cho từng môn học.
+👨‍🏫 Quản lý giảng viên (Lecturer)
+Thêm, sửa, xoá giảng viên.
 
-# Cụ thể:
+Tìm kiếm giảng viên theo mã giảng viên.
 
-- Thêm, sửa, xóa Môn học ( Subject )
+Quản lý môn học phụ trách của từng giảng viên.
 
-* Liệt kê thông tin về môn học, có thể lọc theo tên môn học ( SubjectName ) hoặc mã môn học ( SubjectId )
-  -> Có chức năng quản lý môn học.
+👨‍🎓 Quản lý học sinh (Student)
+Thêm, sửa, xoá học sinh.
 
-- Thêm, sửa, xóa Giảng viên ( Lecturer ).
+Tìm kiếm học sinh theo mã sinh viên.
 
-* Liệt kê thông tin về giảng viên, có thể tìm kiểm giảng viên qua LecturerId.
-  -> Có chức năng gán môn học cho giảng viên phụ trách
+Cho phép sinh viên đăng ký các môn học.
 
-- Thêm, sửa, xóa Học sinh ( Student ).
+🏷️ Quản lý điểm (Grade)
+Quản lý điểm sinh viên theo từng môn học.
 
-* Liệt kê thông tin về học sinh, có thể tìm kiểm học sinh qua studentId.
-  -> Có chức năng gán môn học cho sinh viên ( Sinh viên có thể đăng kí môn học )
+Lưu dữ liệu dưới dạng file nhị phân.
 
-- Thêm, sửa, xóa Lớp học(Grade).
+Sử dụng các cấu trúc dữ liệu ArrayList, LinkedList, Map, ...
 
-* Tra cứu thông tin về môn học qua SubjectID, liệt kê các sinh viên trong lớp qua studentId.
-  -> Có chức năng gán sinh viên, môn học cho lớp học.
-* Dữ liệu được lưu trữ xuống file nhị phân
-
-- Cần tạo các lớp liên quan đến " môn học ", " giảng viên ", " học sinh " để đọc, ghi xuống 1 hay nhiều file.
-
-* Khi làm việc với dữ liệu trong bộ nhớ, dữ liệu cần được lưu trữ dưới dạng các Collection tùy chọn như ArrayList, LinkedList, Map, ....
-
-* Truy vấn và cập nhật điểm của sinh viên của từng môn học.
-
-Nội dung 02:
-
-01 sơ đồ Class Diagram của bài tập lớn
-
-- Sơ đồ Class Diagram:
-- ![Untitledllll](https://github.com/user-attachments/assets/b6ddcb33-e368-4b1a-a1a5-7c7e37983b71)
-
-Nội dung 03:
-
-03 sơ đồ Behavioural Diagram của bài tập lớn
-
-- Sequence Diagram ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
-
-# Các phương thức hiện có:
-1. Phương thức đăng kí môn học.
-2. Phương thức hiển thị,tìm kiếm Lịch thi
-3. Phương thức tra cứu điểm, thông tin sinh viên thông qua mã sinh viên
-# Lưu đồ phương thức đăng kí môn học ( Phương thức chính ):
-![luudothuattoan](https://github.com/user-attachments/assets/4a3a7d8e-fbe3-446e-89c8-60d6e76fc119)
-Quản lý đăng kí môn học: Cho phép sv đăng kí môn học, Kiểm tra xem học sinh đã đki được môn học hay chưa, Hủy đăng kí môn học
-Phân chia công việc:
-## Trần Tuấn Duy: Hoàn thành phương thức đăng kí môn học
-## Phan Minh Trúc: Hoàn thành phương thức kiểm tra xem học sinh đã đăng kí môn học chưa.
-## Đỗ Như Minh HIếu: Hoàn thành phương thức hủy đăng kí môn học
-
-# Phương thức hủy đk môn học
-## Trình bày ý tưởng phương thức hủy đăng kí môn học: Phương thức này được sử dụng khi học sinh muốn hủy đăng ký một môn học do đăng ký nhầm hoặc vì các lý do cá nhân khác, chẳng hạn như thay đổi kế hoạch học tập hoặc trùng lịch học.
-## Mô tả phương thức: 
-## Phương thức cancelEnrollment có nhiệm vụ hủy đăng ký một môn học cụ thể cho một học sinh, dựa trên studentID và subjectID được truyền vào.
-## Khi được gọi, phương thức sẽ:
-Duyệt qua danh sách các đối tượng Enrollment hiện có.
-Tìm kiếm một đăng ký trùng với studentID và subjectID.
-Nếu tìm thấy, phương thức sẽ xóa đăng ký khỏi danh sách và in ra thông báo xác nhận đã hủy thành công.
-Nếu không tìm thấy, sẽ in ra thông báo không tìm thấy đăng ký tương ứng.
-Phương thức trả về true nếu hủy thành công, ngược lại trả về false. Đây là phương thức thường dùng khi học sinh cần rút lại đăng ký vì chọn nhầm môn hoặc vì lý do cá nhân không thể tiếp tục học môn đó.
+📊 Sơ đồ Class Diagram
 
 
+📈 Sơ đồ Sequence Diagram
 
+
+⚙️ Các phương thức chính đã triển khai
+✅ Phương thức đăng ký môn học.
+
+🔍 Phương thức hiển thị và tìm kiếm lịch thi.
+
+📖 Phương thức tra cứu điểm và thông tin sinh viên bằng mã sinh viên.
+
+🔄 Lưu đồ thuật toán: Đăng ký môn học
+
+
+🧠 Phân chia công việc
+Thành viên	Công việc đảm nhiệm
+Trần Tuấn Duy	Phương thức đăng ký môn học
+Phan Minh Trúc	Kiểm tra sinh viên đã đăng ký môn học hay chưa
+Đỗ Như Minh Hiếu	Phương thức huỷ đăng ký môn học
+
+❌ Phương thức huỷ đăng ký môn học
+🧩 Ý tưởng
+Phương thức này được sử dụng khi sinh viên muốn hủy đăng ký một lớp học đã chọn trước đó, vì các lý do như:
+
+Chọn nhầm lớp.
+
+Trùng lịch học.
+
+Thay đổi kế hoạch học tập.
+
+Lớp bị hủy hoặc thay đổi giảng viên.
+
+🧾 Mô tả phương thức unregisterClass
+java
+Sao chép
+Chỉnh sửa
+@PostMapping("/unregister-class")
+public String unregisterClass(@RequestParam("registerId") String registerId, HttpSession session) {
+    String email = (String) session.getAttribute("userEmail");
+    if (email == null)
+        return "redirect:/login";
+
+    try {
+        registerDao.deleteRegisterClass(registerId);
+    } catch (Exception e) {
+        // log nếu cần
+    }
+
+    return "redirect:/student/registered-classes";
+}
+🔍 Chức năng
+Huỷ lớp học đã đăng ký cho sinh viên hiện tại (đã đăng nhập).
+
+Xóa bản ghi tương ứng với registerId trong bảng register_class_section.
+
+🪜 Các bước xử lý
+Kiểm tra sinh viên đã đăng nhập hay chưa (userEmail trong session).
+
+Nếu chưa: chuyển hướng về /login.
+
+Nếu đã đăng nhập:
+
+Gọi registerDao.deleteRegisterClass(registerId) để xoá bản ghi đăng ký.
+
+Sau khi thực hiện, chuyển về trang /student/registered-classes.
+
+🎯 Kết luận
+Phương thức unregisterClass() giúp sinh viên chủ động quản lý lịch học của mình bằng cách hủy bỏ các lớp học không còn phù hợp, góp phần tối ưu kế hoạch học tập.
