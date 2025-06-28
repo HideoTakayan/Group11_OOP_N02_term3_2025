@@ -1,10 +1,10 @@
 #Group11_OOP_N02_term3_2025
 👨‍🎓 Group 11: OOP Term 3 2025 – K17
 🧑‍🤝‍🧑 Thành viên:
-Đỗ Như Minh Hiếu – 23010291
-Phan Minh Trúc – 23010818
-Triệu Tuấn Duy – 23010449
-📌 Tiêu đề: Quản lý đại học
+Đỗ Như Minh Hiếu – 23010291  
+Phan Minh Trúc – 23010818  
+Triệu Tuấn Duy – 23010449  
+📌 Tiêu đề: Quản lý đại học  
 🔗 Link README giới thiệu project
 https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/
 
