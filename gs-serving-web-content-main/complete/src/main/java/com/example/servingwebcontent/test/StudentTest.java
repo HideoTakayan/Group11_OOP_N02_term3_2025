@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Test;
+package com.example.servingwebcontent.test;
 
 import com.example.servingwebcontent.model.Student;
 
@@ -17,8 +17,7 @@ public class StudentTest {
                 dob,
                 "Nam",
                 "CTK43A",
-                "Công nghệ thông tin K43A"
-        );
+                "Công nghệ thông tin K43A");
 
         System.out.println("=== Student Test ===");
         System.out.println("Mã sinh viên: " + student.getStudentId());

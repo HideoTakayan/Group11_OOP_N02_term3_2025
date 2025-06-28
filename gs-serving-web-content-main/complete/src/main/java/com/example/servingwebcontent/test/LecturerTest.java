@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Test;
+package com.example.servingwebcontent.test;
 
 import com.example.servingwebcontent.model.Lecturer;
 
@@ -18,8 +18,7 @@ public class LecturerTest {
                 "nguyenvana@university.edu",
                 dateOfBirth,
                 "Nam",
-                "Công nghệ thông tin"
-        );
+                "Công nghệ thông tin");
 
         // In thông tin
         System.out.println("=== Lecturer Test ===");

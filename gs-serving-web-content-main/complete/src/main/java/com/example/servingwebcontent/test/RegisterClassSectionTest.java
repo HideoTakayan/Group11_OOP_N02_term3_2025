@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Test;
+package com.example.servingwebcontent.test;
 
 import com.example.servingwebcontent.model.RegisterClassSection;
 
@@ -7,8 +7,7 @@ public class RegisterClassSectionTest {
         RegisterClassSection register = new RegisterClassSection(
                 "DK001",
                 "SV001",
-                "LH001"
-        );
+                "LH001");
 
         register.setName("Nguyễn Văn A");
         register.setClassName("Lập trình Java");

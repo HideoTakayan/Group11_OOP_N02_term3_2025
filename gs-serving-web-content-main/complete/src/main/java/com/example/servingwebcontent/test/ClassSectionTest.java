@@ -1,4 +1,4 @@
-package com.example.servingwebcontent.Test;
+package com.example.servingwebcontent.test;
 
 import com.example.servingwebcontent.model.ClassSection;
 
@@ -10,8 +10,7 @@ public class ClassSectionTest {
                 "S001",
                 "Java cơ bản",
                 "L001",
-                "Nguyễn Văn A"
-        );
+                "Nguyễn Văn A");
 
         System.out.println("=== ClassSection Test ===");
         System.out.println("Mã lớp học phần: " + cs.getClassId());
