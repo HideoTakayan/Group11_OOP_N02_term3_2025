@@ -1,6 +1,6 @@
 #Group11_OOP_N02_term3_2025
 👨‍🎓 Group 11: OOP Term 3 2025 – K17
-🧑‍🤝‍🧑 Thành viên:
+🧑‍🤝‍🧑 Thành viên:  
 Đỗ Như Minh Hiếu – 23010291  
 Phan Minh Trúc – 23010818  
 Triệu Tuấn Duy – 23010449  
@@ -9,34 +9,34 @@ Triệu Tuấn Duy – 23010449
 https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/
 
 #🎯 Đối tượng
-✅ Các lớp đối tượng
-#person (
+✅ Các lớp đối tượng  
+person (
     person_id varchar(50) primary key,
     name varchar(100),
     address varchar(255),
     email varchar(100) unique,
     date_of_birth date not null,
     gender enum('Nam', 'Nữ') not null
-);
-#student_class (
+);  
+student_class (
     class_id varchar(50) primary key,
     class_name varchar(100)
-);
-#create table if not exists student (
+);  
+create table if not exists student (
     student_id varchar(50) primary key,
     person_id varchar(50),
     class_id varchar(50),
 	class_name VARCHAR(100),
     foreign key (person_id) references person(person_id) on delete cascade,
     foreign key (class_id) references student_class(class_id) on delete cascade
-);
-#create table if not exists lecturer (
+);  
+create table if not exists lecturer (
     lecturer_id varchar(50) primary key,
     person_id varchar(50),
     department varchar(100),
     foreign key (person_id) references person(person_id) on delete cascade
-);
-#create table if not exists subject (
+);  
+create table if not exists subject (
     subject_id varchar(50) primary key,
     subject_name varchar(255) not null,
     credits int not null,
