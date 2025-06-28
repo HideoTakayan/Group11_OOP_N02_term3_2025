@@ -89,8 +89,9 @@ Phương thức này được sử dụng để kiểm tra xem một sinh viên 
 Ngăn sinh viên đăng ký trùng lớp.  
 Đảm bảo dữ liệu đăng ký lớp không bị lặp.  
 Xác minh tình trạng đăng ký của sinh viên trước khi thực hiện các thao tác khác (ví dụ: huỷ, đổi lớp).  
-🧾 Mô tả phương thức isStudentRegistered  
-```html public boolean isStudentRegistered(String studentId, String classSectionId) {
+🧾 Mô tả phương thức isStudentRegistered 
+```
+public boolean isStudentRegistered(String studentId, String classSectionId) {
     List<RegisterClassSection> registerList = getRegisterClassList();
     for (RegisterClassSection rc : registerList) {
         if (rc.getStudentId().equals(studentId) && rc.getClassSectionId().equals(classSectionId)) {
@@ -118,8 +119,9 @@ Phương thức này được sử dụng khi sinh viên muốn hủy đăng ký
  - Trùng lịch học.  
  - Thay đổi kế hoạch học tập.  
  - Lớp bị hủy hoặc thay đổi giảng viên.  
-🧾 Mô tả phương thức unregisterClass  
-```html @PostMapping("/unregister-class")  
+🧾 Mô tả phương thức unregisterClass
+```  
+@PostMapping("/unregister-class")  
 public String unregisterClass(@RequestParam("registerId") String registerId, HttpSession session) {  
     String email = (String) session.getAttribute("userEmail");  
     if (email == null)  
