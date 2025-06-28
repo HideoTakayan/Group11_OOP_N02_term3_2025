@@ -12,11 +12,11 @@ public class lecturerAiven {
         String insertSql = "INSERT INTO lecturer (lecturer_id, person_id, department) VALUES (?, ?, ?)";
 
         try (Connection conn = aivenConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+                PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
 
             pstmt.setString(1, UUID.randomUUID().toString()); // lecturer_id random
-            pstmt.setString(2, personId);                     // person_id có sẵn
-            pstmt.setString(3, "");                           // department rỗng
+            pstmt.setString(2, personId); // person_id có sẵn
+            pstmt.setString(3, ""); // department rỗng
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -24,7 +24,7 @@ public class lecturerAiven {
         }
     }
 
-    // ✅ Hàm cũ insert đầy đủ person + lecturer
+    // Hàm cũ insert đầy đủ person + lecturer
     public void insertLecturer(Lecturer lecturer) {
         String personSql = "INSERT INTO person (person_id, name, address, email, date_of_birth, gender) VALUES (?, ?, ?, ?, ?, ?)";
         String lecturerSql = "INSERT INTO lecturer (lecturer_id, person_id, department) VALUES (?, ?, ?)";
@@ -65,8 +65,8 @@ public class lecturerAiven {
                 """;
 
         try (Connection conn = aivenConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 lecturers.add(new Lecturer(
@@ -96,7 +96,7 @@ public class lecturerAiven {
                 """;
 
         try (Connection conn = aivenConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, lecturerId);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -129,7 +129,7 @@ public class lecturerAiven {
                 """;
 
         try (Connection conn = aivenConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, email);
             try (ResultSet rs = pstmt.executeQuery()) {

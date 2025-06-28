@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Controller
 public class ClassController {
 
-    private final classAiven dao = new classAiven(); // ✅ class DAO instance dùng chung
+    private final classAiven dao = new classAiven(); // class DAO instance dùng chung
 
     @GetMapping("/classlist")
     public String classList(@RequestParam(required = false) String editId, Model model) {
@@ -41,8 +41,8 @@ public class ClassController {
 
     @PostMapping("/addclass")
     public String addClass(@RequestParam String classId,
-                           @RequestParam String className,
-                           Model model) {
+            @RequestParam String className,
+            Model model) {
         try {
             StudentClass newClass = new StudentClass(classId, className);
             dao.insertClass(newClass);
@@ -72,8 +72,8 @@ public class ClassController {
 
     @PostMapping("/updateclass")
     public String updateClass(@RequestParam String classId,
-                              @RequestParam String className,
-                              Model model) {
+            @RequestParam String className,
+            Model model) {
         try {
             StudentClass c = dao.getClassById(classId);
             if (c != null) {

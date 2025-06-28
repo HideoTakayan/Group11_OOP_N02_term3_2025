@@ -26,7 +26,7 @@ public class LoginController {
             HttpSession session,
             Model model) {
         try {
-            // ✅ Trường hợp đăng nhập admin đặc biệt
+            // Trường hợp đăng nhập admin đặc biệt
             if ("admin@gmail.com".equals(email) && "admin123".equals(password) && "admin".equals(role)) {
                 session.setAttribute("isLoggedIn", true);
                 session.setAttribute("role", "admin");
@@ -35,7 +35,7 @@ public class LoginController {
                 return "redirect:/studentlist";
             }
 
-            // ✅ Kiểm tra thông tin người dùng trong bảng users
+            // Kiểm tra thông tin người dùng trong bảng users
             userAiven ua = new userAiven();
             User user = ua.findByEmailAndPassword(email, password);
 
@@ -44,12 +44,12 @@ public class LoginController {
                 return "login";
             }
 
-            // ✅ Lưu thông tin cơ bản
+            // Lưu thông tin cơ bản
             session.setAttribute("isLoggedIn", true);
             session.setAttribute("role", role);
             session.setAttribute("userEmail", email);
 
-            // ✅ Phân loại theo vai trò
+            // Phân loại theo vai trò
             if ("student".equals(role)) {
                 studentAiven sa = new studentAiven();
                 Student s = sa.getStudentByEmail(email);

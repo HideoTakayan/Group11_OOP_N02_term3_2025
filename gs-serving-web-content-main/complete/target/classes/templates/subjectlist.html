@@ -35,8 +35,10 @@
               <td th:text="${subject.subjectId}"></td>
               <td th:text="${subject.subjectName}"></td>
               <td th:text="${subject.credits}"></td>
-              <!-- ✅ Hiển thị tên giảng viên thay vì ID -->
-              <td th:text="${lecturerNameMap[subject.lecturerId]} ?: 'Không rõ'"></td>
+              <!-- Hiển thị tên giảng viên thay vì ID -->
+              <td
+                th:text="${lecturerNameMap[subject.lecturerId]} ?: 'Không rõ'"
+              ></td>
               <td>
                 <a
                   th:href="@{/subjectlist/edit(subjectId=${subject.subjectId})}"

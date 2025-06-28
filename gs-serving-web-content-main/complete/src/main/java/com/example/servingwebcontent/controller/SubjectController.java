@@ -25,7 +25,7 @@ public class SubjectController {
             ArrayList<Subject> subjects = sa.getSubjectList();
             model.addAttribute("subjects", subjects);
 
-            // ✅ Tạo Map: lecturerId -> lecturerName
+            // Tạo Map: lecturerId -> lecturerName
             Map<String, String> lecturerNameMap = new HashMap<>();
             for (Subject s : subjects) {
                 String lecturerId = s.getLecturerId();
@@ -54,9 +54,9 @@ public class SubjectController {
 
     @PostMapping("/addsubject")
     public String addSubject(@RequestParam String subjectName,
-                             @RequestParam int credits,
-                             @RequestParam String lecturerId,
-                             Model model) {
+            @RequestParam int credits,
+            @RequestParam String lecturerId,
+            Model model) {
         try {
             int randomNum = (int) (Math.random() * 1000);
             String subjectId = String.format("sub%03d", randomNum);
@@ -83,10 +83,10 @@ public class SubjectController {
 
     @PostMapping("/updatesubject")
     public String updateSubject(@RequestParam String subjectId,
-                                @RequestParam String subjectName,
-                                @RequestParam int credits,
-                                @RequestParam String lecturerId,
-                                Model model) {
+            @RequestParam String subjectName,
+            @RequestParam int credits,
+            @RequestParam String lecturerId,
+            Model model) {
         try {
             Subject s = sa.getSubjectById(subjectId);
             if (s != null) {

@@ -8,26 +8,25 @@ import java.util.UUID;
 
 public class studentAiven {
 
-    // ✅ Hàm tạo student từ person_id đã có sẵn (dành cho bước đăng ký)
-public void insertStudentWithPersonId(String personId) {
-    String insertSql = "INSERT INTO student (student_id, person_id, class_id, class_name) VALUES (?, ?, ?, ?)";
+    // Hàm tạo student từ person_id đã có sẵn (dành cho bước đăng ký)
+    public void insertStudentWithPersonId(String personId) {
+        String insertSql = "INSERT INTO student (student_id, person_id, class_id, class_name) VALUES (?, ?, ?, ?)";
 
-    try (Connection conn = aivenConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+        try (Connection conn = aivenConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
 
-        pstmt.setString(1, UUID.randomUUID().toString()); // student_id
-        pstmt.setString(2, personId);                     // person_id
-        pstmt.setNull(3, java.sql.Types.VARCHAR);         // class_id => NULL (không có lớp)
-        pstmt.setString(4, "");                           // class_name => rỗng
-        pstmt.executeUpdate();
+            pstmt.setString(1, UUID.randomUUID().toString()); // student_id
+            pstmt.setString(2, personId); // person_id
+            pstmt.setNull(3, java.sql.Types.VARCHAR); // class_id => NULL (không có lớp)
+            pstmt.setString(4, ""); // class_name => rỗng
+            pstmt.executeUpdate();
 
-    } catch (SQLException e) {
-        throw new RuntimeException("Lỗi khi tạo student trống: " + e.getMessage(), e);
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tạo student trống: " + e.getMessage(), e);
+        }
     }
-}
 
-
-    // ✅ Hàm cũ insert đầy đủ person + student
+    // Hàm cũ insert đầy đủ person + student
     public void insertStudent(Student student) {
         String personSql = "INSERT INTO person (person_id, name, address, email, date_of_birth, gender) VALUES (?, ?, ?, ?, ?, ?)";
         String studentSql = "INSERT INTO student (student_id, person_id, class_id, class_name) VALUES (?, ?, ?, ?)";
@@ -60,18 +59,18 @@ public void insertStudentWithPersonId(String personId) {
         }
     }
 
-    // ✅ Các hàm get/update/delete giữ nguyên
+    // Các hàm get/update/delete giữ nguyên
     public ArrayList<Student> getStudentList() {
         ArrayList<Student> students = new ArrayList<>();
         String sql = """
-            SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
-            FROM student s
-            JOIN person p ON s.person_id = p.person_id
-        """;
+                    SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
+                    FROM student s
+                    JOIN person p ON s.person_id = p.person_id
+                """;
 
         try (Connection conn = aivenConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 students.add(new Student(
@@ -83,8 +82,7 @@ public void insertStudentWithPersonId(String personId) {
                         rs.getDate("date_of_birth"),
                         rs.getString("gender"),
                         rs.getString("class_id"),
-                        rs.getString("class_name")
-                ));
+                        rs.getString("class_name")));
             }
 
         } catch (SQLException e) {
@@ -96,14 +94,14 @@ public void insertStudentWithPersonId(String personId) {
 
     public Student getStudentById(String studentId) {
         String sql = """
-            SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
-            FROM student s
-            JOIN person p ON s.person_id = p.person_id
-            WHERE s.student_id = ?
-        """;
+                    SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
+                    FROM student s
+                    JOIN person p ON s.person_id = p.person_id
+                    WHERE s.student_id = ?
+                """;
 
         try (Connection conn = aivenConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, studentId);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -117,8 +115,7 @@ public void insertStudentWithPersonId(String personId) {
                             rs.getDate("date_of_birth"),
                             rs.getString("gender"),
                             rs.getString("class_id"),
-                            rs.getString("class_name")
-                    );
+                            rs.getString("class_name"));
                 }
             }
 
@@ -131,14 +128,14 @@ public void insertStudentWithPersonId(String personId) {
 
     public Student getStudentByEmail(String email) {
         String sql = """
-            SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
-            FROM student s
-            JOIN person p ON s.person_id = p.person_id
-            WHERE p.email = ?
-        """;
+                    SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
+                    FROM student s
+                    JOIN person p ON s.person_id = p.person_id
+                    WHERE p.email = ?
+                """;
 
         try (Connection conn = aivenConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, email);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -152,8 +149,7 @@ public void insertStudentWithPersonId(String personId) {
                             rs.getDate("date_of_birth"),
                             rs.getString("gender"),
                             rs.getString("class_id"),
-                            rs.getString("class_name")
-                    );
+                            rs.getString("class_name"));
                 }
             }
 
