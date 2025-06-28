@@ -219,4 +219,38 @@ public class lecturerAiven {
             throw new RuntimeException("Lỗi khi xoá giảng viên: " + e.getMessage(), e);
         }
     }
+    public ArrayList<Lecturer> searchLecturersByName(String keyword) {
+    ArrayList<Lecturer> lecturers = new ArrayList<>();
+    String sql = """
+        SELECT l.lecturer_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, l.department
+        FROM lecturer l
+        JOIN person p ON l.person_id = p.person_id
+        WHERE LOWER(p.name) LIKE ?
+    """;
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                lecturers.add(new Lecturer(
+                        rs.getString("lecturer_id"),
+                        rs.getString("person_id"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("email"),
+                        rs.getDate("date_of_birth"),
+                        rs.getString("gender"),
+                        rs.getString("department")));
+            }
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm giảng viên theo tên: " + e.getMessage(), e);
+    }
+
+    return lecturers;
+}
+ 
 }

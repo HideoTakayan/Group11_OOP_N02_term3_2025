@@ -17,22 +17,34 @@ public class ExamScheduleController {
     private final examScheduleAiven examScheduleDao = new examScheduleAiven();
 
     @GetMapping("/examschedulelist")
-    public String examScheduleList(@RequestParam(required = false) String editSubjectName, Model model) {
-        try {
-            ArrayList<ExamSchedule> examSchedules = examScheduleDao.getExamSchedules();
-            model.addAttribute("examSchedules", examSchedules);
+    public String examScheduleList(@RequestParam(required = false) String keyword,
+                               @RequestParam(required = false) String editSubjectName,
+                               Model model) {
+    try {
+        ArrayList<ExamSchedule> examSchedules;
 
-            if (editSubjectName != null) {
-                ExamSchedule editExam = examScheduleDao.getExamBySubject(editSubjectName);
-                if (editExam != null) {
-                    model.addAttribute("editExam", editExam);
-                }
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi tải danh sách lịch thi: " + e.getMessage());
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            examSchedules = examScheduleDao.searchExamSchedules(keyword);
+            model.addAttribute("keyword", keyword);
+        } else {
+            examSchedules = examScheduleDao.getExamSchedules();
         }
-        return "examschedulelist";
+
+        model.addAttribute("examSchedules", examSchedules);
+
+        if (editSubjectName != null) {
+            ExamSchedule editExam = examScheduleDao.getExamBySubject(editSubjectName);
+            if (editExam != null) {
+                model.addAttribute("editExam", editExam);
+            }
+        }
+
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi khi tải danh sách lịch thi: " + e.getMessage());
     }
+    return "examschedulelist";
+}
+
 
     @GetMapping("/examschedulelist/addschedule")
     public String showAddExamForm() {

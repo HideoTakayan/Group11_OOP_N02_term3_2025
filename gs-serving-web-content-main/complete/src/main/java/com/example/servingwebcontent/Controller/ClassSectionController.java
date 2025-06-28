@@ -15,24 +15,34 @@ import java.util.*;
 @Controller
 public class ClassSectionController {
 
-    @GetMapping("/classsectionlist")
-    public String listClassSections(@RequestParam(required = false) String editId, Model model) {
-        try {
-            classSectionAiven csa = new classSectionAiven();
-            List<ClassSection> list = csa.getAllClassSections();
-            model.addAttribute("classSections", list);
+@GetMapping("/classsectionlist")
+public String listClassSections(@RequestParam(required = false) String editId,
+                                @RequestParam(required = false) String keyword,
+                                Model model) {
+    try {
+        classSectionAiven csa = new classSectionAiven();
+        List<ClassSection> list;
 
-            if (editId != null) {
-                ClassSection editCs = csa.getClassSectionById(editId);
-                model.addAttribute("editClassSection", editCs);
-            }
-
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi hiển thị danh sách lớp học: " + e.getMessage());
+        if (keyword != null && !keyword.isBlank()) {
+            list = csa.searchClassSections(keyword);
+            model.addAttribute("keyword", keyword); // để hiển thị lại trong input tìm kiếm
+        } else {
+            list = csa.getAllClassSections();
         }
 
-        return "classsectionlist";
+        model.addAttribute("classSections", list);
+
+        if (editId != null) {
+            ClassSection editCs = csa.getClassSectionById(editId);
+            model.addAttribute("editClassSection", editCs);
+        }
+
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi khi hiển thị danh sách lớp học phần: " + e.getMessage());
     }
+
+    return "classsectionlist";
+}
 
     @GetMapping("/classsectionlist/add")
     public String showAddForm(Model model) {

@@ -6,24 +6,36 @@
       <div th:fragment="content">
         <div class="container mt-4">
           <!-- Thông báo lỗi -->
-          <div
-            th:if="${error}"
-            class="alert alert-danger"
-            th:text="${error}"
-          ></div>
+          <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
           <!-- Tiêu đề chính -->
           <h1 class="mb-4 text-primary">
             <i class="bi bi-diagram-3-fill"></i> Quản lý lớp học phần
           </h1>
 
-          <!-- Header danh sách + nút thêm -->
+          <!-- Thanh tìm kiếm và nút thêm -->
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0">Danh sách lớp học phần</h2>
             <a href="/classsectionlist/add" class="btn btn-primary">
               <i class="bi bi-plus-circle"></i> Thêm lớp học phần
             </a>
           </div>
+
+          <!-- Form tìm kiếm -->
+          <form method="get" action="/classsectionlist" class="row g-2 mb-4">
+            <div class="col-md-8">
+              <input type="text" name="keyword" class="form-control" th:value="${keyword}"
+                     placeholder="Tìm theo tên lớp hoặc tên học phần..." />
+            </div>
+            <div class="col-md-4 d-flex">
+              <button type="submit" class="btn btn-outline-primary me-2">
+                <i class="bi bi-search"></i> Tìm kiếm
+              </button>
+              <a href="/classsectionlist" class="btn btn-outline-secondary">
+                <i class="bi bi-x-circle"></i> Đặt lại
+              </a>
+            </div>
+          </form>
 
           <!-- Bảng dữ liệu -->
           <table class="table table-bordered table-striped">
@@ -32,9 +44,7 @@
                 <th><i class="bi bi-hash"></i> ID</th>
                 <th><i class="bi bi-building"></i> Tên lớp</th>
                 <th><i class="bi bi-book"></i> Học phần</th>
-                <!-- Đổi từ mã môn học sang tên -->
                 <th><i class="bi bi-person"></i> Giảng viên</th>
-                <!-- Đổi từ mã giảng viên sang tên -->
                 <th><i class="bi bi-tools"></i> Hành động</th>
               </tr>
             </thead>
@@ -43,28 +53,22 @@
                 <td th:text="${cs.classId}"></td>
                 <td th:text="${cs.className}"></td>
                 <td th:text="${cs.subjectName}"></td>
-                <!-- Hiển thị tên môn học -->
                 <td th:text="${cs.lecturerName}"></td>
-                <!-- Hiển thị tên giảng viên -->
                 <td>
-                  <a
-                    th:href="@{/classsectionlist/edit(classId=${cs.classId})}"
-                    class="btn btn-success btn-sm me-2"
-                  >
+                  <a th:href="@{/classsectionlist/edit(classId=${cs.classId})}"
+                     class="btn btn-success btn-sm me-2">
                     <i class="bi bi-pencil-square"></i> Sửa
                   </a>
-                  <a
-                    th:href="@{/deleteclasssection(classId=${cs.classId})}"
-                    onclick="return confirm('Bạn có chắc muốn xóa lớp học phần này?')"
-                    class="btn btn-danger btn-sm"
-                  >
+                  <a th:href="@{/deleteclasssection(classId=${cs.classId})}"
+                     onclick="return confirm('Bạn có chắc muốn xóa lớp học phần này?')"
+                     class="btn btn-danger btn-sm">
                     <i class="bi bi-trash3-fill"></i> Xóa
                   </a>
                 </td>
               </tr>
               <tr th:if="${#lists.isEmpty(classSections)}">
                 <td colspan="5" class="text-center text-muted">
-                  Chưa có lớp học phần nào.
+                  Không tìm thấy lớp học phần nào.
                 </td>
               </tr>
             </tbody>

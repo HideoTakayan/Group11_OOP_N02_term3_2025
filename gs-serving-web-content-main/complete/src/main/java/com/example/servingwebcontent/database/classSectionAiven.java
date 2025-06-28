@@ -109,4 +109,41 @@ public class classSectionAiven {
             throw new RuntimeException("Lỗi khi xoá lớp học phần: " + e.getMessage(), e);
         }
     }
+    public ArrayList<ClassSection> searchClassSections(String keyword) {
+    ArrayList<ClassSection> list = new ArrayList<>();
+    String sql = """
+        SELECT cs.class_id, cs.class_name, cs.subject_id, s.subject_name,
+               cs.lecturer_id, p.name AS lecturer_name
+        FROM class_section cs
+        JOIN subject s ON cs.subject_id = s.subject_id
+        JOIN lecturer l ON cs.lecturer_id = l.lecturer_id
+        JOIN person p ON l.person_id = p.person_id
+        WHERE LOWER(cs.class_name) LIKE ? OR LOWER(s.subject_name) LIKE ?
+    """;
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String pattern = "%" + keyword.toLowerCase() + "%";
+        pstmt.setString(1, pattern);
+        pstmt.setString(2, pattern);
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                list.add(new ClassSection(
+                        rs.getString("class_id"),
+                        rs.getString("class_name"),
+                        rs.getString("subject_id"),
+                        rs.getString("subject_name"),
+                        rs.getString("lecturer_id"),
+                        rs.getString("lecturer_name")
+                ));
+            }
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm kiếm lớp học phần: " + e.getMessage(), e);
+    }
+
+    return list;
+}
+
 }

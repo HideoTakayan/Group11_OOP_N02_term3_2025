@@ -227,4 +227,73 @@ public class studentAiven {
             throw new RuntimeException("Lỗi khi xoá sinh viên: " + e.getMessage(), e);
         }
     }
+    public ArrayList<Student> searchStudentsByName(String keyword) {
+    ArrayList<Student> students = new ArrayList<>();
+    String sql = """
+        SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
+        FROM student s
+        JOIN person p ON s.person_id = p.person_id
+        WHERE LOWER(p.name) LIKE ?
+    """;
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                students.add(new Student(
+                        rs.getString("student_id"),
+                        rs.getString("person_id"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("email"),
+                        rs.getDate("date_of_birth"),
+                        rs.getString("gender"),
+                        rs.getString("class_id"),
+                        rs.getString("class_name")));
+            }
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm sinh viên theo tên: " + e.getMessage(), e);
+    }
+
+    return students;
+}
+public ArrayList<Student> getStudentsByClassId(String classId) {
+    ArrayList<Student> students = new ArrayList<>();
+    String sql = """
+        SELECT s.student_id, p.person_id, p.name, p.address, p.email, p.date_of_birth, p.gender, s.class_id, s.class_name
+        FROM student s
+        JOIN person p ON s.person_id = p.person_id
+        WHERE s.class_id = ?
+    """;
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, classId);
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                students.add(new Student(
+                        rs.getString("student_id"),
+                        rs.getString("person_id"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("email"),
+                        rs.getDate("date_of_birth"),
+                        rs.getString("gender"),
+                        rs.getString("class_id"),
+                        rs.getString("class_name")
+                ));
+            }
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi lấy danh sách sinh viên theo lớp: " + e.getMessage(), e);
+    }
+
+    return students;
+}
+
+
 }

@@ -100,4 +100,43 @@ public class subjectAiven {
             throw new RuntimeException("Lỗi khi xóa môn học: " + e.getMessage(), e);
         }
     }
+public ArrayList<Subject> searchSubjects(String keyword) {
+    ArrayList<Subject> subjects = new ArrayList<>();
+    String sql = """
+        SELECT s.subject_id, s.subject_name, s.credits, s.lecturer_id
+        FROM subject s
+        LEFT JOIN lecturer l ON s.lecturer_id = l.lecturer_id
+        LEFT JOIN person p ON l.person_id = p.person_id
+        WHERE LOWER(s.subject_name) LIKE ? 
+           OR CAST(s.credits AS CHAR) LIKE ?
+           OR LOWER(p.name) LIKE ?
+    """;
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        String lowerKeyword = "%" + keyword.toLowerCase() + "%";
+        pstmt.setString(1, lowerKeyword);
+        pstmt.setString(2, lowerKeyword); // credits as string
+        pstmt.setString(3, lowerKeyword); // lecturer name
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                subjects.add(new Subject(
+                    rs.getString("subject_id"),
+                    rs.getString("subject_name"),
+                    rs.getInt("credits"),
+                    rs.getString("lecturer_id")
+                ));
+            }
+        }
+
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm môn học: " + e.getMessage(), e);
+    }
+
+    return subjects;
+}
+
+
 }

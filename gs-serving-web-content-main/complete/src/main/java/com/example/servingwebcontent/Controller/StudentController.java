@@ -16,22 +16,33 @@ import java.util.Random;
 @Controller
 public class StudentController {
 
-    @GetMapping("/studentlist")
-    public String studentList(@RequestParam(required = false) String editId, Model model) {
-        try {
-            studentAiven sa = new studentAiven();
-            List<Student> students = sa.getStudentList();
-            model.addAttribute("students", students);
+@GetMapping("/studentlist")
+public String studentList(@RequestParam(required = false) String editId,
+                          @RequestParam(required = false) String keyword,
+                          Model model) {
+    try {
+        studentAiven sa = new studentAiven();
+        List<Student> students;
 
-            if (editId != null) {
-                Student s = sa.getStudentById(editId);
-                model.addAttribute("editStudent", s);
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi tải danh sách sinh viên: " + e.getMessage());
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            students = sa.searchStudentsByName(keyword.trim());
+            model.addAttribute("keyword", keyword);
+        } else {
+            students = sa.getStudentList();
         }
-        return "studentlist";
+
+        model.addAttribute("students", students);
+
+        if (editId != null) {
+            Student s = sa.getStudentById(editId);
+            model.addAttribute("editStudent", s);
+        }
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi khi tải danh sách sinh viên: " + e.getMessage());
     }
+    return "studentlist";
+}
+
 
     @GetMapping("/studentlist/add")
     public String showAddStudentForm(Model model) {

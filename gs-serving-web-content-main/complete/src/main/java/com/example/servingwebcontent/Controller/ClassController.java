@@ -1,6 +1,7 @@
 package com.example.servingwebcontent.Controller;
 
 import com.example.servingwebcontent.database.classAiven;
+import com.example.servingwebcontent.database.studentAiven;
 import com.example.servingwebcontent.model.StudentClass;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,26 +14,35 @@ public class ClassController {
 
     private final classAiven dao = new classAiven(); // class DAO instance dùng chung
 
-    @GetMapping("/classlist")
-    public String classList(@RequestParam(required = false) String editId, Model model) {
-        try {
-            ArrayList<StudentClass> classes = dao.getClassList();
-            model.addAttribute("classes", classes);
+@GetMapping("/classlist")
+public String classList(
+        @RequestParam(required = false) String keyword,
+        @RequestParam(required = false) String classId,
+        Model model) {
+    try {
+        ArrayList<StudentClass> classes;
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            classes = dao.searchClassesByName(keyword);
+            model.addAttribute("keyword", keyword);
+        } else {
+            classes = dao.getClassList();
+        }
+        model.addAttribute("classes", classes);
 
-            if (editId != null) {
-                StudentClass editClass = dao.getClassById(editId);
-                if (editClass != null) {
-                    model.addAttribute("editClass", editClass);
-                } else {
-                    model.addAttribute("error", "Không tìm thấy lớp với ID: " + editId);
-                }
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi tải danh sách lớp: " + e.getMessage());
+        // Nếu chọn một lớp cụ thể để xem danh sách sinh viên
+        if (classId != null && !classId.trim().isEmpty()) {
+            studentAiven studentDao = new studentAiven();
+            model.addAttribute("studentsInClass", studentDao.getStudentsByClassId(classId));
+            model.addAttribute("selectedClassId", classId);
         }
 
-        return "classlist";
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi khi tải danh sách lớp: " + e.getMessage());
     }
+
+    return "classlist";
+}
+
 
     @GetMapping("/classlist/add")
     public String showAddClassForm(Model model) {

@@ -102,4 +102,39 @@ public class examScheduleAiven {
         }
         return null;
     }
+    public ArrayList<ExamSchedule> searchExamSchedules(String keyword) {
+    ArrayList<ExamSchedule> exams = new ArrayList<>();
+    String sql = """
+        SELECT * FROM exam_schedule
+        WHERE LOWER(subject_name) LIKE ?
+           OR CAST(exam_date AS CHAR) LIKE ?
+    """;
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        String pattern = "%" + keyword.toLowerCase() + "%";
+        pstmt.setString(1, pattern);
+        pstmt.setString(2, pattern);
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                exams.add(new ExamSchedule(
+                        rs.getString("subject_name"),
+                        rs.getDate("exam_date"),
+                        rs.getTime("start_time"),
+                        rs.getInt("duration_minutes"),
+                        rs.getString("exam_format"),
+                        rs.getString("location")
+                ));
+            }
+        }
+
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm lịch thi: " + e.getMessage(), e);
+    }
+
+    return exams;
+}
+
 }

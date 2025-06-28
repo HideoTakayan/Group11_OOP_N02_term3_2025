@@ -5,6 +5,7 @@
     <div th:replace="greeting :: layout">
       <div th:fragment="content">
         <div class="container mt-4">
+
           <!-- Hiển thị lỗi nếu có -->
           <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
@@ -12,10 +13,16 @@
             <i class="bi bi-collection"></i> Quản lý lớp học
           </h1>
 
-          <!-- Thanh tiêu đề và nút thêm lớp -->
+          <!-- Thanh tìm kiếm và nút thêm lớp -->
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-0">Danh sách lớp học</h2>
-            <a th:href="@{/classlist/add}" class="btn btn-primary">
+            <form method="get" action="/classlist" class="d-flex" style="flex-grow: 1; max-width: 500px;">
+              <input type="text" name="keyword" class="form-control me-2"
+                     placeholder="Tìm kiếm tên lớp..." th:value="${keyword}" />
+              <button class="btn btn-outline-primary" type="submit">
+                <i class="bi bi-search"></i> Tìm kiếm
+              </button>
+            </form>
+            <a th:href="@{/classlist/add}" class="btn btn-primary ms-3">
               <i class="bi bi-plus-circle"></i> Thêm lớp
             </a>
           </div>
@@ -26,13 +33,19 @@
               <tr>
                 <th><i class="bi bi-building"></i> Mã lớp</th>
                 <th><i class="bi bi-book"></i> Tên lớp</th>
+                <th class="text-center"><i class="bi bi-people"></i> Danh sách sinh viên</th>
                 <th class="text-center"><i class="bi bi-tools"></i> Hành động</th>
               </tr>
             </thead>
             <tbody>
               <tr th:each="classroom : ${classes}">
-                <td th:text="${classroom.classId}"></td>
-                <td th:text="${classroom.className}"></td>
+                <td th:text="${classroom.classId}">Mã lớp</td>
+                <td th:text="${classroom.className}">Tên lớp</td>
+                <td class="text-center">
+                  <a th:href="@{/classlist(classId=${classroom.classId})}" class="btn btn-info btn-sm">
+                    <i class="bi bi-person-lines-fill"></i> Xem danh sách sinh viên
+                  </a>
+                </td>
                 <td class="text-center">
                   <a th:href="@{/classlist/edit(classId=${classroom.classId})}" class="btn btn-success btn-sm me-2">
                     <i class="bi bi-pencil-square"></i> Sửa
@@ -44,12 +57,44 @@
                   </a>
                 </td>
               </tr>
-              <!-- Nếu không có lớp nào -->
               <tr th:if="${#lists.isEmpty(classes)}">
-                <td colspan="3" class="text-center text-muted">Chưa có lớp học nào được thêm.</td>
+                <td colspan="4" class="text-center text-muted">Chưa có lớp học nào được thêm.</td>
               </tr>
             </tbody>
           </table>
+
+          <!-- Danh sách sinh viên của lớp đã chọn -->
+          <div th:if="${studentsInClass != null}">
+            <h3 class="mt-5 text-success">
+              <i class="bi bi-person-badge"></i> Danh sách sinh viên của lớp:
+              <span th:text="${selectedClassId}"></span>
+            </h3>
+
+            <table class="table table-bordered table-hover mt-3">
+              <thead class="table-light">
+                <tr>
+                  <th>Mã sinh viên</th>
+                  <th>Họ tên</th>
+                  <th>Email</th>
+                  <th>Giới tính</th>
+                  <th>Ngày sinh</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="student : ${studentsInClass}">
+                  <td th:text="${student.studentId}">ID</td>
+                  <td th:text="${student.name}">Tên</td>
+                  <td th:text="${student.email}">Email</td>
+                  <td th:text="${student.gender}">Giới tính</td>
+                  <td th:text="${#dates.format(student.dateOfBirth, 'dd/MM/yyyy')}">Ngày sinh</td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(studentsInClass)}">
+                  <td colspan="5" class="text-center text-muted">Lớp này chưa có sinh viên nào.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </div>
     </div>

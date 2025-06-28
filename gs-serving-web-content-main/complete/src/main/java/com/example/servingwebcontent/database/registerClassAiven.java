@@ -108,4 +108,42 @@ public class registerClassAiven {
             throw new RuntimeException("Lỗi khi xoá đăng ký lớp: " + e.getMessage(), e);
         }
     }
+    public List<RegisterClassSection> searchRegisterClassList(String keyword) {
+    List<RegisterClassSection> list = new ArrayList<>();
+    String sql = """
+        SELECT r.register_id, r.student_id, p.name AS student_name,
+               r.class_id, c.class_name
+        FROM register_class r
+        JOIN student s ON r.student_id = s.student_id
+        JOIN person p ON s.person_id = p.person_id
+        JOIN class_section c ON r.class_id = c.class_id
+        WHERE LOWER(p.name) LIKE ? OR LOWER(c.class_name) LIKE ?
+    """;
+
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        String pattern = "%" + keyword.toLowerCase() + "%";
+        stmt.setString(1, pattern);
+        stmt.setString(2, pattern);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                RegisterClassSection rc = new RegisterClassSection(
+                        rs.getString("register_id"),
+                        rs.getString("student_id"),
+                        rs.getString("class_id"));
+                rc.setName(rs.getString("student_name"));
+                rc.setClassName(rs.getString("class_name"));
+                list.add(rc);
+            }
+        }
+
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm kiếm danh sách đăng ký lớp: " + e.getMessage(), e);
+    }
+
+    return list;
+}
+
 }

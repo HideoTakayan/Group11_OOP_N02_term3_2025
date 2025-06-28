@@ -19,16 +19,23 @@ public class RegisterController {
     private final studentAiven studentDAO = new studentAiven();
     private final classSectionAiven classSectionDAO = new classSectionAiven();
 
-    @GetMapping("/registerclasslist")
-    public String viewRegisterClassList(Model model) {
-        try {
-            List<RegisterClassSection> registerList = registerDAO.getRegisterClassList();
-            model.addAttribute("registerList", registerList);
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi tải danh sách đăng ký lớp: " + e.getMessage());
+@GetMapping("/registerclasslist")
+public String viewRegisterClassList(@RequestParam(required = false) String keyword, Model model) {
+    try {
+        List<RegisterClassSection> registerList;
+        if (keyword != null && !keyword.isEmpty()) {
+            registerList = registerDAO.searchRegisterClassList(keyword);
+            model.addAttribute("keyword", keyword);
+        } else {
+            registerList = registerDAO.getRegisterClassList();
         }
-        return "registerclasslist";
+        model.addAttribute("registerList", registerList);
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi khi tải danh sách đăng ký lớp: " + e.getMessage());
     }
+    return "registerclasslist";
+}
+
 
     @GetMapping("/addregisterclass")
     public String showAddForm(Model model) {

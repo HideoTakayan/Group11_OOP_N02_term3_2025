@@ -19,32 +19,43 @@ public class SubjectController {
     private final subjectAiven sa = new subjectAiven();
     private final lecturerAiven la = new lecturerAiven();
 
-    @GetMapping("/subjectlist")
-    public String subjectList(@RequestParam(required = false) String editId, Model model) {
-        try {
-            ArrayList<Subject> subjects = sa.getSubjectList();
-            model.addAttribute("subjects", subjects);
+@GetMapping("/subjectlist")
+public String subjectList(@RequestParam(required = false) String keyword,
+                          @RequestParam(required = false) String editId,
+                          Model model) {
+    try {
+        ArrayList<Subject> subjects;
 
-            // Tạo Map: lecturerId -> lecturerName
-            Map<String, String> lecturerNameMap = new HashMap<>();
-            for (Subject s : subjects) {
-                String lecturerId = s.getLecturerId();
-                if (lecturerId != null && !lecturerId.isEmpty() && !lecturerNameMap.containsKey(lecturerId)) {
-                    Lecturer lecturer = la.getLecturerById(lecturerId);
-                    if (lecturer != null) {
-                        lecturerNameMap.put(lecturerId, lecturer.getName());
-                    }
-                }
-            }
-
-            model.addAttribute("lecturerNameMap", lecturerNameMap);
-
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi tải danh sách môn học: " + e.getMessage());
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            subjects = sa.searchSubjects(keyword);
+            model.addAttribute("searchKeyword", keyword);
+        } else {
+            subjects = sa.getSubjectList();
         }
 
-        return "subjectlist";
+        model.addAttribute("subjects", subjects);
+
+        // Lấy tên giảng viên
+        Map<String, String> lecturerNameMap = new HashMap<>();
+        for (Subject s : subjects) {
+            String lecturerId = s.getLecturerId();
+            if (lecturerId != null && !lecturerId.isEmpty() && !lecturerNameMap.containsKey(lecturerId)) {
+                Lecturer lecturer = la.getLecturerById(lecturerId);
+                if (lecturer != null) {
+                    lecturerNameMap.put(lecturerId, lecturer.getName());
+                }
+            }
+        }
+
+        model.addAttribute("lecturerNameMap", lecturerNameMap);
+
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi khi tải danh sách môn học: " + e.getMessage());
     }
+
+    return "subjectlist";
+}
+
 
     @GetMapping("/subjectlist/add")
     public String showAddSubjectForm(Model model) {

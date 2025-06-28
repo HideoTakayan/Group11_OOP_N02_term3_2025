@@ -78,4 +78,24 @@ public class classAiven {
         }
         return null;
     }
+    public ArrayList<StudentClass> searchClassesByName(String keyword) {
+    ArrayList<StudentClass> list = new ArrayList<>();
+    String sql = "SELECT * FROM student_class WHERE LOWER(class_name) LIKE ?";
+    try (Connection conn = aivenConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, "%" + keyword.toLowerCase() + "%");
+        try (ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                list.add(new StudentClass(
+                        rs.getString("class_id"),
+                        rs.getString("class_name")
+                ));
+            }
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm lớp học theo tên: " + e.getMessage(), e);
+    }
+    return list;
+}
+
 }

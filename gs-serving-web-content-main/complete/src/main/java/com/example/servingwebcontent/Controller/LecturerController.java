@@ -24,21 +24,31 @@ public class LecturerController {
         return "l" + number;
     }
 
-    @GetMapping("/lecturerlist")
-    public String lecturerList(@RequestParam(required = false) String editId, Model model) {
-        try {
-            ArrayList<Lecturer> lecturers = lecturerDb.getLecturerList();
-            model.addAttribute("lecturers", lecturers);
-
-            if (editId != null) {
-                Lecturer l = lecturerDb.getLecturerById(editId);
-                model.addAttribute("editLecturer", l);
-            }
-        } catch (Exception e) {
-            model.addAttribute("error", "Lỗi khi tải danh sách giảng viên: " + e.getMessage());
+@GetMapping("/lecturerlist")
+public String lecturerList(@RequestParam(required = false) String editId,
+                           @RequestParam(required = false) String keyword,
+                           Model model) {
+    try {
+        ArrayList<Lecturer> lecturers;
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            lecturers = lecturerDb.searchLecturersByName(keyword.trim());
+            model.addAttribute("keyword", keyword);
+        } else {
+            lecturers = lecturerDb.getLecturerList();
         }
-        return "lecturerlist";
+
+        model.addAttribute("lecturers", lecturers);
+
+        if (editId != null) {
+            Lecturer l = lecturerDb.getLecturerById(editId);
+            model.addAttribute("editLecturer", l);
+        }
+    } catch (Exception e) {
+        model.addAttribute("error", "Lỗi khi tải danh sách giảng viên: " + e.getMessage());
     }
+    return "lecturerlist";
+}
+
 
     @GetMapping("/lecturerlist/add")
     public String showAddLecturerForm(Model model) {
