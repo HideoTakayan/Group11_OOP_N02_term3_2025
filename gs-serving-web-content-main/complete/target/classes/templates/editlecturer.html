@@ -13,7 +13,6 @@
             <input type="hidden" name="lecturerId" th:value="${lecturer.lecturerId}" />
             <input type="hidden" name="personId" th:value="${lecturer.personId}" />
 
-            <!-- Tên -->
             <div class="mb-3">
               <label class="form-label">Tên</label>
               <input
@@ -25,7 +24,6 @@
               />
             </div>
 
-            <!-- Địa chỉ -->
             <div class="mb-3">
               <label class="form-label">Địa chỉ</label>
               <input
@@ -37,7 +35,6 @@
               />
             </div>
 
-            <!-- Email -->
             <div class="mb-3">
               <label class="form-label">Email</label>
               <input
@@ -49,7 +46,6 @@
               />
             </div>
 
-            <!-- Ngày sinh -->
             <div class="mb-3">
               <label class="form-label">Ngày sinh</label>
               <input
@@ -61,7 +57,6 @@
               />
             </div>
 
-            <!-- Giới tính -->
             <div class="mb-3">
               <label class="form-label">Giới tính</label>
               <select class="form-select" name="gender" required>
@@ -71,21 +66,17 @@
               </select>
             </div>
 
-            <!-- Môn dạy -->
             <div class="mb-3">
-              <label class="form-label">Chuyên môn (Môn dạy)</label>
-              <select name="department" class="form-select" required>
-                <option value="">-- Chọn môn học --</option>
-                <option
-                  th:each="sub : ${subjects}"
-                  th:value="${sub.subjectName}"
-                  th:text="${sub.subjectName}"
-                  th:selected="${sub.subjectName == lecturer.department}"
-                ></option>
-              </select>
+              <label class="form-label">Khoa</label>
+              <input
+                type="text"
+                class="form-control"
+                name="department"
+                th:value="${lecturer.department}"
+                required
+              />
             </div>
 
-            <!-- Nút thao tác -->
             <button type="submit" class="btn btn-primary">
               <i class="bi bi-check-lg"></i> Cập nhật
             </button>

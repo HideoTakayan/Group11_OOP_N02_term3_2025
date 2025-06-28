@@ -104,7 +104,7 @@
           <tr><th>Địa chỉ</th><td th:text="${lecturer.address}">Địa chỉ</td></tr>
           <tr><th>Ngày sinh</th><td th:text="${#dates.format(lecturer.dateOfBirth, 'dd/MM/yyyy')}">Ngày sinh</td></tr>
           <tr><th>Giới tính</th><td th:text="${lecturer.gender}">Giới tính</td></tr>
-          <tr><th>Chuyên môn</th><td th:text="${lecturer.department}">Công nghệ thông tin</td></tr>
+          <tr><th>Khoa</th><td th:text="${lecturer.department}">Công nghệ thông tin</td></tr>
           <tr><th>Vai trò</th><td>Giảng viên</td></tr>
         </table>
         <a th:href="@{/lecturer/profile/edit}" class="btn btn-warning">Sửa thông tin</a>
@@ -139,7 +139,7 @@
             </select>
           </div>
           <div class="mb-3">
-            <label class="form-label">Chuyên môn</label>
+            <label class="form-label">Khoa</label>
             <input type="text" class="form-control" th:field="*{department}" required>
           </div>
           <button type="submit" class="btn btn-primary">Lưu</button>

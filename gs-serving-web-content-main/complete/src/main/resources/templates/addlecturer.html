@@ -9,7 +9,6 @@
             <i class="bi bi-person-plus"></i> Thêm giảng viên mới
           </h2>
 
-          <!-- Thông báo lỗi -->
           <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
 
           <form th:action="@{/addlecturer}" method="post">
@@ -43,14 +42,8 @@
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Chuyên môn (Môn dạy)</label>
-              <select name="department" class="form-select" required>
-                <option value="">-- Chọn môn học --</option>
-                <option th:each="sub : ${subjects}"
-                        th:value="${sub.subjectName}"
-                        th:text="${sub.subjectName}">
-                </option>
-              </select>
+              <label class="form-label">Khoa</label>
+              <input type="text" name="department" class="form-control" required placeholder="Nhập tên khoa" />
             </div>
 
             <button type="submit" class="btn btn-success">
