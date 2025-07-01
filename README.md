@@ -20,7 +20,7 @@
 
 ### ✅ Các lớp đối tượng
 
-```sql
+sql
 -- Bảng Person
 person (
   person_id VARCHAR(50) PRIMARY KEY,
