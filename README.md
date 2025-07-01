@@ -51,13 +51,13 @@ _Quản lý thời khóa biểu lớp học_
 
 | Trường        | Kiểu    | Mô tả                                  |
 |---------------|---------|----------------------------------------|
-| enviromentId  | String  | Mã môi trường học                      |
+| enviromentId  | String  | Mã lịch học                            |
 | classId       | String  | Mã lớp học phần                        |
 | className     | String  | Tên lớp học phần                       |
 | subjectName   | String  | Tên môn học                            |
 | lecturerName  | String  | Tên giảng viên                         |
 | location      | String  | Địa điểm học                           |
-| dayOfWeek     | String  | Thứ và ngày học (VD: Thứ 2 - ...)     |
+| dayOfWeek     | String  | Thứ và ngày học (VD: Thứ 2 - ...)      |
 | time          | String  | Khung giờ học                          |
 
 ---
