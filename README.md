@@ -1,47 +1,67 @@
-#Group11_OOP_N02_term3_2025
-👨‍🎓 Group 11: OOP Term 3 2025 – K17
-🧑‍🤝‍🧑 Thành viên:  
-Đỗ Như Minh Hiếu – 23010291  
-Phan Minh Trúc – 23010818  
-Triệu Tuấn Duy – 23010449  
-📌 Tiêu đề: Quản lý đại học  
-🔗 Link README giới thiệu project
-https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/
+# 👨‍🎓 Group 11 – OOP Term 3 – 2025 (K17)
 
-#🎯 Đối tượng
-✅ Các lớp đối tượng  
+## 🧑‍🤝‍🧑 Thành viên
+
+| Họ tên            | MSSV      |
+|-------------------|-----------|
+| Đỗ Như Minh Hiếu  | 23010291  |
+| Phan Minh Trúc    | 23010818  |
+| Triệu Tuấn Duy    | 23010449  |
+
+---
+
+## 📌 Tiêu đề: Quản lý Đại học
+
+🔗 [Link README giới thiệu project](https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/)
+
+---
+
+## 🎯 Đối tượng & Cấu trúc cơ sở dữ liệu
+
+### ✅ Các lớp đối tượng
+
+```sql
+-- Bảng Person
 person (
-    person_id varchar(50) primary key,
-    name varchar(100),
-    address varchar(255),
-    email varchar(100) unique,
-    date_of_birth date not null,
-    gender enum('Nam', 'Nữ') not null
-);  
+  person_id VARCHAR(50) PRIMARY KEY,
+  name VARCHAR(100),
+  address VARCHAR(255),
+  email VARCHAR(100) UNIQUE,
+  date_of_birth DATE NOT NULL,
+  gender ENUM('Nam', 'Nữ') NOT NULL
+);
+
+-- Bảng Lớp sinh viên
 student_class (
-    class_id varchar(50) primary key,
-    class_name varchar(100)
-);  
+  class_id VARCHAR(50) PRIMARY KEY,
+  class_name VARCHAR(100)
+);
+
+-- Bảng Sinh viên
 student (
-    student_id varchar(50) primary key,
-    person_id varchar(50),
-    class_id varchar(50),
-	class_name VARCHAR(100),
-    foreign key (person_id) references person(person_id) on delete cascade,
-    foreign key (class_id) references student_class(class_id) on delete cascade
-);  
+  student_id VARCHAR(50) PRIMARY KEY,
+  person_id VARCHAR(50),
+  class_id VARCHAR(50),
+  class_name VARCHAR(100),
+  FOREIGN KEY (person_id) REFERENCES person(person_id) ON DELETE CASCADE,
+  FOREIGN KEY (class_id) REFERENCES student_class(class_id) ON DELETE CASCADE
+);
+
+-- Bảng Giảng viên
 lecturer (
-    lecturer_id varchar(50) primary key,
-    person_id varchar(50),
-    department varchar(100),
-    foreign key (person_id) references person(person_id) on delete cascade
-);  
+  lecturer_id VARCHAR(50) PRIMARY KEY,
+  person_id VARCHAR(50),
+  department VARCHAR(100),
+  FOREIGN KEY (person_id) REFERENCES person(person_id) ON DELETE CASCADE
+);
+
+-- Bảng Môn học
 subject (
-    subject_id varchar(50) primary key,
-    subject_name varchar(255) not null,
-    credits int not null,
-    lecturer_id varchar(50),
-    foreign key (lecturer_id) references lecturer(lecturer_id) on delete cascade
+  subject_id VARCHAR(50) PRIMARY KEY,
+  subject_name VARCHAR(255) NOT NULL,
+  credits INT NOT NULL,
+  lecturer_id VARCHAR(50),
+  FOREIGN KEY (lecturer_id) REFERENCES lecturer(lecturer_id) ON DELETE CASCADE
 );
 
 ## 🏗️ Xây dựng ứng dụng Quản lý đại học (University Management System)
