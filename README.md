@@ -1,7 +1,10 @@
-# 👨‍🎓 Group 11 – OOP Term 3 – 2025 (K17)
+# **University Management**  
+<p align="center">
+  <img src="https://miro.medium.com/v2/0*9XI4DHbHZoGzMVfD.gif" alt="VAK" width="600"/>
+</p>
 
-## 🧑‍🤝‍🧑 Thành viên
-
+## **I. Thành viên**
+Group11_OOP_NO2_term3_2025
 | Họ tên            | MSSV      |
 |-------------------|-----------|
 | Đỗ Như Minh Hiếu  | 23010291  |
@@ -10,159 +13,218 @@
 
 ---
 
-## 📌 Tiêu đề: Quản lý Đại học
+## **II. Giới thiệu**
+Một ứng dụng web dựa trên CRUD để quản lý đại học – được phát triển bằng Spring Boot MVC + Thymeleaf + MySQL. Hệ thống này cho phép kiểm soát toàn diện các đối tượng như sinh viên, giảng viên, lớp học, lịch học và thể hiện trực quan 
 
-🔗 [Link README giới thiệu project](https://hideotakayan.github.io/Group11_OOP_N02_term3_2025/)
+---
+## **III. Tính năng**
+Hệ thống hỗ trợ các chức năng quản lý, chỉnh sửa và tra cứu:
+- Sinh viên
+- Giảng viên
+- Môn học
+- Lớp học
+- Lớp học phần
+- Lịch học
+- Lịch thi
+- Đăng kí môn học
+- Phân quyền người dùng ( phân quyền admin/lecturer/student )  
+Thông qua một giao diện bảng điều khiển trực quan, người dùng có thể dễ dàng quản lý thông tin học tập, lịch học, lịch thi và dữ liệu cá nhân.
+
+---
+## **IV. Thiết kế cơ sở dữ liệu**  
+### 1. ClassSection  
+_Quản lý thông tin các lớp học phần_
+
+| Trường        | Kiểu    | Mô tả                                |
+|---------------|---------|--------------------------------------|
+| classId       | String  | Mã lớp học phần                      |
+| className     | String  | Tên lớp học phần                     |
+| subjectId     | String  | Mã môn học                           |
+| subjectName   | String  | Tên môn học                          |
+| lecturerId    | String  | Mã giảng viên                        |
+| lecturerName  | String  | Tên giảng viên                       |
 
 ---
 
-## 🎯 Đối tượng & Cấu trúc cơ sở dữ liệu
+### 2. Environment  
+_Quản lý thời khóa biểu lớp học_
 
-### ✅ Các lớp đối tượng
+| Trường        | Kiểu    | Mô tả                                  |
+|---------------|---------|----------------------------------------|
+| enviromentId  | String  | Mã môi trường học                      |
+| classId       | String  | Mã lớp học phần                        |
+| className     | String  | Tên lớp học phần                       |
+| subjectName   | String  | Tên môn học                            |
+| lecturerName  | String  | Tên giảng viên                         |
+| location      | String  | Địa điểm học                           |
+| dayOfWeek     | String  | Thứ và ngày học (VD: Thứ 2 - ...)     |
+| time          | String  | Khung giờ học                          |
 
-sql
--- Bảng Person
-person (
-  person_id VARCHAR(50) PRIMARY KEY,
-  name VARCHAR(100),
-  address VARCHAR(255),
-  email VARCHAR(100) UNIQUE,
-  date_of_birth DATE NOT NULL,
-  gender ENUM('Nam', 'Nữ') NOT NULL
-);
+---
 
--- Bảng Lớp sinh viên
-student_class (
-  class_id VARCHAR(50) PRIMARY KEY,
-  class_name VARCHAR(100)
-);
+### 3. ExamSchedule  
+_Quản lý lịch thi_
 
--- Bảng Sinh viên
-student (
-  student_id VARCHAR(50) PRIMARY KEY,
-  person_id VARCHAR(50),
-  class_id VARCHAR(50),
-  class_name VARCHAR(100),
-  FOREIGN KEY (person_id) REFERENCES person(person_id) ON DELETE CASCADE,
-  FOREIGN KEY (class_id) REFERENCES student_class(class_id) ON DELETE CASCADE
-);
+| Trường           | Kiểu    | Mô tả                                |
+|------------------|---------|--------------------------------------|
+| subjectName      | String  | Tên môn thi                          |
+| examDate         | Date    | Ngày thi                             |
+| startTime        | Time    | Giờ bắt đầu                          |
+| durationMinutes  | int     | Số phút thi                          |
+| examFormat       | String  | Hình thức thi (Trắc nghiệm, Tự luận...) |
+| location         | String  | Địa điểm thi                         |
 
--- Bảng Giảng viên
-lecturer (
-  lecturer_id VARCHAR(50) PRIMARY KEY,
-  person_id VARCHAR(50),
-  department VARCHAR(100),
-  FOREIGN KEY (person_id) REFERENCES person(person_id) ON DELETE CASCADE
-);
+---
 
--- Bảng Môn học
-subject (
-  subject_id VARCHAR(50) PRIMARY KEY,
-  subject_name VARCHAR(255) NOT NULL,
-  credits INT NOT NULL,
-  lecturer_id VARCHAR(50),
-  FOREIGN KEY (lecturer_id) REFERENCES lecturer(lecturer_id) ON DELETE CASCADE
-);
+### 4. Lecturer  
+_Đại diện cho giảng viên (kế thừa từ Person)_
 
-## 🏗️ Xây dựng ứng dụng Quản lý đại học (University Management System)
-# ⚙️ Yêu cầu:
-Giao diện: Java Spring Boot
-Các chức năng chính:
- - Thêm, sửa, xoá, truy vấn Môn học, Sinh viên, Giảng viên, Lịch học, Lịch thi, Lớp.  
- - Quản lý môn học, quản lý lịch thi, đăng kí môn học.  
- - Thực hiện giao diện người dùng với Học sinh và Giảng viên.  
-# 📋 Cụ thể:
-- Thêm, sửa, xóa Môn học ( Subject )  
-* Liệt kê thông tin về môn học, có thể lọc theo tên môn học ( SubjectName ) hoặc mã môn học ( SubjectId )  
-  -> Có chức năng quản lý môn học.  
-- Thêm, sửa, xóa Giảng viên ( Lecturer ).  
-* Liệt kê thông tin về giảng viên, có thể tìm kiểm giảng viên qua LecturerId.  
-  -> Có chức năng gán môn học cho giảng viên phụ trách  
-- Thêm, sửa, xóa Học sinh ( Student ).  
-* Liệt kê thông tin về học sinh, có thể tìm kiểm học sinh qua studentId.  
-  -> Có chức năng gán môn học cho sinh viên ( Sinh viên có thể đăng kí môn học )  
-- Thêm, sửa, xóa Lớp học(Grade).  
-* Tra cứu thông tin về môn học qua SubjectID, liệt kê các sinh viên trong lớp qua studentId.  
-  -> Có chức năng gán sinh viên, môn học cho lớp học.  
-* Dữ liệu được lưu trữ xuống file nhị phân  
-- Cần tạo các lớp liên quan đến " môn học ", " giảng viên ", " học sinh " để đọc, ghi xuống 1 hay nhiều file.  
-* Khi làm việc với dữ liệu trong bộ nhớ, dữ liệu cần được lưu trữ dưới dạng các Collection tùy chọn như ArrayList, LinkedList, Map, ....  
-#📚 Nội dung 02 – Class Diagram  
-01 sơ đồ Class Diagram của bài tập lớn  
-- Sơ đồ Class Diagram:
-- ![Untitledllll](https://github.com/user-attachments/assets/b6ddcb33-e368-4b1a-a1a5-7c7e37983b71)
-#🎬 Nội dung 03 – Behavioural Diagram  
-- Sequence Diagram ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
-# Các phương thức hiện có:  
-1. Phương thức đăng kí môn học, hủy đăng kí môn học  
-2. Phương thức hiển thị,tìm kiếm lịch thi  
-3. Phương thức sửa đổi thông tin cá nhân.  
-# Lưu đồ phương thức đăng kí môn học ( Phương thức chính ):
-![luudothuattoan](https://github.com/user-attachments/assets/4a3a7d8e-fbe3-446e-89c8-60d6e76fc119)
-Quản lý đăng kí môn học: Cho phép sv đăng kí môn học, Kiểm tra xem học sinh đã đki được môn học hay chưa, Hủy đăng kí môn học  
-Phân chia công việc:  
-## Trần Tuấn Duy: Hoàn thành phương thức đăng kí môn học  
-## Phan Minh Trúc: Hoàn thành phương thức kiểm tra xem học sinh đã đăng kí môn học chưa.
-✅ Phương thức kiểm tra học sinh đã đăng ký môn học chưa
-🧩 Ý tưởng
-Phương thức này được sử dụng để kiểm tra xem một sinh viên đã đăng ký một lớp học nhất định hay chưa. Điều này giúp:
-Ngăn sinh viên đăng ký trùng lớp.  
-Đảm bảo dữ liệu đăng ký lớp không bị lặp.  
-Xác minh tình trạng đăng ký của sinh viên trước khi thực hiện các thao tác khác (ví dụ: huỷ, đổi lớp).  
-🧾 Mô tả phương thức isStudentRegistered 
-```
-public boolean isStudentRegistered(String studentId, String classSectionId) {
-    List<RegisterClassSection> registerList = getRegisterClassList();
-    for (RegisterClassSection rc : registerList) {
-        if (rc.getStudentId().equals(studentId) && rc.getClassSectionId().equals(classSectionId)) {
-            return true;
-        }
-    }
-    return false;
-}
-```
-🔍 Chức năng  
-Kiểm tra xem sinh viên với studentId đã đăng ký lớp học có classSectionId hay chưa.  
-🪜 Các bước xử lý  
-Lấy danh sách tất cả các đăng ký lớp học từ database (getRegisterClassList).  
-Duyệt qua từng bản ghi trong danh sách.  
-So sánh:  
-Nếu studentId của bản ghi khớp với studentId cần kiểm tra, và  
-classSectionId của bản ghi khớp với classSectionId cần kiểm tra,  
-→ Trả về true (đã đăng ký).  
-Nếu duyệt hết danh sách mà không tìm thấy, trả về false (chưa đăng ký).  
-## Đỗ Như Minh HIếu: Hoàn thành phương thức hủy đăng kí môn học  
-❌ Phương thức huỷ đăng ký môn học  
-🧩 Ý tưởng  
-Phương thức này được sử dụng khi sinh viên muốn hủy đăng ký một lớp học đã chọn trước đó, vì các lý do như:  
- - Chọn nhầm lớp.  
- - Trùng lịch học.  
- - Thay đổi kế hoạch học tập.  
- - Lớp bị hủy hoặc thay đổi giảng viên.  
-🧾 Mô tả phương thức unregisterClass
-```  
-@PostMapping("/unregister-class")  
-public String unregisterClass(@RequestParam("registerId") String registerId, HttpSession session) {  
-    String email = (String) session.getAttribute("userEmail");  
-    if (email == null)  
-        return "redirect:/login";  
-    try {  
-        registerDao.deleteRegisterClass(registerId);  
-    } catch (Exception e) {  
-    }  
-    return "redirect:/student/registered-classes";  
-}
-```
-🔍 Chức năng  
-Huỷ lớp học đã đăng ký cho sinh viên hiện tại (đã đăng nhập).  
-Xóa bản ghi tương ứng với registerId trong bảng register_class_section.  
-🪜 Các bước xử lý  
-Kiểm tra sinh viên đã đăng nhập hay chưa (userEmail trong session).  
-Nếu chưa: chuyển hướng về /login.  
-Nếu đã đăng nhập:  
-Gọi registerDao.deleteRegisterClass(registerId) để xoá bản ghi đăng ký.  
-Sau khi thực hiện, chuyển về trang /student/registered-classes.  
+| Trường       | Kiểu    | Mô tả                    |
+|--------------|---------|--------------------------|
+| lecturerId   | String  | Mã giảng viên            |
+| department   | String  | Khoa/phòng ban phụ trách |
 
+---
 
+### 5. Person *(abstract)*  
+_Thông tin cá nhân dùng chung cho Student và Lecturer_
 
+| Trường        | Kiểu    | Mô tả                    |
+|---------------|---------|--------------------------|
+| personId      | String  | Mã định danh cá nhân     |
+| name          | String  | Họ và tên                |
+| address       | String  | Địa chỉ                  |
+| email         | String  | Email liên hệ            |
+| dateOfBirth   | Date    | Ngày sinh                |
+| gender        | String  | Giới tính                |
 
+---
+
+### 6. RegisterClassSection  
+_Đăng ký môn học cho sinh viên_
+
+| Trường           | Kiểu    | Mô tả                      |
+|------------------|---------|----------------------------|
+| registerId       | String  | Mã đăng ký học phần        |
+| studentId        | String  | Mã sinh viên               |
+| classSectionId   | String  | Mã lớp học phần            |
+| name             | String  | Tên sinh viên              |
+| className        | String  | Tên lớp học phần           |
+
+---
+
+### 7. Student  
+_Đại diện cho sinh viên (kế thừa từ Person)_
+
+| Trường      | Kiểu    | Mô tả                     |
+|-------------|---------|---------------------------|
+| studentId   | String  | Mã sinh viên              |
+| classId     | String  | Mã lớp sinh viên          |
+| className   | String  | Tên lớp sinh viên         |
+
+---
+
+### 8. StudentClass  
+_Thông tin lớp học của sinh viên_
+
+| Trường      | Kiểu    | Mô tả                     |
+|-------------|---------|---------------------------|
+| classId     | String  | Mã lớp sinh viên          |
+| className   | String  | Tên lớp sinh viên         |
+
+---
+
+### 9. Subject  
+_Thông tin môn học_
+
+| Trường       | Kiểu    | Mô tả                    |
+|--------------|---------|--------------------------|
+| subjectId    | String  | Mã môn học               |
+| subjectName  | String  | Tên môn học              |
+| credits      | int     | Số tín chỉ               |
+| lecturerId   | String  | Mã giảng viên phụ trách  |
+
+---
+
+### 10. User  
+_Tài khoản người dùng hệ thống_
+
+| Trường    | Kiểu    | Mô tả                                |
+|-----------|---------|--------------------------------------|
+| userID    | String  | Mã người dùng (UUID)                 |
+| email     | String  | Email đăng nhập                      |
+| password  | String  | Mật khẩu                             |
+| role      | String  | Vai trò người dùng (student/lecturer)|
+
+---
+## **V. Các công nghệ đã sử dụng** 
+- **Frontend:** HTML, CSS, Thymeleaf  
+  <img src="https://skillicons.dev/icons?i=html,css,spring" />  
+- **Backend:** Java, Spring Boot, Maven  
+  <img src="https://skillicons.dev/icons?i=java,spring,maven" />    
+- **Database:** MySQL  
+  <img src="https://skillicons.dev/icons?i=postgres,mysql" />  
+- **Version Control:** Github  
+  <img src="https://skillicons.dev/icons?i=git,github" />   
+- **IDE:** VsCode  
+  <img src="https://skillicons.dev/icons?i=vscode" />
+  
+---
+## **VI. Diagram**  
+ – Class Diagram  
+![Untitledllll](https://github.com/user-attachments/assets/b6ddcb33-e368-4b1a-a1a5-7c7e37983b71)
+Behavioural Diagram   
+- Sequence Diagram
+![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
+
+--- 
+## **VII. Tính năng hệ thống**  
+### 1. Admin:
+Có toàn quyền sử dụng và thao tác trên hệ thống, bao gồm các chức năng như: quản lý và cập nhật thông tin giảng viên, sinh viên, môn học,...; tạo và chỉnh sửa lịch thi, lịch học và các hoạt động liên quan đến quản lý học vụ.
+
+ ---
+ ### 2. Lecturer: 
+Có thể xem và cập nhật thông tin cá nhân, đồng thời quản lý các học phần phụ trách, bao gồm: quản lý danh sách sinh viên, lịch học, và thiết lập, chỉnh sửa lịch thi cho từng học phần đang đảm nhiệm.
+
+---
+### 3. Student
+Có thể xem và chỉnh sửa thông tin cá nhân, theo dõi danh sách các học phần đã đăng ký cùng với lịch học tương ứng, đồng thời thực hiện đăng ký học phần mới nếu cần.
+
+---
+## **VIII. Hướng dẫn cài đặt và sử dụng**  
+### Yêu cầu  
+- JDK 24  
+- MySQL  
+- VsCode  
+### Cài đặt  
+- Clone dự án về máy: https://github.com/HideoTakayan/Group11_OOP_N02_term3_2025.git  
+  
+- Di chuyển vào thư mục dự án: cd Group11_OOP_N02_term3_2025  
+  
+- Chạy ứng dụng: ./mvnw spring-boot:run     # (Linux/macOS)  
+hoặc  ./mvnw.cmd spring-boot:run # (Windows)
+  
+- Truy cập ứng dụng: https://localhost:8080  
+
+---
+## **VIII. Giao diện hệ thống**  
+- Giao diện đăng nhập:  
+![image](https://github.com/user-attachments/assets/91f4150c-0804-4970-9410-b79b833f8711)
+- Giao diện đăng ký:
+![image](https://github.com/user-attachments/assets/45179a21-2952-4ef0-beae-012e63cdc6c6)
+- Giao diện Admin:
+![image](https://github.com/user-attachments/assets/b630fd95-5c01-44c2-8e4a-6a2ded142e0d)
+- Giao diện Student:
+![image](https://github.com/user-attachments/assets/9731ef0c-6b93-4091-af4c-57f8bcbc3097)
+- Giao diện Lecturer:
+![image](https://github.com/user-attachments/assets/7a546c60-c591-4d93-b249-6f0990c63a4f)
+
+---
+## **IX. Kế hoạch phát triển trong tương lai**  
+- Thêm đối tượng Grade để hỗ trợ chức năng gán điểm cho sinh viên.
+- Phân loại môn học thành:
+✅ Môn đã hoàn thành  
+⏳ Môn chưa hoàn thành  
+- Thêm thông báo "Trượt môn" hoặc "Đạt môn" dựa trên kết quả điểm.
+- Tính toán và hiển thị GPA (Điểm trung bình tích lũy) cho từng sinh viên.
+- Phân chia môn học theo học kỳ, giúp theo dõi tiến độ học tập theo từng giai đoạn.
