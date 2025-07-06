@@ -172,7 +172,8 @@ _Tài khoản người dùng hệ thống_
 ---
 ## **VI. Diagram**  
  – Class Diagram  
-![Untitledllll](https://github.com/user-attachments/assets/b6ddcb33-e368-4b1a-a1a5-7c7e37983b71)
+![image](https://github.com/user-attachments/assets/65d37735-bf62-4767-a3f9-93db669214a0)
+
 Behavioural Diagram   
 - Sequence Diagram
 ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
