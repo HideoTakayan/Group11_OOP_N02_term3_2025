@@ -179,6 +179,12 @@ Behavioural Diagram
 ![Ảnh chụp màn hình 2025-05-20 113942](https://github.com/user-attachments/assets/ae52c239-d422-4f8f-9c4b-05a7d7ea7ccb)
 ### Chức năng đăng nhập/đăng ký
 ![image](https://github.com/user-attachments/assets/7809ed5f-412a-4fc0-ad44-7cf71ea4cf85)
+### Các chức năng Admin
+![image](https://github.com/user-attachments/assets/f8fac50d-0ddf-4833-96eb-b56eb23eb85c)
+### Các chức năng của sinh viên
+![image](https://github.com/user-attachments/assets/29878661-1007-49e5-813e-8e82351b2fbd)
+### Các chức năng giảng viên
+![image](https://github.com/user-attachments/assets/d17ca0d7-3f8b-4de6-a689-d949c9bc8c53)
 --- 
 ## **VII. Tính năng hệ thống**  
 ### 1. Admin:
