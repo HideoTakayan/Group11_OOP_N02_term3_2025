@@ -176,7 +176,7 @@ _Tài khoản người dùng hệ thống_
 
 Behavioural Diagram   
 - Sequence Diagram
-![image](https://github.com/user-attachments/assets/fc2b9b43-1084-4966-8ff0-10f98076638d)
+![image](https://github.com/user-attachments/assets/3bef8744-8d65-46c8-8b25-ad0f59342d8e)
 ### Chức năng đăng nhập/đăng ký
 ![image](https://github.com/user-attachments/assets/7809ed5f-412a-4fc0-ad44-7cf71ea4cf85)
 ### Các chức năng Admin
