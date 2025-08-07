@@ -163,7 +163,7 @@ _Tài khoản người dùng hệ thống_
 - **Backend:** Java, Spring Boot, Maven  
   <img src="https://skillicons.dev/icons?i=java,spring,maven" />    
 - **Database:** MySQL  
-  <img src="https://skillicons.dev/icons?i=mysql" />  
+  <img src="https://skillicons.dev/icons?i=mysql,aiven" />  
 - **Version Control:** Github  
   <img src="https://skillicons.dev/icons?i=git,github" />   
 - **IDE:** VsCode  
@@ -230,7 +230,7 @@ hoặc  ./mvnw.cmd spring-boot:run # (Windows)
 ---
 ## **IX. Kế hoạch phát triển trong tương lai**  
 - Thêm đối tượng Grade để hỗ trợ chức năng gán điểm cho sinh viên.
-- Phân loại môn học thành:
+- Phân loại môn học thành:  
 ✅ Môn đã hoàn thành  
 ⏳ Môn chưa hoàn thành  
 - Thêm thông báo "Trượt môn" hoặc "Đạt môn" dựa trên kết quả điểm.
