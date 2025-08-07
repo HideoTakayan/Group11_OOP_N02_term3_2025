@@ -163,7 +163,7 @@ _Tài khoản người dùng hệ thống_
 - **Backend:** Java, Spring Boot, Maven  
   <img src="https://skillicons.dev/icons?i=java,spring,maven" />    
 - **Database:** MySQL  
-  <img src="https://skillicons.dev/icons?i=postgres,mysql" />  
+  <img src="https://skillicons.dev/icons?i=mysql" />  
 - **Version Control:** Github  
   <img src="https://skillicons.dev/icons?i=git,github" />   
 - **IDE:** VsCode  
